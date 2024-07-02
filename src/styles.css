@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+.mg-page-title {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.mg-top-30 {
+    margin-top: 20px;
+}
+
+.mg-bottom-30 {
+    margin-bottom: 20px;
+}
