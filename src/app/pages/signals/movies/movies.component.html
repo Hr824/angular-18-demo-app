@@ -1,0 +1,21 @@
+<div class="mg-page-title">
+    <h3>Signals : Convertir un Observable en Signal avec toSignal(...)</h3>   
+</div>
+
+<div class="mg-bottom-30">
+    <ul>
+        @for(movie of movies(); track movie.id){
+            <li>{{ movie.id }} - <b>{{ movie.title }}</b> : {{ movie.year }} - {{ movie.duration }} ({{ movie.director?.firstname }} {{ movie.director?.lastname }})</li>
+        }
+    </ul>
+
+    <!-- <div>{{ moviesCount() }}</div> -->
+    
+    <!-- <br />   
+    <ul>
+        @for(movie of moviesList(); track movie.id){
+            <li>{{ movie.id }} - <b>{{ movie.title }}</b> : {{ movie.year }} - {{ movie.duration }} ({{ movie.director?.firstname }} {{ movie.director?.lastname }})</li>
+        }
+    </ul>
+    <div>{{ moviesListCount() }}</div> -->
+</div>

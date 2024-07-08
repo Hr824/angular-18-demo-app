@@ -30,7 +30,6 @@ export class ForkjoinComponent {
     this.authors$ = this.authorService.getAuthors();
 
     //Avec combineLatest()
-    //####################
     // this.booksWithAuthors$ = combineLatest([this.books$, this.authors$]).pipe(
     //   map(([books, authors]) => 
     //       books.map(book => ({
@@ -42,11 +41,6 @@ export class ForkjoinComponent {
 
 
     //Avec forkJoin()
-    //###############
-    //Utiliser forkJoin est approprié lorsque vous avez des observables qui émettent une seule valeur
-    //(comme des appels API qui renvoient des listes de livres et d'auteurs).
-    //forkJoin attend que toutes les observables aient émis une valeur,
-    //puis il combine ces valeurs en une seule émission.
     this.booksWithAuthors$ = forkJoin([this.books$, this.authors$]).pipe(
       map(([books, authors]) => 
           books.map(book => ({
