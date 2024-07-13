@@ -19,9 +19,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
     //====================
     movies = signal<Movie[]>([]);
     moviesCount = computed(() => this.movies().length);
-    subscription: Subscription = new Subscription();
-  
-  
+    subscription1: Subscription = new Subscription();
+    subscription2: Subscription = new Subscription();
+    subscription3: Subscription = new Subscription();
+
     //====================
     //Avec Signal readonly
     //====================
@@ -42,7 +43,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
       //====================
       //Avec WritableSignal 
       //====================
-      this.subscription.unsubscribe();
+      this.subscription1.unsubscribe();
+      this.subscription2.unsubscribe();
+      this.subscription3.unsubscribe();
     }
 
     getMoviesWithDirectors(): Observable<Movie[]> {
@@ -68,9 +71,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
       // this.subscription = moviesWithDirectors$.subscribe({
       //   next: data => { this.movies.set(data) }
       // });
-      this.subscription.add(moviesWithDirectors$.subscribe({
+      this.subscription1 = moviesWithDirectors$.subscribe({
         next: data => { this.movies.set(data) }
-      }));
+      });
 
       //====================
       //Avec Signal readonly
@@ -82,7 +85,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     deleteMovie(id: number) {
       //  const sub = this.movieService.deleteMovie(id).subscribe();
       //  sub.unsubscribe();
-      this.subscription.add(this.movieService.deleteMovie(id).subscribe());
+      this.subscription2 = this.movieService.deleteMovie(id).subscribe();
 
       this.getMovies();
     }
@@ -97,7 +100,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       //====================
       //Avec WritableSignal 
       //====================
-      this.subscription = moviesWithDirectors$.subscribe({
+      this.subscription3 = moviesWithDirectors$.subscribe({
         next: data => this.movies.set(data)
       });
 
