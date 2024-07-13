@@ -2,41 +2,54 @@ import { Component, computed, inject, Injector, OnDestroy, OnInit, signal, Signa
 import { MovieService } from '../../../services/movie.service';
 import { Movie } from '../../../models/movie';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { forkJoin, map, Subscription } from 'rxjs';
+import { concatMap, forkJoin, map, Observable, Subscription } from 'rxjs';
+import { LoaderComponent } from '../../../components/shared/loader/loader.component';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [],
+  imports: [LoaderComponent],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css'
 })
 export class MoviesComponent implements OnInit, OnDestroy {
     
     //====================
-    //Avec Signal readonly
-    //====================
-    movies!: Signal<Movie[] | undefined>;
-    moviesCount = computed(() => this.movies()?.length);
-
-    //====================
     //Avec WritableSignal 
     //====================
-    // moviesList = signal<Movie[]>([]);
-    // moviesListCount = computed(() => this.moviesList().length);
-    // subscription: Subscription = new Subscription();
+    movies = signal<Movie[]>([]);
+    moviesCount = computed(() => this.movies().length);
+    subscription: Subscription = new Subscription();
+  
+  
+    //====================
+    //Avec Signal readonly
+    //====================
+    //movies!: Signal<Movie[] | undefined>;
+    //moviesCount = computed(() => this.movies()?.length);
+
 
 
     movieService = inject(MovieService);
-    private injector = inject(Injector); //Pour utiliser toSignal() dans OnInit
+    //private injector = inject(Injector);
 
 
     ngOnInit(): void {
+        this.getMovies();
+    }
 
+    ngOnDestroy(): void {
+      //====================
+      //Avec WritableSignal 
+      //====================
+      this.subscription.unsubscribe();
+    }
+
+    getMoviesWithDirectors(): Observable<Movie[]> {
       const movies$ = this.movieService.getMovies();
       const directors$ = this.movieService.getDirectors();
 
-      const moviesWithDirectors$ = forkJoin([movies$, directors$]).pipe(
+      const moviesWithDirectors$: Observable<Movie[]> = forkJoin([movies$, directors$]).pipe(
         map(([movies, directors]) => 
             movies.map(movie => ({
                 ...movie,
@@ -45,25 +58,52 @@ export class MoviesComponent implements OnInit, OnDestroy {
         )
       );
 
+      return moviesWithDirectors$;
+    }
+
+
+    getMovies(): void {
+      const moviesWithDirectors$ = this.getMoviesWithDirectors();
+ 
+      // this.subscription = moviesWithDirectors$.subscribe({
+      //   next: data => { this.movies.set(data) }
+      // });
+      this.subscription.add(moviesWithDirectors$.subscribe({
+        next: data => { this.movies.set(data) }
+      }));
+
       //====================
       //Avec Signal readonly
       //====================
-      // this.movies = toSignal(this.movieService.getMovies(), { injector: this.injector, initialValue: [] });
-      this.movies = toSignal(moviesWithDirectors$, { injector: this.injector, initialValue: [] });
-
-
-      //====================
-      //Avec WritableSignal 
-      //====================
-      // this.subscription = moviesWithDirectors$.subscribe({
-      //     next: data => this.moviesList.set(data)
-      // })
+      //this.movies = toSignal(moviesWithDirectors$, { injector: this.injector, initialValue: [] });    
     }
 
-    ngOnDestroy(): void {
+    
+    deleteMovie(id: number) {
+      //  const sub = this.movieService.deleteMovie(id).subscribe();
+      //  sub.unsubscribe();
+      this.subscription.add(this.movieService.deleteMovie(id).subscribe());
+
+      this.getMovies();
+    }
+
+
+
+    initMovies(): void {
+      const moviesWithDirectors$ = this.movieService.resetDatabase('movies22').pipe(
+        concatMap(() => this.getMoviesWithDirectors())
+      );
+
       //====================
       //Avec WritableSignal 
       //====================
-      //this.subscription.unsubscribe();
+      this.subscription = moviesWithDirectors$.subscribe({
+        next: data => this.movies.set(data)
+      });
+
+      //====================
+      //Avec Signal readonly
+      //====================
+      //this.movies = toSignal(moviesWithDirectors$, { injector: this.injector, initialValue: [] });
     }
 }

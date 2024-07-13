@@ -1,28 +1,35 @@
-<div class="mg-page-title">
-    <h3>RxJS : Opérateur forkjoin</h3>   
-</div>
-
-<div class="mg-bottom-30">
-    forkJoin attend que toutes les observables aient émis une valeur, puis il combine ces valeurs en une seule émission.
-    <br />
-    Ici, 2 observables : 1 liste de livres, 1 liste d'auteurs, jointure sur l'id de l'auteur
-</div>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Id Livre</th>
-            <th scope="col">Titre</th>
-            <th scope="col">Auteur</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for(book of booksWithAuthors$ | async; track book.id){
-            <tr>
-                <td>{{ book.id }}</td>
-                <td>{{ book.title }}</td>
-                <td>{{ book.author?.firstname }} {{ book.author?.lastname }}</td>
-            </tr>
+<div class="rows">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>RxJS : Opérateur forkjoin</h3>    
+        </div>
+        <div class="mg-bottom-20">
+            forkJoin attend que toutes les observables aient émis une valeur, puis il combine ces valeurs en une seule émission.
+            <br />
+            Ici, 2 observables : 1 liste de livres, 1 liste d'auteurs, jointure sur l'id de l'auteur
+        </div>
+        @defer {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Id Livre</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Auteur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(book of booksWithAuthors$ | async; track book.id){
+                        <tr>
+                            <td>{{ book.id }}</td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author?.firstname }} {{ book.author?.lastname }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
-    </tbody>
-</table>
+        @placeholder(minimum 1500ms) {
+            <app-loader></app-loader>
+        }
+    </div>
+</div>

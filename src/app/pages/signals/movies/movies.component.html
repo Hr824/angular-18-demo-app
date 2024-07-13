@@ -1,21 +1,43 @@
-<div class="mg-page-title">
-    <h3>Signals : Convertir un Observable en Signal avec toSignal(...)</h3>   
-</div>
-
-<div class="mg-bottom-30">
-    <ul>
-        @for(movie of movies(); track movie.id){
-            <li>{{ movie.id }} - <b>{{ movie.title }}</b> : {{ movie.year }} - {{ movie.duration }} ({{ movie.director?.firstname }} {{ movie.director?.lastname }})</li>
+<div class="rows">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>Signals : Convertir un Observable en Signal avec toSignal(...)</h3>   
+        </div>
+        @defer {
+            <div class="mg-bottom-20">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Année</th>
+                            <th scope="col">Durée</th>
+                            <th scope="col">Réalisateur</th>
+                            <th scope="col">Total : {{ moviesCount() }} @if(moviesCount() > 1){ <span>films</span> }@else{ <span>film</span> }</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(movie of movies(); track movie.id){
+                            <tr>
+                                <td>{{ movie.id }}</td>
+                                <td>{{ movie.title }}</td>
+                                <td>{{ movie.year }}</td>
+                                <td>{{ movie.duration }}</td>
+                                <td>{{ movie.director?.firstname }} {{ movie.director?.lastname }}</td>
+                                <td>
+                                    <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table> 
+                @if(moviesCount() < 9){
+                    <button (click)="initMovies()" class="btn btn-sm btn-outline-info">Réinitialiser le tableau</button>
+                }        
+            </div>
         }
-    </ul>
-
-    <!-- <div>{{ moviesCount() }}</div> -->
-    
-    <!-- <br />   
-    <ul>
-        @for(movie of moviesList(); track movie.id){
-            <li>{{ movie.id }} - <b>{{ movie.title }}</b> : {{ movie.year }} - {{ movie.duration }} ({{ movie.director?.firstname }} {{ movie.director?.lastname }})</li>
+        @placeholder(minimum 1500ms) {
+            <app-loader></app-loader>
         }
-    </ul>
-    <div>{{ moviesListCount() }}</div> -->
+    </div>
 </div>

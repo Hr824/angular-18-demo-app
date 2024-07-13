@@ -12,6 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideExperimentalZonelessChangeDetection(),
     provideHttpClient(),
     provideRouter(routes, withComponentInputBinding()),
-    importProvidersFrom(InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 1000, passThruUnknownUrl: true }))
+    importProvidersFrom(InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 500, passThruUnknownUrl: true }))
   ]
 };

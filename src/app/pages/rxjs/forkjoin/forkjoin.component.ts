@@ -7,10 +7,12 @@ import { Book } from '../../../models/book';
 import { BookService } from '../../../services/book.service';
 import { AuthorService } from '../../../services/author.service';
 
+import { LoaderComponent } from '../../../components/shared/loader/loader.component';
+
 @Component({
   selector: 'app-forkjoin',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, LoaderComponent],
   templateUrl: './forkjoin.component.html',
   styleUrl: './forkjoin.component.css'
 })
