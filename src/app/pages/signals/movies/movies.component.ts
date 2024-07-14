@@ -19,9 +19,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     //====================
     movies = signal<Movie[]>([]);
     moviesCount = computed(() => this.movies().length);
-    subscription1: Subscription = new Subscription();
-    subscription2: Subscription = new Subscription();
-    subscription3: Subscription = new Subscription();
+    subscriptions: Subscription = new Subscription();
 
     //====================
     //Avec Signal readonly
@@ -43,9 +41,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       //====================
       //Avec WritableSignal 
       //====================
-      this.subscription1.unsubscribe();
-      this.subscription2.unsubscribe();
-      this.subscription3.unsubscribe();
+      this.subscriptions .unsubscribe();
     }
 
     getMoviesWithDirectors(): Observable<Movie[]> {
@@ -68,12 +64,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
     getMovies(): void {
       const moviesWithDirectors$ = this.getMoviesWithDirectors();
  
-      // this.subscription = moviesWithDirectors$.subscribe({
-      //   next: data => { this.movies.set(data) }
-      // });
-      this.subscription1 = moviesWithDirectors$.subscribe({
+      this.subscriptions.add(moviesWithDirectors$.subscribe({
         next: data => { this.movies.set(data) }
-      });
+      }));
 
       //====================
       //Avec Signal readonly
@@ -82,27 +75,23 @@ export class MoviesComponent implements OnInit, OnDestroy {
     }
 
     
-    deleteMovie(id: number) {
-      //  const sub = this.movieService.deleteMovie(id).subscribe();
-      //  sub.unsubscribe();
-      this.subscription2 = this.movieService.deleteMovie(id).subscribe();
+    deleteMovie(id: number): void {
+      this.subscriptions.add(this.movieService.deleteMovie(id).subscribe());
 
       this.getMovies();
     }
 
-
-
-    initMovies(): void {
-      const moviesWithDirectors$ = this.movieService.resetDatabase('movies22').pipe(
+    initMoviesTable(): void {
+      const moviesWithDirectors$ = this.movieService.resetDatabase('movies').pipe(
         concatMap(() => this.getMoviesWithDirectors())
       );
 
       //====================
       //Avec WritableSignal 
       //====================
-      this.subscription3 = moviesWithDirectors$.subscribe({
+      this.subscriptions.add(moviesWithDirectors$.subscribe({
         next: data => this.movies.set(data)
-      });
+      }));
 
       //====================
       //Avec Signal readonly

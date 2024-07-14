@@ -1,7 +1,7 @@
 <div class="rows">
     <div class="col-12">
         <div class="mg-page-title">
-            <h3>Signals : Convertir un Observable en Signal avec toSignal(...)</h3>   
+            <h3>Signals (WritableSignal)</h3>   
         </div>
         @defer {
             <div class="mg-bottom-20">
@@ -32,7 +32,7 @@
                     </tbody>
                 </table> 
                 @if(moviesCount() < 9){
-                    <button (click)="initMovies()" class="btn btn-sm btn-outline-info">Réinitialiser le tableau</button>
+                    <button (click)="initMoviesTable()" class="btn btn-sm btn-outline-info">Réinitialiser le tableau</button>
                 }        
             </div>
         }
