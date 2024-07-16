@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-fo
 import { ErrorOccurredComponent } from './pages/errors/error-occurred/error-occurred.component';
 import { ForkjoinComponent } from './pages/rxjs/forkjoin/forkjoin.component';
 import { MoviesComponent } from './pages/signals/movies/movies.component';
+import { SearchMoviesComponent } from './pages/signals/search-movies/search-movies.component';
 
 export const routes: Routes = [
     {
@@ -15,8 +16,12 @@ export const routes: Routes = [
         component: ForkjoinComponent
     },
     {
-        path: 'signals/movies',
+        path: 'signals/delete',
         component: MoviesComponent
+    },
+    {
+        path: 'signals/search',
+        component: SearchMoviesComponent
     },
     {
         path: 'errorOccurred',

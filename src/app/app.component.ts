@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { AsyncPipe } from '@angular/common';
@@ -10,11 +10,8 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   //Pour les dropdown du menu
   collapsed = true;
-
-  ngOnInit(): void {
-  }
 }

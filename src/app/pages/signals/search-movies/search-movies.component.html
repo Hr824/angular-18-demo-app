@@ -3,6 +3,18 @@
     <div class="col-12">
         @defer {
             <div class="mg-bottom-20">
+                <label for="basic-url"><b>Recherche :</b></label>
+                <input 
+                    type="text"
+                    id="search"
+                    #searchField
+                    (keyup)="filterResults(searchField.value)"
+                    class="form-control"
+                    style="width:200px"
+                    maxlength="6"
+                    placeholder="filtre...">
+            </div>
+            <div class="mg-bottom-20">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -11,7 +23,6 @@
                             <th scope="col">Année</th>
                             <th scope="col">Durée</th>
                             <th scope="col">Réalisateur</th>
-                            <th scope="col">Total : {{ moviesCount() }} @if(moviesCount() > 1){ <span>films</span> }@else{ <span>film</span> }</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,16 +33,19 @@
                                 <td>{{ movie.year }}</td>
                                 <td>{{ movie.duration }}</td>
                                 <td>{{ movie.director?.firstname }} {{ movie.director?.lastname }}</td>
-                                <td>
-                                    <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-outline-danger">Supprimer</button>
-                                </td>
                             </tr>
                         }
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total : {{ moviesCount() }} @if(moviesCount() > 1){ <span>films</span> }@else{ <span>film</span> }</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
                 </table> 
-                @if(moviesCount() < 9){
-                    <button (click)="initMoviesTable()" class="btn btn-sm btn-outline-info">Réinitialiser le tableau</button>
-                }        
             </div>
         }
         @placeholder(minimum 1500ms) {

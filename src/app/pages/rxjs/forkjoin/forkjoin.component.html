@@ -1,14 +1,65 @@
-<div class="rows">
+<app-breadcrumb [theme]="theme()" [page]="page()"></app-breadcrumb>
+<div class="row">
     <div class="col-12">
         <div class="mg-page-title">
-            <h3>RxJS : Opérateur forkjoin</h3>    
-        </div>
-        <div class="mg-bottom-20">
-            forkJoin attend que toutes les observables aient émis une valeur, puis il combine ces valeurs en une seule émission.
-            <br />
-            Ici, 2 observables : 1 liste de livres, 1 liste d'auteurs, jointure sur l'id de l'auteur
-        </div>
+            <h3>RxJS : Opérateur forkjoin()</h3> 
+            <div>
+                forkJoin() de 2 observables (Livres et Auteurs)
+            </div>
+            <div>
+                La jointure se fait sur la propriété "Id Auteur"
+            </div>
+        </div>   
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <table class="table table-striped table-success">
+            <thead>
+                <tr>
+                    <th scope="col">Id Livre</th>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Id Auteur</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(book of books$ | async; track book.id){
+                    <tr>
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.authorId }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6">
+        <table class="table table-striped table-warning">
+            <thead>
+                <tr>
+                    <th scope="col">Id Auteur</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(author of authors$ | async; track author.id){
+                    <tr>
+                        <td>{{ author.id }}</td>
+                        <td>{{ author.firstname }}</td>
+                        <td>{{ author.lastname }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row mg-top-40">
+    <div class="col-12">
         @defer {
+            <div class="text-decoration-underline">
+                Résultat du forkJoin()
+            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>

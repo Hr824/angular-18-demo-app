@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Director, Movie } from '../models/movie';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
-import { InMemoryDataService } from '../api/in-memory-data.service';
+import { forkJoin, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +11,7 @@ export class MovieService {
   private readonly MOVIE_API_URL = 'api/movies';
   private readonly DIRECTOR_API_URL = 'api/directors';
 
-  constructor(private httpClient: HttpClient, private dataService: InMemoryDataService) {}
+  constructor(private httpClient: HttpClient) {}
 
   getMovies(): Observable<Movie[]> {
     const movies$ = this.httpClient.get<Movie[]>(this.MOVIE_API_URL);
@@ -31,7 +29,6 @@ export class MovieService {
     return this.httpClient.delete(`${this.MOVIE_API_URL}/${id}`);
   }
 
-
   resetDatabase(collection: string): Observable<any> {
     return this.httpClient.post(`commands/resetdb/${collection}`, {});
   }
@@ -46,4 +43,21 @@ export class MovieService {
   //   const directors$ = this.httpClient.get<Director[]>(this.DIRECTOR_API_URL);
   //   return toSignal(directors$, { injector: this.injector, initialValue: [] });
   // }
+
+
+  getMoviesWithDirectors(): Observable<Movie[]> {
+    const movies$ = this.getMovies();
+    const directors$ = this.getDirectors();
+
+    const moviesWithDirectors$: Observable<Movie[]> = forkJoin([movies$, directors$]).pipe(
+      map(([movies, directors]) => 
+          movies.map(movie => ({
+              ...movie,
+              director: directors.find(director => director.id === movie.directorId)
+          }))
+      )
+    );
+
+    return moviesWithDirectors$;
+  }
 }

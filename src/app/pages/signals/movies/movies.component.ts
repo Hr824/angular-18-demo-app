@@ -1,19 +1,22 @@
-import { Component, computed, inject, Injector, OnDestroy, OnInit, signal, Signal } from '@angular/core';
-import { MovieService } from '../../../services/movie.service';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { concatMap, Subscription } from 'rxjs';
 import { Movie } from '../../../models/movie';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { concatMap, forkJoin, map, Observable, Subscription } from 'rxjs';
+import { MovieService } from '../../../services/movie.service';
 import { LoaderComponent } from '../../../components/shared/loader/loader.component';
+import { BreadcrumbComponent } from '../../../components/shared/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [LoaderComponent, BreadcrumbComponent ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css'
 })
 export class MoviesComponent implements OnInit, OnDestroy {
     
+    theme = signal<string>('Signals');
+    page = signal<string>('Suppression');
+
     //====================
     //Avec WritableSignal 
     //====================
@@ -44,25 +47,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
       this.subscriptions .unsubscribe();
     }
 
-    getMoviesWithDirectors(): Observable<Movie[]> {
-      const movies$ = this.movieService.getMovies();
-      const directors$ = this.movieService.getDirectors();
-
-      const moviesWithDirectors$: Observable<Movie[]> = forkJoin([movies$, directors$]).pipe(
-        map(([movies, directors]) => 
-            movies.map(movie => ({
-                ...movie,
-                director: directors.find(director => director.id === movie.directorId)
-            }))
-        )
-      );
-
-      return moviesWithDirectors$;
-    }
-
 
     getMovies(): void {
-      const moviesWithDirectors$ = this.getMoviesWithDirectors();
+      const moviesWithDirectors$ = this.movieService.getMoviesWithDirectors();
  
       this.subscriptions.add(moviesWithDirectors$.subscribe({
         next: data => { this.movies.set(data) }
@@ -83,7 +70,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
     initMoviesTable(): void {
       const moviesWithDirectors$ = this.movieService.resetDatabase('movies').pipe(
-        concatMap(() => this.getMoviesWithDirectors())
+        concatMap(() => this.movieService.getMoviesWithDirectors())
       );
 
       //====================

@@ -10,16 +10,16 @@ import { Injectable } from '@angular/core';
 export class InMemoryDataService implements InMemoryDbService {
 
   private initialAuthors: Author[] = [
-    { id: 1, firstname: 'John', lastname: 'Doe' },
-    { id: 2, firstname: 'Jane', lastname: 'Smith' },
-    { id: 3, firstname: 'Jim', lastname: 'Brown' }
+    { id: 1, firstname: 'Albert', lastname: 'Camus' },
+    { id: 2, firstname: 'Victor', lastname: 'Hugo' },
+    { id: 3, firstname: 'Alexandre', lastname: 'Dumas' }
   ];
        
   private initialBooks: Book[] = [
-      { id: 1, title: 'Book One', authorId: 1 },
-      { id: 2, title: 'Book Two', authorId: 2 },
-      { id: 3, title: 'Book Three', authorId: 3 },
-      { id: 4, title: 'Book Four', authorId: 3 }
+      { id: 1, title: 'Le comte de Monte-Cristo', authorId: 3 },
+      { id: 2, title: 'La peste', authorId: 1 },
+      { id: 3, title: 'Les misérables', authorId: 2 },
+      { id: 4, title: 'L\'étranger', authorId: 1 }
   ];
 
   private initialMovies: Movie[] = [
@@ -47,10 +47,6 @@ export class InMemoryDataService implements InMemoryDbService {
   db: any = {};
 
   createDb(reqInfo?: RequestInfo) {
-      // console.log('reqInfo', reqInfo);
-      // console.log('collectionName', reqInfo?.collectionName);
-      // console.log('id', reqInfo?.id);
-
       if(reqInfo?.collectionName !== 'resetdb'){
         this.resetDb();
       }else{
