@@ -1,0 +1,19 @@
+import { Routes } from '@angular/router';
+import { PageNotFoundComponent } from '../errors/page-not-found/page-not-found.component';
+
+export const signalsRoutes: Routes = [
+    {
+        path: 'delete',
+        loadComponent: () => import('./movies/movies.component').then(m => m.MoviesComponent)
+        //component: MoviesComponent
+    },
+    {
+        path: 'search',
+        loadComponent: () => import('./search-movies/search-movies.component').then(m => m.SearchMoviesComponent)
+        //component: SearchMoviesComponent
+    },
+    {
+      path: '**',
+      component: PageNotFoundComponent
+    }
+];
