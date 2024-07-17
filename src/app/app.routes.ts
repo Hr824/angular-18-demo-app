@@ -2,9 +2,6 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
 import { ErrorOccurredComponent } from './pages/errors/error-occurred/error-occurred.component';
-import { ForkjoinComponent } from './pages/rxjs/forkjoin/forkjoin.component';
-import { MoviesComponent } from './pages/signals/movies/movies.component';
-import { SearchMoviesComponent } from './pages/signals/search-movies/search-movies.component';
 
 export const routes: Routes = [
     {
@@ -12,16 +9,12 @@ export const routes: Routes = [
         component: HomeComponent
     },
     {
-        path: 'rxjs/forkjoin',
-        component: ForkjoinComponent
+        path: 'rxjs',
+        loadChildren: () => import('./pages/rxjs/rxjs.routes').then(item =>item.rxjsRoutes)
     },
     {
-        path: 'signals/delete',
-        component: MoviesComponent
-    },
-    {
-        path: 'signals/search',
-        component: SearchMoviesComponent
+        path: 'signals',
+        loadChildren: () => import('./pages/signals/signals.routes').then(item =>item.signalsRoutes)
     },
     {
         path: 'errorOccurred',
