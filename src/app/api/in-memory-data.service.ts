@@ -31,7 +31,8 @@ export class InMemoryDataService implements InMemoryDbService {
     { id: 6, title: 'Rusty James', year: 1983, duration: '1h34 min', directorId: 5 },
     { id: 7, title: 'Apocalypse Now', year: 1979, duration: '2h27 min', directorId: 5 },
     { id: 8, title: 'Usual Suspects', year: 1995, duration: '1h46 min', directorId: 6 },
-    { id: 9, title: 'Terminator', year: 1984, duration: '1h47 min', directorId: 7 }
+    { id: 9, title: 'Terminator', year: 1984, duration: '1h47 min', directorId: 7 },
+    { id: 10, title: 'Million Dollar Baby', year: 2004, duration: '2h12 min', directorId: 8 }
   ];
 
   private initialDirectors: Director[] = [
@@ -41,7 +42,8 @@ export class InMemoryDataService implements InMemoryDbService {
     { id: 4, firstname: 'George', lastname: 'Miller' },
     { id: 5, firstname: 'Francis', lastname: 'Ford Coppola' },
     { id: 6, firstname: 'Brian', lastname: 'Singer' },
-    { id: 7, firstname: 'James', lastname: 'Cameron' }
+    { id: 7, firstname: 'James', lastname: 'Cameron' },
+    { id: 8, firstname: 'Clint', lastname: 'Eastwood' }
   ];
 
   db: any = {};

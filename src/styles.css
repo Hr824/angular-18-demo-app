@@ -16,3 +16,7 @@
 .mg-bottom-20 {
     margin-bottom: 20px;
 }
+
+.dropdown-item.active {
+    background-color: #0dcaf0;
+}

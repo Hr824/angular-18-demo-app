@@ -28,10 +28,10 @@
                             </tr>
                         }
                     </tbody>
-                </table> 
-                @if(moviesCount() < 9){
+                </table>               
+                @if(moviesCount() < 10){
                     <button (click)="initMoviesTable()" class="btn btn-sm btn-outline-info">Réinitialiser le tableau</button>
-                }        
+                }       
             </div>
         }
         @placeholder(minimum 1500ms) {
