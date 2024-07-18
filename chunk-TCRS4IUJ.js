@@ -1,0 +1,1 @@
+import{a as t}from"./chunk-CYXJOYHV.js";import"./chunk-BYXBJPPA.js";var n=[{path:"delete",loadComponent:()=>import("./chunk-DLARAYI3.js").then(o=>o.MoviesComponent)},{path:"search",loadComponent:()=>import("./chunk-ZUOOOBYA.js").then(o=>o.SearchMoviesComponent)},{path:"**",component:t}];export{n as signalsRoutes};
