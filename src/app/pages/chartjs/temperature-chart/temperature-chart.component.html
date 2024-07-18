@@ -1,0 +1,22 @@
+<app-breadcrumb [theme]="theme()" [page]="page()"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>Chart.js</h3> 
+            <div>
+                Affichage d'un tableau d'observables dans un Bar Chart
+            </div>
+        </div>   
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+        <div class="chart-container" style="position: relative; height:40vh; width:40vw">
+            <canvas id="canvasTemperatures">{{ chartTemperatures }}</canvas>
+        </div>
+    </div>
+    <div class="col-3">
+    </div>
+</div>

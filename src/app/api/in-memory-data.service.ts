@@ -2,6 +2,7 @@ import { InMemoryDbService, RequestInfo } from 'angular-in-memory-web-api';
 import { Book } from '../models/book';
 import { Author } from '../models/author';
 import { Director, Movie } from '../models/movie';
+import { Temperature } from '../models/temperature';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -46,6 +47,21 @@ export class InMemoryDataService implements InMemoryDbService {
     { id: 8, firstname: 'Clint', lastname: 'Eastwood' }
   ];
 
+  private initialTemperatures: Temperature[] = [
+    { id: 1, day: 0, month: 'Janvier', year: 2023, value: 6.5, city: 'Paris' },
+    { id: 2, day: 0, month: 'Février', year: 2023, value: 7.5, city: 'Paris' },
+    { id: 3, day: 0, month: 'Mars', year: 2023, value: 10.0, city: 'Paris' },
+    { id: 4, day: 0, month: 'Avril', year: 2023, value: 11.5, city: 'Paris' },
+    { id: 5, day: 0, month: 'Mai', year: 2023, value: 16.1, city: 'Paris' },
+    { id: 6, day: 0, month: 'Juin', year: 2023, value: 22.4, city: 'Paris' },
+    { id: 7, day: 0, month: 'Juillet', year: 2023, value: 21.2, city: 'Paris' },
+    { id: 8, day: 0, month: 'Août', year: 2023, value: 20.9, city: 'Paris' },
+    { id: 9, day: 0, month: 'Septembre', year: 2023, value: 21.4, city: 'Paris' },
+    { id: 10, day: 0, month: 'Octobre', year: 2023, value: 15.6, city: 'Paris' },
+    { id: 11, day: 0, month: 'Novembre', year: 2023, value: 9.8, city: 'Paris' },
+    { id: 12, day: 0, month: 'Décembre', year: 2023, value: 8.1, city: 'Paris' },
+  ];
+
   db: any = {};
 
   createDb(reqInfo?: RequestInfo) {
@@ -65,6 +81,9 @@ export class InMemoryDataService implements InMemoryDbService {
           case 'directors':
             this.db.directors = [...this.initialDirectors];
             break;
+          case 'temperatures':
+              this.db.temperatures = [...this.initialTemperatures];
+              break;
           default:
             this.resetDb();
             break;
@@ -72,7 +91,7 @@ export class InMemoryDataService implements InMemoryDbService {
       }
 
       return this.db;
-      //return { authors, books, movies, directors };
+      //return { authors, books, movies, directors, temperatures };
   }
 
 
@@ -82,6 +101,7 @@ export class InMemoryDataService implements InMemoryDbService {
       books: [...this.initialBooks],
       movies: [...this.initialMovies],
       directors: [...this.initialDirectors],
+      temperatures: [...this.initialTemperatures]
     };
    }
 }
