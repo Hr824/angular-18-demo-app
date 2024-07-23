@@ -3,6 +3,7 @@ export interface Movie {
     title: string;
     year: number;
     duration: string;
+    synopsis: string;
     directorId: number;
     director?: Director;
 }

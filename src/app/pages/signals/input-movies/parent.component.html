@@ -1,0 +1,30 @@
+<app-breadcrumb [theme]="theme()" [page]="page()"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>Input Signals</h3> 
+            <div>
+                - 1 composant "parent" contenant la dropdownlist
+            </div>
+            <div>
+                - 1 composant "enfant" contenant les détails du film
+            </div>
+			<div>
+				- Le film sélectionné dans le composant "parent" est passé au composant "enfant" avec un "input signal"
+			</div>
+        </div>   
+    </div>
+</div>
+<div class="row">
+	<div class="col-2">
+		<select class="form-select" aria-label="Sélection film" (change)="onChange($event)">
+			<option value="0">Sélectionnez un film</option>
+			@for(movie of movies(); track movie.id){
+				<option value="{{ movie.id }}">{{ movie.title }}</option>
+			}
+		</select>
+	</div>
+	<div class="col-10">
+		<app-child [movie]="selectedMovie()"></app-child>
+	</div>
+</div>

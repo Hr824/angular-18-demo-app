@@ -1,0 +1,11 @@
+@if(movie()){
+    <div class="card border-info mb-3" style="max-width: 18rem;">
+        <div class="card-header text-center fw-bold">{{ movie()?.title }}</div>
+        <div class="card-body">
+          <p class="card-text"><span class="fw-semibold fst-italic">Année</span> : {{ movie()?.year }}</p>
+          <p class="card-text"><span class="fw-semibold fst-italic">Durée</span> : {{ movie()?.duration }}</p>
+          <p class="card-text"><span class="fw-semibold fst-italic">Réalisateur</span> : {{ movie()?.director?.firstname }} {{ movie()?.director?.lastname }}</p>
+          <p class="card-text"><span class="fw-semibold fst-italic">Synopsis</span> :<br/> {{ movie()?.synopsis }}</p>
+        </div>
+    </div>
+}

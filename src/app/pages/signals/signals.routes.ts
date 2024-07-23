@@ -13,6 +13,11 @@ export const signalsRoutes: Routes = [
         //component: SearchMoviesComponent
     },
     {
+        path: 'input',
+        loadComponent: () => import('./input-movies/parent.component').then(m => m.ParentComponent)
+        //component: ParentComponent
+    },
+    {
       path: '**',
       component: PageNotFoundComponent
     }
