@@ -18,6 +18,11 @@ export const signalsRoutes: Routes = [
         //component: ParentComponent
     },
     {
+        path: 'model-input',
+        loadComponent: () => import('./model-input/parent.component').then(m => m.ParentComponent)
+        //component: ParentComponent
+    },
+    {
       path: '**',
       component: PageNotFoundComponent
     }

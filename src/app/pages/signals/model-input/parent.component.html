@@ -1,0 +1,67 @@
+<app-breadcrumb [theme]="theme()" [page]="page()"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>Model Input Signals</h3> 
+        </div>   
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h4>- Exemple 1</h4>
+	</div>
+</div>
+<div class="row">
+	<div class="col-3">
+        <div class="card border-danger mb-3" style="max-width: 18rem;min-height: 15rem;">
+            <div class="card-header text-center fw-bold">Parent Component</div>
+            <div class="card-body text-center">
+                <button class="btn btn-outline-danger btn-sm" (click)="decreaseCounter()">Décrémenter</button>&nbsp;    
+                <button class="btn btn-outline-danger btn-sm" (click)="increaseCounter()">Incrémenter</button>
+                <div class="card-text mg-top-40" style="height: 5rem;"><h2>{{ counter() }}</h2></div>
+            </div>
+        </div>       
+	</div>
+    <div class="col-2 text-center">
+        <div style='font-size:70px;'>&#8644;</div>
+        <div>Two-way binding</div>
+    </div>
+	<div class="col-3">
+		<app-child1 [(counter)]="counter"></app-child1>
+	</div>
+    <div class="col-4">
+	</div>
+</div>
+<div class="row mg-top-40">
+    <div class="col-12">
+        <h4>- Exemple 2</h4>
+	</div>
+</div>
+<div class="row">
+	<div class="col-3">
+        <div class="card border-danger mb-3" style="max-width: 18rem;min-height: 15rem;">
+            <div class="card-header text-center fw-bold">Parent Component</div>
+            <div class="card-body text-center">
+                <select #parentSelect class="form-select" aria-label="Sélection ville" (change)="onChange($event)">
+                    <option value="0">Sélectionnez une ville</option>
+                    <option value="1">Paris</option>
+                    <option value="2">Barcelone</option>
+                    <option value="3">Rome</option>
+                    <option value="4">New York</option>
+                    <option value="5">Munich</option>
+                    <option value="6">Londres</option>
+                </select>
+                <p class="card-text">{{ parentSelectedIndex() }}</p>
+            </div>
+        </div>
+	</div>
+    <div class="col-2 text-center">
+        <div style='font-size:70px;'>&#8644;</div>
+        <div>Two-way binding</div>
+    </div>
+	<div class="col-3">
+		<app-child2 [(city)]="selectedCity" [(option)]="selectedOption"></app-child2>
+	</div>
+    <div class="col-4">
+	</div>
+</div>

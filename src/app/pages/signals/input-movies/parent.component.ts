@@ -1,7 +1,6 @@
-import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { Movie } from '../../../models/movie';
 import { MovieService } from '../../../services/movie.service';
 import { LoaderComponent } from '../../../components/shared/loader/loader.component';
@@ -11,7 +10,7 @@ import { ChildComponent } from './child.component';
 @Component({
   selector: 'app-parent',
   standalone: true,
-  imports: [AsyncPipe, LoaderComponent, BreadcrumbComponent, ChildComponent, NgbDropdownModule],
+  imports: [AsyncPipe, LoaderComponent, BreadcrumbComponent, ChildComponent],
   templateUrl: './parent.component.html',
   styleUrl: './parent.component.css'
 })
@@ -29,6 +28,12 @@ export class ParentComponent implements OnInit, OnDestroy {
     return this.movies().filter(movie => movie.id.toString() === this.selectedOption())[0];
   });
 
+  constructor() {
+    // effect(() => {
+    //   console.log(`The selected option is: ${this.selectedOption()}`);
+    //   console.log(`The selected movie is: ${this.selectedMovie()?.title}`);
+    // });
+  }
 
   ngOnInit(): void {
     this.getMovies();

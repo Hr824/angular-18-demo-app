@@ -1,0 +1,15 @@
+<div class="card border-info mb-3" style="max-width: 18rem;min-height: 15rem;">
+    <div class="card-header text-center fw-bold">Child Component</div>
+    <div class="card-body text-center">
+        <select #childSelect class="form-select" aria-label="Sélection ville" (change)="onChange($event)">
+            <option value="0">Sélectionnez une ville</option>
+            <option value="1">Paris</option>
+            <option value="2">Barcelone</option>
+            <option value="3">Rome</option>
+            <option value="4">New York</option>
+            <option value="5">Munich</option>
+            <option value="6">Londres</option>
+        </select>
+        <p class="card-text">{{ childSelectedIndex() }}</p>
+    </div>
+</div>
