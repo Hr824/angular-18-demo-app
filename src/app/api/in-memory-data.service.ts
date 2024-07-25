@@ -4,6 +4,7 @@ import { Author } from '../models/author';
 import { Director, Movie } from '../models/movie';
 import { Temperature } from '../models/temperature';
 import { Injectable } from '@angular/core';
+import { Article } from '../models/article';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,17 @@ export class InMemoryDataService implements InMemoryDbService {
     { id: 12, day: 0, month: 'Décembre', year: 2023, value: 8.1, city: 'Paris' },
   ];
 
+  private initialArticles: Article[] = [
+    { id: 1, name: 'Bermuda', color: 'Bleu',  price: 35.00, description: 'Bermuda uni avec ceinture', quantity: 0 },
+    { id: 2, name: 'Ceinture', color: 'Marron', price: 18.00, description: 'Ceinture réversible à boucle', quantity: 0 },
+    { id: 3, name: 'Maillot de bain', color: 'Rouge', price: 14.00, description: 'Maillot de bain uni', quantity: 0 },
+    { id: 4, name: 'Lunettes de soleil', color: 'Bois', price: 11.00, description: 'Lunettes de soleil effet bois', quantity: 0 },
+    { id: 5, name: 'Chaussettes', color: 'Noire', price: 5.00, description: 'Chaussettes basses', quantity: 0 },
+    { id: 6, name: 'Baskets', color: 'Blanc', price: 46.00, description: 'Baskets basses en toile', quantity: 0 },
+    { id: 7, name: 'Polo', color: 'Beu clair', price: 25.00, description: 'Polo manches courtes', quantity: 0 },
+    { id: 8, name: 'Chemise', color: 'rouge', price: 23.00, description: 'Chemise manches courtes en lin', quantity: 0 }
+  ];
+
   db: any = {};
 
   createDb(reqInfo?: RequestInfo) {
@@ -84,6 +96,9 @@ export class InMemoryDataService implements InMemoryDbService {
           case 'temperatures':
               this.db.temperatures = [...this.initialTemperatures];
               break;
+          case 'articles':
+              this.db.articles = [...this.initialArticles];
+              break;
           default:
             this.resetDb();
             break;
@@ -91,7 +106,7 @@ export class InMemoryDataService implements InMemoryDbService {
       }
 
       return this.db;
-      //return { authors, books, movies, directors, temperatures };
+      //return { authors, books, movies, directors, temperatures, articles };
   }
 
 
@@ -101,7 +116,8 @@ export class InMemoryDataService implements InMemoryDbService {
       books: [...this.initialBooks],
       movies: [...this.initialMovies],
       directors: [...this.initialDirectors],
-      temperatures: [...this.initialTemperatures]
+      temperatures: [...this.initialTemperatures],
+      articles: [...this.initialArticles]
     };
    }
 }

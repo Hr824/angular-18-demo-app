@@ -15,6 +15,10 @@ export class Child1Component {
   }
 
   decreaseCounter(): void {
-    this.counter.update(() => this.counter() - 1);
+    this.counter.update(() => {
+      if(this.counter() > 0) { return this.counter() - 1 }
+
+      return 0;
+    });
   }
 }
