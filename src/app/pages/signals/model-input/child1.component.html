@@ -1,8 +1,8 @@
 <div class="card border-info mb-3" style="max-width: 18rem;min-height: 15rem;">
     <div class="card-header text-center fw-bold">Child Component</div>
     <div class="card-body text-center">
-        <button class="btn btn-outline-info btn-sm" (click)="decreaseCounter()">Décrémenter</button>&nbsp;    
-        <button class="btn btn-outline-info btn-sm" (click)="increaseCounter()">Incrémenter</button>
+        <button [disabled]="counter() <= 0" [ngClass]="counter() > 0 ? 'btn btn-outline-info btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="decreaseCounter()">Décrémenter</button>&nbsp;    
+        <button [disabled]="counter() >= 10" [ngClass]="counter() < 10 ? 'btn btn-outline-info btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="increaseCounter()">Incrémenter</button>
         <div class="card-text mg-top-40" style="height: 5rem;"><h2>{{ counter() }}</h2></div>
     </div>
 </div>

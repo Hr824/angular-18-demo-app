@@ -6,20 +6,21 @@
                 <thead>
                     <tr>
                         <th scope="col">Article</th>
-                        <th scope="col">Quantité</th>
-                        <th scope="col">Prix</th>
-                        <th><button class="btn btn-outline-info btn-sm" (click)="clearQuantity()">Vider</button></th>
+                        <th scope="col">Prix unitaire</th>
+                        <th>
+                            <button [disabled]="quantities() <= 0" [ngClass]="quantities() > 0 ? 'btn btn-outline-info btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="clearQuantities()">Supprimer tout</button>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @for(article of articles(); track article.id){
                         <tr>
                             <td>{{ article.name }}</td>
-                            <td>{{ article.quantity }}</td>
-                            <td>{{ article.price }} €</td>
+                            <td>{{ article.unitPrice }} €</td>
                             <td>
-                                <button [style.display]="article.quantity > 0 ? 'inline-block' : 'none'" [disabled]="article.quantity === 0" class="btn btn-outline-danger btn-sm" (click)="removeArticle(article)">-</button>&nbsp;                      
-                                <button class="btn btn-outline-danger btn-sm" (click)="addArticle(article)">+</button>
+                                <button [disabled]="article.quantity <= 0" [ngClass]="article.quantity > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="removeArticle(article)">-</button>&nbsp;
+                                <button [disabled]="article.quantity >= 5" [ngClass]="article.quantity < 5 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="addArticle(article)">+</button>&nbsp;
+                                <button [disabled]="article.quantity <= 0" [ngClass]="article.quantity > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="clearQuantity(article)">Supprimer</button>
                             </td>
                         </tr>
                     }
