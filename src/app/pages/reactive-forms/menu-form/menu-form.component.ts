@@ -5,6 +5,17 @@ import { LoaderComponent } from '../../../components/shared/loader/loader.compon
 import { BreadcrumbComponent } from '../../../components/shared/breadcrumb/breadcrumb.component';
 import { Menu } from '../../../models/menu';
 
+const initialMenu: Menu = {
+  firstname: '',
+  entree: '',
+  plat: '',
+  fromage: false,
+  dessert: '',
+  cafe: false
+};
+
+const regexPattern: string = '^([A-Za-zàâäéèêëîïôöùûüçÇÀÂÄÉÈÊËÎÏÔÖÙÛÜ]+[\-]{0,1}[ ]{0,1}[A-Za-zàâäéèêëîïôöùûüçÇÀÂÄÉÈÊËÎÏÔÖÙÛÜ]*)$';
+
 @Component({
   selector: 'app-menu-form',
   standalone: true,
@@ -17,7 +28,7 @@ export class MenuFormComponent {
   theme = signal<string>('Reactive Form');
   page = signal<string>('Menu');
 
-  selectedMenu = signal<Menu>({firstname: '', entree: '', plat: '', fromage: false, dessert: '', cafe: false}); 
+  selectedMenu = signal<Menu>(initialMenu); 
   menuForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder){
@@ -29,7 +40,8 @@ export class MenuFormComponent {
       firstname: ['', [
         Validators.required,
         Validators.maxLength(10),
-        Validators.pattern('^([A-Za-zàâäéèêëîïôöùûüçÇÀÂÄÉÈÊËÎÏÔÖÙÛÜ]+[\-]{0,1}[ ]{0,1}[A-Za-zàâäéèêëîïôöùûüçÇÀÂÄÉÈÊËÎÏÔÖÙÛÜ]*)$')]],
+        Validators.pattern(regexPattern)]
+      ],
       entrees: null,
       plats: ['Confit de canard pommes à l\'ail', {nonNullable: true}],
       fromages: [false, {nonNullable: true}],
@@ -62,24 +74,12 @@ export class MenuFormComponent {
 
   onReset() {
     this.menuForm.reset();
-    this.selectedMenu.set({firstname: '', entree: '', plat: '', fromage: false, dessert: '', cafe: false});
+    this.selectedMenu.set(initialMenu);
   }
 
-  showRequiredErrorMessage(controlName: string): boolean {
+  showErrorMessage(controlName: string, errorCode: string): boolean {
     const control = this.menuForm.controls[controlName];
 
-    return control.hasError('required') && (control.touched || control.dirty);
-  }
-
-  showMaxLengthErrorMessage(controlName: string): boolean {
-    const control = this.menuForm.controls[controlName];
-
-    return control.hasError('maxlength') && (control.touched || control.dirty);
-  }
-
-  showPatternErrorMessage(controlName: string): boolean {
-    const control = this.menuForm.controls[controlName];
-
-    return control.hasError('pattern') && (control.touched || control.dirty);
+    return control.hasError(errorCode) && (control.touched || control.dirty);
   }
 }

@@ -18,17 +18,17 @@
                             <input type="text" class="form-control" id="firstname" formControlName="firstname" maxlength="10">  
                         </div>
                         <div class="col-sm-5 text-start">
-                            @if(showRequiredErrorMessage("firstname")){
+                            @if(showErrorMessage('firstname', 'required')){
                                 <div class="invalid-feedback d-block">
                                     Le prénom est obligatoire
                                 </div>
                             }
-                            @if(showMaxLengthErrorMessage("firstname")){
+                            @if(showErrorMessage('firstname', 'maxlength')){
                               <div class="invalid-feedback d-block">
                                   Maximum 10 caractères
                               </div>
                             }
-                            @if(showPatternErrorMessage("firstname")){
+                            @if(showErrorMessage('firstname', 'pattern')){
                               <div class="invalid-feedback d-block">
                                   Saisie incorrecte
                               </div>
