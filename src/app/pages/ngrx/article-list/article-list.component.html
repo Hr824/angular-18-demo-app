@@ -2,15 +2,10 @@
 <div class="row">
     <div class="col-12">
         <div class="mg-page-title">
-            <h3>NgRx Store</h3> 
+            <h3>NgRx : Shopping Cart</h3> 
         </div>   
     </div>
 </div>
-<!-- <div class="row">
-    <div class="col-12">
-        <h4></h4>
-	</div>
-</div> -->
 <div class="row">
 	<div class="col-12">
         <div class="card border-info mb-3">
@@ -25,9 +20,7 @@
                                 <th scope="col">Description</th>
                                 <th scope="col">Prix unitaire</th>
                                 <th style="width: 80px"></th>
-                                <th>
-                                    <!-- <button [disabled]="quantities() <= 0" [ngClass]="quantities() > 0 ? 'btn btn-outline-info btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="clearQuantities()">Supprimer tout</button> -->
-                                </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,13 +37,18 @@
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <!-- <button [disabled]="article.quantity <= 0" [ngClass]="article.quantity > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="removeToCart(article)">-</button>&nbsp; -->
-                                        <!-- <button [disabled]="article.quantity >= 5" [ngClass]="article.quantity < 5 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="addToCart(article, quantitySelect.value)">Ajouter au panier</button> -->
-                                        <button [disabled]="+quantitySelect.value === 0" [ngClass]="+quantitySelect.value > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="addToCart(article, quantitySelect.value)">Ajouter au panier</button>&nbsp;
-                                        <!-- <button [disabled]="article.quantity <= 0" [ngClass]="article.quantity > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="clearQuantity(article)">Supprimer</button> -->
+                                        <button 
+                                            [disabled]="+quantitySelect.value === 0"
+                                            [ngClass]="+quantitySelect.value > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'"
+                                            (click)="addToCart(article, convertStringToNumber(quantitySelect.value))">Ajouter au panier</button>
                                     </td>
                                 </tr>
                             }
@@ -63,10 +61,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<div>
-    @for(article of cartArticles$ | async; track article.id){
-        <div>{{ article.name }} - {{ article.color }} - {{ article.description }} - {{ article.quantity }} - {{ article.unitPrice }} € - {{ article.totalPrice }} €</div>
-    }
 </div>

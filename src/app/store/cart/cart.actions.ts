@@ -7,7 +7,7 @@ import { Article } from "../../models/article";
 
 export const addArticle = createAction(
     '[Cart] Add article',
-    props<{ article: Article, maxArticle: number }>()
+    props<{ article: Article, maxQuantity: number }>()
 );
 
 export const removeArticle = createAction(

@@ -2,64 +2,59 @@
 <div class="row">
     <div class="col-12">
         <div class="mg-page-title">
-            <h3>NgRx Store</h3> 
+            <h3>NgRx : Shopping Cart</h3> 
         </div>   
     </div>
 </div>
-<!-- <div class="row">
-    <div class="col-12">
-        <h4></h4>
-	</div>
-</div> -->
-<div class="row">
-	<div class="col-12">
-        <div class="card border-info mb-3">
-            <div class="card-header text-center fw-bold">Panier</div>
-            <div class="card-body text-center">
-                @defer {
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Article</th>
-                                <th scope="col">Couleur</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Quantité</th>
-                                <th scope="col">Prix unitaire</th>
-                                <th style="width: 80px"></th>
-                                <th>
-                                    <!-- <button [disabled]="quantities() <= 0" [ngClass]="quantities() > 0 ? 'btn btn-outline-info btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="clearQuantities()">Supprimer tout</button> -->
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for(article of cartArticles$ | async; track article.id){
-                                <tr>
-                                    <td>{{ article.name }}</td>
-                                    <td>{{ article.color }}</td>
-                                    <td>{{ article.description }}</td>
-                                    <td>{{ article.quantity }}</td>
-                                    <td>{{ article.unitPrice }} €</td>
-                                    <td style="width: 80px">
-                                        <select #quantitySelect [ngModel]="article.quantity" class="form-select form-select-sm" (change)="onChange($event, article)">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-danger btn-sm" (click)="removeToCart(article)">Supprimer</button>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
-                @placeholder(minimum 1500ms) {
-                    <app-loader></app-loader>
-                }
+@defer {
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-light">
+                <h5 class="card-header">Panier</h5>
+                <div class="card-body">
+                <h5 class="card-title">{{ cartNbArticles$ | async }} @if((cartNbArticles$ | async)! > 1){ <span>articles</span> }@else{ <span>article</span> }</h5>
+                <h5 class="card-title">Total : <span class="text-primary">{{ cartTotalPrice$ | async }} €</span></h5>
+                <p class="card-text text-end">
+                    <a class="card-link link-offset-2 me-3" routerLink="/ngrx/articles">Retour aux articles</a>
+                        @if((cartNbArticles$ | async)) {
+                            <button class="btn btn-outline-dark btn-sm" (click)="clearCart()">Vider le panier</button>
+                        }
+                </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @for(article of cartArticles$ | async; track article.id){
+            <div class="col">
+                <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.description }}</h5>
+                    <p class="card-text">{{ article.color }}</p>
+                    <p class="card-text">{{ article.quantity }} x <span class="text-danger">{{ article.unitPrice }} €</span><span> = {{ article.totalPrice }} €</span></p>
+                    <p class="card-text">
+                        <select #quantitySelect [ngModel]="article.quantity" class="form-select form-select-sm" (change)="onQuantityChange($event, article)" style="width:80px">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>       
+                    </p>
+                    <p class="card-text text-end">
+                        <button class="btn btn-outline-danger btn-sm" (click)="removeToCart(article)">Supprimer</button>
+                    </p>
+                </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+@placeholder(minimum 1500ms) {
+    <app-loader></app-loader>
+}

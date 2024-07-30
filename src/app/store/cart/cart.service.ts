@@ -16,8 +16,8 @@ export class CartService {
 
   constructor(private store: Store<{ cart: Cart }>) { }
 
-  addArticle(article: Article, maxArticle: number): void {
-    this.store.dispatch(addArticle({ article, maxArticle }));
+  addArticle(article: Article, maxQuantity: number): void {
+    this.store.dispatch(addArticle({ article, maxQuantity }));
   }
 
   removeArticle(articleId: number) {
@@ -46,7 +46,7 @@ export class CartService {
     );
   }
 
-  getCartTotal(): Observable<number>{
+  getCartTotalPrice(): Observable<number>{
     return this.store.select(state => 
       state.cart.articles.reduce((total, article) => total + article.unitPrice * article.quantity, 0)
     );

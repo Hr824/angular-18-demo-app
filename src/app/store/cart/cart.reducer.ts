@@ -12,27 +12,26 @@ export const initialState: Cart = storedCart ? JSON.parse(storedCart) : { articl
 
 export const cartReducer = createReducer(
     initialState,
-    on(addArticle, (state, { article, maxArticle }) => {
+    on(addArticle, (state, { article, maxQuantity }) => {
         const existingArticle = state.articles.find(a => a.id === article.id);
         if (existingArticle) {
           return {
             ...state,
             articles: state.articles.map(a => {
-                if(a.quantity < maxArticle){
-                  const newQuantity = a.quantity + article.quantity;
-                  //const newQuantity = a.quantity + 1;
-                  return a.id === article.id ? { ...a, quantity: newQuantity, totalPrice: newQuantity * a.unitPrice } : a
-                }
-                else{
-                  return a;
-                }         
+              if(a.quantity + article.quantity <= maxQuantity){
+                const newQuantity = a.quantity + article.quantity;
+                return a.id === article.id ? { ...a, quantity: newQuantity, totalPrice: newQuantity * a.unitPrice } : a
+              }
+              else{
+                return { ...a, quantity: maxQuantity, totalPrice: maxQuantity * a.unitPrice };
+                //return a;
+              }         
             })
           };
         }
         else{
           //On clone 'article' pour éviter l'erreur "quantity" is read-only
           let articleClone: Article = JSON.parse(JSON.stringify(article));
-          //articleClone.quantity = 1;
           articleClone.totalPrice = articleClone.quantity * articleClone.unitPrice;
 
           return {
@@ -41,18 +40,6 @@ export const cartReducer = createReducer(
           };
         }
     }),
-    // on(removeArticle, (state, { articleId, minArticle }) => ({
-    //   ...state,
-    //   articles: state.articles.map(a => {
-    //     if(a.quantity > minArticle){
-    //       const newQuantity = a.quantity - 1;
-    //       return a.id === articleId ? { ...a, quantity: newQuantity, totalPrice: newQuantity * a.unitPrice } : a
-    //     }
-    //     else{
-    //       return a;
-    //     }         
-    // })
-    // })),
     on(removeArticle, (state, { articleId }) => ({
       ...state,
       articles: state.articles.filter(article => article.id !== articleId)
