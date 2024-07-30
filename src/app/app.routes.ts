@@ -27,6 +27,10 @@ export const routes: Routes = [
         component: MenuFormComponent
     },
     {
+        path: 'ngrx',
+        loadChildren: () => import('./pages/ngrx/ngrx.routes').then(item =>item.ngrxRoutes)
+    },
+    {
         path: 'errorOccurred',
         component: ErrorOccurredComponent
     },

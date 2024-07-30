@@ -70,7 +70,7 @@ export class InMemoryDataService implements InMemoryDbService {
     { id: 4, name: 'Lunettes de soleil', color: 'Bois', unitPrice: 11.00, totalPrice: 0, description: 'Lunettes de soleil effet bois', quantity: 0 },
     { id: 5, name: 'Chaussettes', color: 'Noire', unitPrice: 5.00, totalPrice: 0, description: 'Chaussettes basses', quantity: 0 },
     { id: 6, name: 'Baskets', color: 'Blanc', unitPrice: 46.00, totalPrice: 0, description: 'Baskets basses en toile', quantity: 0 },
-    { id: 7, name: 'Polo', color: 'Beu clair', unitPrice: 25.00, totalPrice: 0, description: 'Polo manches courtes', quantity: 0 },
+    { id: 7, name: 'Polo', color: 'Bleu clair', unitPrice: 25.00, totalPrice: 0, description: 'Polo manches courtes', quantity: 0 },
     { id: 8, name: 'Chemise', color: 'rouge', unitPrice: 23.00, totalPrice: 0, description: 'Chemise manches courtes en lin', quantity: 0 }
   ];
 

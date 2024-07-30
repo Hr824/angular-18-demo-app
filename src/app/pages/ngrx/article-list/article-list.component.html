@@ -1,0 +1,72 @@
+<app-breadcrumb [theme]="theme()" [page]="page()"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>NgRx Store</h3> 
+        </div>   
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-12">
+        <h4></h4>
+	</div>
+</div> -->
+<div class="row">
+	<div class="col-12">
+        <div class="card border-info mb-3">
+            <div class="card-header text-center fw-bold">Liste des articles</div>
+            <div class="card-body text-center">
+                @defer {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Article</th>
+                                <th scope="col">Couleur</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Prix unitaire</th>
+                                <th style="width: 80px"></th>
+                                <th>
+                                    <!-- <button [disabled]="quantities() <= 0" [ngClass]="quantities() > 0 ? 'btn btn-outline-info btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="clearQuantities()">Supprimer tout</button> -->
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(article of articles(); track article.id){
+                                <tr>
+                                    <td>{{ article.name }}</td>
+                                    <td>{{ article.color }}</td>
+                                    <td>{{ article.description }}</td>
+                                    <td>{{ article.unitPrice }} €</td>
+                                    <td style="width: 80px">
+                                        <select #quantitySelect class="form-select form-select-sm">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <!-- <button [disabled]="article.quantity <= 0" [ngClass]="article.quantity > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="removeToCart(article)">-</button>&nbsp; -->
+                                        <!-- <button [disabled]="article.quantity >= 5" [ngClass]="article.quantity < 5 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="addToCart(article, quantitySelect.value)">Ajouter au panier</button> -->
+                                        <button [disabled]="+quantitySelect.value === 0" [ngClass]="+quantitySelect.value > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="addToCart(article, quantitySelect.value)">Ajouter au panier</button>&nbsp;
+                                        <!-- <button [disabled]="article.quantity <= 0" [ngClass]="article.quantity > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="clearQuantity(article)">Supprimer</button> -->
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                @placeholder(minimum 1500ms) {
+                    <app-loader></app-loader>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @for(article of cartArticles$ | async; track article.id){
+        <div>{{ article.name }} - {{ article.color }} - {{ article.description }} - {{ article.quantity }} - {{ article.unitPrice }} € - {{ article.totalPrice }} €</div>
+    }
+</div>

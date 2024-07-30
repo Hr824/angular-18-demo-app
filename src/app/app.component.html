@@ -31,11 +31,61 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/reactiveform/menu" routerLinkActive="active">Reactive Form</a>
           </li>
+          <li class="nav-item" ngbDropdown>
+            <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown4" role="button">NgRx</a>
+            <div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu">
+              <a ngbDropdownItem routerLink="/ngrx/articles" routerLinkActive="active">Articles (Cart)</a>
+            </div>
+          </li>
           <!-- <li class="nav-item">
             <a class="nav-link" routerLink="/xxx" routerLinkActive="active">Thème 4</a>
           </li> -->
         </ul>
       </div>
+
+      @if(nbArticles$ | async; as nbArticles){
+        <div>
+            <a a routerLink="/ngrx/cart" routerLinkActive="active">
+              Panier ({{ nbArticles$ | async }})
+            </a>
+            @if(nbArticles > 0){
+              <div>
+                  <button class="btn btn-sm btn-outline-secondary" (click)="clearCart()">Vider le panier</button>
+              </div>
+            }        
+        </div>
+      }
+      @else {
+        <a a routerLink="/ngrx/cart" routerLinkActive="active">
+          Panier (0)
+        </a>
+      }
+
+      <!-- @if(nbArticles$ | async; as nbArticles){
+        <div>
+            <a a routerLink="cart" routerLinkActive="active">
+                @if(nbArticles > 0){
+                    Panier : {{ nbArticles$ | async }} {{nbArticles === 1 ? 'article' : 'articles'}}
+                }
+                @else{
+                    Panier vide
+                }
+            </a>
+            @if(nbArticles > 0){
+                <div>
+                    <div style="color: blue">Total: {{ total$ | async }} €</div>
+                </div>
+                <div>
+                    <button (click)="clearCart()">Vider le panier</button>
+                </div>
+            }        
+        </div>
+    }       
+    @else{
+        <a a routerLink="cart" routerLinkActive="active">Panier vide</a>
+    } -->
+
+
     </div>
   </nav>
 </header>
