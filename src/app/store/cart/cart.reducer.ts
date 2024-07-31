@@ -7,7 +7,7 @@ import { Article } from "../../models/article";
 //Définition de l'état
 //==================================
 
-const storedCart = localStorage.getItem('shoppingCart');
+const storedCart = window.localStorage ? localStorage.getItem('shoppingCart') : null;
 export const initialState: Cart = storedCart ? JSON.parse(storedCart) : { articles: [] };
 
 export const cartReducer = createReducer(
@@ -23,8 +23,7 @@ export const cartReducer = createReducer(
                 return a.id === article.id ? { ...a, quantity: newQuantity, totalPrice: newQuantity * a.unitPrice } : a
               }
               else{
-                return { ...a, quantity: maxQuantity, totalPrice: maxQuantity * a.unitPrice };
-                //return a;
+                return a.id === article.id ? { ...a, quantity: maxQuantity, totalPrice: maxQuantity * a.unitPrice } : a;
               }         
             })
           };

@@ -8,7 +8,7 @@
                         <th scope="col">Article</th>
                         <th scope="col">Prix unitaire</th>
                         <th>
-                            <button [disabled]="quantities() <= 0" [ngClass]="quantities() > 0 ? 'btn btn-outline-info btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="clearQuantities()">Supprimer tout</button>
+                            <button [disabled]="quantities() <= 0" [ngClass]="quantities() > 0 ? 'btn btn-outline-info btn-sm rounded-pill' : 'btn btn-outline-secondary btn-sm rounded-pill'" (click)="clearQuantities()">Supprimer tout</button>
                         </th>
                     </tr>
                 </thead>
@@ -20,7 +20,7 @@
                             <td>
                                 <button [disabled]="article.quantity <= 0" [ngClass]="article.quantity > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="removeArticle(article)">-</button>&nbsp;
                                 <button [disabled]="article.quantity >= 5" [ngClass]="article.quantity < 5 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="addArticle(article)">+</button>&nbsp;
-                                <button [disabled]="article.quantity <= 0" [ngClass]="article.quantity > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'" (click)="clearQuantity(article)">Supprimer</button>
+                                <button [disabled]="article.quantity <= 0" [ngClass]="article.quantity > 0 ? 'btn btn-outline-danger btn-sm rounded-pill' : 'btn btn-outline-secondary btn-sm rounded-pill'" (click)="clearQuantity(article)">Supprimer</button>
                             </td>
                         </tr>
                     }

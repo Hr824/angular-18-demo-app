@@ -2,63 +2,70 @@
 <div class="row">
     <div class="col-12">
         <div class="mg-page-title">
-            <h3>NgRx : Shopping Cart</h3> 
+            <h3>NgRx : Shopping Cart</h3>
+            <div>
+                - Gestion d'un panier d'articles avec NgRx + localStorage
+            </div>
+            <div>
+                - Pour l'exemple, 10 articles maximum par référence
+            </div> 
         </div>   
     </div>
 </div>
-<div class="row">
-	<div class="col-12">
-        <div class="card border-info mb-3">
-            <div class="card-header text-center fw-bold">Liste des articles</div>
-            <div class="card-body text-center">
-                @defer {
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Article</th>
-                                <th scope="col">Couleur</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Prix unitaire</th>
-                                <th style="width: 80px"></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for(article of articles(); track article.id){
+@defer {
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="card border-info mb-3">
+                <div class="card-header text-center fw-bold">Liste des références</div>
+                <div class="card-body text-center">
+
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td>{{ article.name }}</td>
-                                    <td>{{ article.color }}</td>
-                                    <td>{{ article.description }}</td>
-                                    <td>{{ article.unitPrice }} €</td>
-                                    <td style="width: 80px">
-                                        <select #quantitySelect class="form-select form-select-sm">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <button 
-                                            [disabled]="+quantitySelect.value === 0"
-                                            [ngClass]="+quantitySelect.value > 0 ? 'btn btn-outline-danger btn-sm' : 'btn btn-outline-secondary btn-sm'"
-                                            (click)="addToCart(article, convertStringToNumber(quantitySelect.value))">Ajouter au panier</button>
-                                    </td>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col" style="width: 80px"></th>
+                                    <th scope="col"></th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
-                @placeholder(minimum 1500ms) {
-                    <app-loader></app-loader>
-                }
+                            </thead>
+                            <tbody>
+                                @for(article of articles(); track article.id){
+                                    <tr>
+                                        <td>{{ article.description }}</td>
+                                        <td>{{ article.color }}</td>
+                                        <td>{{ article.unitPrice }} €</td>
+                                        <td style="width: 80px">
+                                            <select #quantitySelect class="form-select form-select-sm">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button 
+                                                [disabled]="+quantitySelect.value === 0"
+                                                [ngClass]="+quantitySelect.value > 0 ? 'btn btn-outline-danger btn-sm rounded-pill' : 'btn btn-outline-secondary btn-sm rounded-pill'"
+                                                (click)="addToCart(article, convertStringToNumber(quantitySelect.value))">Ajouter au panier</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                </div>
             </div>
         </div>
+        <div class="col-1"></div>
     </div>
-</div>
+}
+@placeholder(minimum 1500ms) {
+    <app-loader></app-loader>
+}

@@ -34,7 +34,7 @@
           <li class="nav-item" ngbDropdown>
             <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown4" role="button">NgRx</a>
             <div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu">
-              <a ngbDropdownItem routerLink="/ngrx/articles" routerLinkActive="active">Articles (Shopping Cart)</a>
+              <a ngbDropdownItem routerLink="/ngrx/articles" routerLinkActive="active">Shopping Cart</a>
             </div>
           </li>
         </ul>
@@ -42,7 +42,7 @@
 
       @if(cartNbArticles$ | async; as cartNbArticles){
         <div>
-            <button routerLink="/ngrx/cart" class="btn btn-sm btn-warning" >Voir le panier ({{ cartNbArticles }})</button>
+            <button routerLink="/ngrx/cart" class="btn btn-sm btn-warning rounded-pill" >Voir le panier ({{ cartNbArticles }})</button>
         </div>
       }
     </div>

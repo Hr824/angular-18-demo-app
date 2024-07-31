@@ -17,7 +17,9 @@ export class CartEffects {
         map((action) => {
           this.store.select(state => state.cart).subscribe({
               next: response => {
-              localStorage.setItem('shoppingCart', JSON.stringify(response));
+                if(window.localStorage){
+                  localStorage.setItem('shoppingCart', JSON.stringify(response));
+                }
               }
           });   
         })

@@ -3,6 +3,12 @@
     <div class="col-12">
         <div class="mg-page-title">
             <h3>NgRx : Shopping Cart</h3> 
+            <div>
+                - Gestion d'un panier d'articles avec NgRx + localStorage
+            </div>
+            <div>
+                - Pour l'exemple, 10 articles maximum par référence
+            </div>
         </div>   
     </div>
 </div>
@@ -17,7 +23,7 @@
                 <p class="card-text text-end">
                     <a class="card-link link-offset-2 me-3" routerLink="/ngrx/articles">Retour aux articles</a>
                         @if((cartNbArticles$ | async)) {
-                            <button class="btn btn-outline-dark btn-sm" (click)="clearCart()">Vider le panier</button>
+                            <button class="btn btn-outline-dark btn-sm rounded-pill" (click)="clearCart()">Vider le panier</button>
                         }
                 </p>
                 </div>
@@ -33,6 +39,7 @@
                     <p class="card-text">{{ article.color }}</p>
                     <p class="card-text">{{ article.quantity }} x <span class="text-danger">{{ article.unitPrice }} €</span><span> = {{ article.totalPrice }} €</span></p>
                     <p class="card-text">
+                        <span class="text-decoration-underline">Modifier</span>
                         <select #quantitySelect [ngModel]="article.quantity" class="form-select form-select-sm" (change)="onQuantityChange($event, article)" style="width:80px">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -47,7 +54,7 @@
                         </select>       
                     </p>
                     <p class="card-text text-end">
-                        <button class="btn btn-outline-danger btn-sm" (click)="removeToCart(article)">Supprimer</button>
+                        <button class="btn btn-outline-danger btn-sm rounded-pill" (click)="removeToCart(article)">Supprimer</button>
                     </p>
                 </div>
                 </div>
