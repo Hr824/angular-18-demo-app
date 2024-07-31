@@ -39,12 +39,9 @@
           </li>
         </ul>
       </div>
-
-      @if(cartNbArticles$ | async; as cartNbArticles){
-        <div>
-            <button routerLink="/ngrx/cart" class="btn btn-sm btn-warning rounded-pill" >Voir le panier ({{ cartNbArticles }})</button>
-        </div>
-      }
+      <div>
+        <button routerLink="/ngrx/cart" class="btn btn-sm btn-warning rounded-pill" >Voir le panier ({{ (cartNbArticles$ | async) }})</button>
+      </div>
     </div>
   </nav>
 </header>
