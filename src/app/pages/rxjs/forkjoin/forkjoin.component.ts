@@ -26,10 +26,8 @@ export class ForkjoinComponent {
   bookService = inject(BookService);
 
   ngOnInit(): void {
-
     this.books$ = this.bookService.getBooks();
     this.authors$ = this.bookService.getAuthors();
-
     this.booksWithAuthors$ = this.bookService.getBooksWithAuthors();
   }
 }

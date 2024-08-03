@@ -35,6 +35,10 @@ export const routes: Routes = [
         component: ErrorOccurredComponent
     },
     {
+        path: 'pageNotFound',
+        component: PageNotFoundComponent
+    },
+    {
       path: '**',
       component: PageNotFoundComponent
     }
