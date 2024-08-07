@@ -4,11 +4,23 @@ import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-fo
 import { ErrorOccurredComponent } from './pages/errors/error-occurred/error-occurred.component';
 import { TemperatureChartComponent } from './pages/chartjs/temperature-chart/temperature-chart.component';
 import { MenuFormComponent } from './pages/reactive-forms/menu-form/menu-form.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { LogoutComponent } from './pages/auth/logout/logout.component';
+import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
         path: '',
         component: HomeComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'logout',
+        component: LogoutComponent
     },
     {
         path: 'rxjs',
@@ -29,6 +41,11 @@ export const routes: Routes = [
     {
         path: 'ngrx',
         loadChildren: () => import('./pages/ngrx/ngrx.routes').then(item =>item.ngrxRoutes)
+    },
+    {
+        path: 'admin/dashboard',
+        component: DashboardComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'errorOccurred',

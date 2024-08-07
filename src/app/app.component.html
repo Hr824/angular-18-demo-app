@@ -14,7 +14,7 @@
             </div>
           </li>
           <li class="nav-item" ngbDropdown>
-            <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown2" role="button">Signals</a>
+            <a class="nav-link" tabindex="1" ngbDropdownToggle id="navbarDropdown2" role="button">Signals</a>
             <div ngbDropdownMenu aria-labelledby="navbarDropdown2" class="dropdown-menu">
               <a ngbDropdownItem routerLink="/signals/delete" routerLinkActive="active">Supression</a>
               <a ngbDropdownItem routerLink="/signals/search" routerLinkActive="active">Recherche</a>
@@ -23,7 +23,7 @@
             </div>
           </li>
           <li class="nav-item" ngbDropdown>
-            <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown3" role="button">Chart.js</a>
+            <a class="nav-link" tabindex="2" ngbDropdownToggle id="navbarDropdown3" role="button">Chart.js</a>
             <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
               <a ngbDropdownItem routerLink="/chartjs/temperature" routerLinkActive="active">Bar Chart</a>
             </div>
@@ -32,15 +32,42 @@
             <a class="nav-link" routerLink="/reactiveform/menu" routerLinkActive="active">Reactive Form</a>
           </li>
           <li class="nav-item" ngbDropdown>
-            <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown4" role="button">NgRx</a>
+            <a class="nav-link" tabindex="3" ngbDropdownToggle id="navbarDropdown4" role="button">NgRx</a>
             <div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu">
               <a ngbDropdownItem routerLink="/ngrx/articles" routerLinkActive="active">Shopping Cart</a>
             </div>
           </li>
+          @if(isAuth){
+            <li class="nav-item">
+              <a class="nav-link text-danger" routerLink="/admin/dashboard" routerLinkActive="active">Admin (Dashboard)</a>
+            </li>
+          }
         </ul>
       </div>
+      <!-- ############# Authentication with Signals ############# -->
       <div>
-        <button routerLink="/ngrx/cart" class="btn btn-sm btn-secondary rounded-pill">Voir le panier ({{ (cartNbArticles$ | async) }})</button>
+        @if(isLogged()){
+          <button class="btn btn-sm btn-outline-dark rounded-pill" (click)="logout()">Se déconnecter 2</button>
+          &nbsp;
+        }
+        @else {
+          <button routerLink="/login" class="btn btn-sm btn-outline-dark rounded-pill">Se connecter 2</button>
+          &nbsp;
+        }
+      </div>
+      <!-- ############# Authentication with BehaviourSubject ############# -->
+      <div>
+        @if(isAuth){
+          <button class="btn btn-sm btn-outline-dark rounded-pill" (click)="logout()">Se déconnecter</button>
+          &nbsp;
+        }
+        @else {
+          <button routerLink="/login" class="btn btn-sm btn-outline-dark rounded-pill">Se connecter</button>
+          &nbsp;
+        } 
+      </div>
+      <div>
+        <button routerLink="/ngrx/cart" class="btn btn-sm btn-light rounded-pill">panier <span class="badge text-bg-info">{{ (cartNbArticles$ | async) }}</span></button>
       </div>
     </div>
   </nav>
