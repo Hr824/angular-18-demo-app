@@ -9,11 +9,11 @@ export class AuthService {
   //###################################
   //Authentication with BehaviorSubject
   //###################################
-  private isAuth = new BehaviorSubject<boolean>(false);
-  isAuth$ = this.isAuth.asObservable();
-  setIsAuth(value: boolean) {
-    this.isAuth.next(value);
-  }
+  // private isAuth = new BehaviorSubject<boolean>(false);
+  // isAuth$ = this.isAuth.asObservable();
+  // setIsAuth(value: boolean) {
+  //   this.isAuth.next(value);
+  // }
 
   //###################################
   //Authentication with Signals
@@ -35,7 +35,7 @@ export class AuthService {
     //###################################
     //Authentication with BehaviorSubject
     //###################################
-    this.setIsAuth(true);
+    //this.setIsAuth(true);
 
     //###################################
     //Authentication with Signals
@@ -50,7 +50,7 @@ export class AuthService {
     //###################################
     //Authentication with BehaviorSubject
     //###################################
-    this.setIsAuth(false);
+    // this.setIsAuth(false);
 
     //###################################
     //Authentication with Signals
@@ -67,7 +67,7 @@ export class AuthService {
     //###################################
     //Authentication with BehaviorSubject
     //###################################
-    this.setIsAuth(token === null ? false : true);
+    // this.setIsAuth(token === null ? false : true);
 
     //###################################
     //Authentication with Signals

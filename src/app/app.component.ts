@@ -17,11 +17,12 @@ export class AppComponent implements OnInit {
   //###################################
   //Authentication with BehaviorSubject
   //###################################
-  isAuth!: boolean;
+  //isAuth!: boolean;
 
   //###################################
   //Authentication with Signals
   //###################################
+  //Computed Signal in AuthService
   isLogged = this.authService.isLogged;
 
 
@@ -36,11 +37,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
+    //Set isAuth (BehaviorSubject) and isLogged$$ (WritableSignal) in AuthService
     this.authService.isAuthenticated();
 
-     this.authService.isAuth$.subscribe({
-        next: (value) => this.isAuth = value
-     });
+    //Subscribe only for isAuth$ Observable in AuthService
+    // this.authService.isAuth$.subscribe({
+    //   next: (value) => this.isAuth = value
+    // });
   }
 
   logout(): void{

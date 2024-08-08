@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
   //###################################
   //Authentication with BehaviorSubject
   //###################################
-  //isAuth!: boolean;
+  // isAuth!: boolean;
 
   //###################################
   //Authentication with Signals
   //###################################
-  //isLogged = this.authService.isLogged;
+  isLogged = this.authService.isLogged;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,6 +32,15 @@ export class LoginComponent implements OnInit {
   ){ }
 
   ngOnInit(): void {
+
+    //Set isAuth (BehaviorSubject) and isLogged$$ (WritableSignal) in AuthService
+    if(this.authService.isAuthenticated())
+      this.router.navigate(['/admin/dashboard']);
+
+    //Subscribe only for isAuth$ Observable in AuthService
+    // this.authService.isAuth$.subscribe({
+    //   next: (value) => this.isAuth = value
+    // });
 
     this.loginForm = this.formBuilder.group({
       username: ['', [
@@ -43,20 +52,6 @@ export class LoginComponent implements OnInit {
         Validators.maxLength(10)]
       ]
     });
-
-    // if(this.authService.isAuthenticated())
-    //   this.router.navigate(['']);
-
-
-    // this.authService.isAuth$.subscribe({
-    //   next: (value) => this.isAuth = value
-    // });
-
-    // if(this.isAuth)
-    //   this.router.navigate(['/home']);
-
-    //TEST
-    //this.isLogged = this.authService.isLogged();
   }
 
   onSubmit(): void {
@@ -65,13 +60,6 @@ export class LoginComponent implements OnInit {
       // Token récupéré après l'appel
       const mockToken = 'mock-jwt-token';
       this.authService.login(mockToken);
-      
-      //TEST=================================== 
-      // this.authService.isAuth$.subscribe({
-      //   next: (value) => this.isAuth = value
-      // });
-      //this.isLogged.set(this.authService.isLogged());
-      //this.isLogged = this.authService.isLogged();
 
       this.router.navigate(['/admin/dashboard']);
     }
