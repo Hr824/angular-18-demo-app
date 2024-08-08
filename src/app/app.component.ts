@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   //###################################
   //Computed Signal in AuthService
   isLogged = this.authService.isLogged;
+  username = this.authService.username;
 
 
   //Pour les dropdown du menu
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //Set isAuth (BehaviorSubject) and isLogged$$ (WritableSignal) in AuthService
+    //Set isAuth (BehaviorSubject), isLogged$$ (WritableSignal) and username$$ (WritableSignal) in AuthService
     this.authService.isAuthenticated();
 
     //Subscribe only for isAuth$ Observable in AuthService

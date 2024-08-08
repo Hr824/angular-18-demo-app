@@ -24,24 +24,55 @@ export class AuthService {
      this.isLogged$$.update(() => value);
   }
 
+  private username$$ = signal('');
+  username = computed(() => this.username$$());
+  setUsername(value: string) {
+     this.username$$.update(() => value);
+  }
+
   private readonly tokenKey = 'authToken';
 
   constructor(private router: Router) {}
 
   // Méthode pour se connecter et stocker le token JWT dans le localStorage
-  login(token: string): void {
-    localStorage.setItem(this.tokenKey, token);
+  login(username: string, password: string): boolean {
 
-    //###################################
-    //Authentication with BehaviorSubject
-    //###################################
-    //this.setIsAuth(true);
+    if (username !== '' && password !== '') {
 
-    //###################################
-    //Authentication with Signals
-    //###################################
-    this.setIsLogged(true);
+      //Mock JWT token récupéré après l'appel de l'API côté backend
+      const token = username;
+      localStorage.setItem(this.tokenKey, token);
+
+      //###################################
+      //Authentication with BehaviorSubject
+      //###################################
+      //this.setIsAuth(true);
+
+      //###################################
+      //Authentication with Signals
+      //###################################
+      this.setIsLogged(true);
+      this.setUsername(username);
+
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  // login(token: string): void {
+  //   localStorage.setItem(this.tokenKey, token);
+
+  //   //###################################
+  //   //Authentication with BehaviorSubject
+  //   //###################################
+  //   //this.setIsAuth(true);
+
+  //   //###################################
+  //   //Authentication with Signals
+  //   //###################################
+  //   this.setIsLogged(true);
+  // }
 
   // Méthode pour se déconnecter et supprimer le token JWT du localStorage
   logout(): void {
@@ -56,6 +87,7 @@ export class AuthService {
     //Authentication with Signals
     //###################################
     this.setIsLogged(false);
+    this.setUsername('');
 
     this.router.navigate(['/logout']);
   }
@@ -73,6 +105,7 @@ export class AuthService {
     //Authentication with Signals
     //###################################
     this.setIsLogged(token === null ? false : true);
+    this.setUsername(token === null ? '' : token);
     
     //return !!token;
     return token === null ? false : true;

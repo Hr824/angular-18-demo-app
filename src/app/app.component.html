@@ -74,8 +74,14 @@
         }
       </div>
       <div>
-        <button routerLink="/ngrx/cart" class="btn btn-sm btn-light rounded-pill">panier <span class="badge text-bg-info">{{ (cartNbArticles$ | async) }}</span></button>
+        <button routerLink="/ngrx/cart" class="btn btn-sm btn-light rounded-pill">panier <span class="badge text-bg-info">{{ (cartNbArticles$ | async) }}</span></button>  
+        &nbsp;
       </div>
+      @if(username() !== ''){
+        <div class="badge text-bg-warning text-wrap">
+          {{ username() }}
+        </div>
+      }
     </div>
   </nav>
 </header>

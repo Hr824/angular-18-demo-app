@@ -16,7 +16,7 @@
                     <div class="row">
                         <label for="username" class="col-sm-4 col-form-label">Nom <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="username" formControlName="username" maxlength="10">  
+                            <input type="text" class="form-control" id="username" formControlName="username" maxlength="6">  
                         </div>
                         <div class="sm-3"></div>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="row">
                         <label for="password" class="col-sm-4 col-form-label">Mot de passe <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
-                            <input type="password" class="form-control" id="password" formControlName="password" maxlength="10">  
+                            <input type="password" class="form-control" id="password" formControlName="password" maxlength="6">  
                         </div>
                         <div class="sm-3"></div>
                     </div>
@@ -60,6 +60,11 @@
                             <button type="submit" [disabled]="loginForm.invalid" [ngClass]="loginForm.invalid ? 'btn btn-outline-secondary btn-sm rounded-pill' : 'btn btn-outline-info btn-sm rounded-pill'">Se connecter</button>
                             &nbsp;
                             <button type="reset" class="btn btn-sm btn-outline-danger rounded-pill" (click)="onReset()">Initialiser</button>            
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-sm-12 text-danger">
+                            {{ loginErrorMessage() }}
                         </div>
                     </div>
                 </form>

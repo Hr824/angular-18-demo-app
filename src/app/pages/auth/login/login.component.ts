@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
+  loginErrorMessage = signal<string>('');
 
   //###################################
   //Authentication with BehaviorSubject
@@ -45,11 +46,11 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', [
         Validators.required,
-        Validators.maxLength(10)]
+        Validators.maxLength(6)]
       ],
       password: ['', [
         Validators.required,
-        Validators.maxLength(10)]
+        Validators.maxLength(6)]
       ]
     });
   }
@@ -57,13 +58,28 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      // Token récupéré après l'appel
-      const mockToken = 'mock-jwt-token';
-      this.authService.login(mockToken);
+      
+      if(this.authService.login(username, password)){
+        this.loginErrorMessage.set('');
 
-      this.router.navigate(['/admin/dashboard']);
+        this.router.navigate(['/admin/dashboard']);
+      }
+      else{
+        this.loginErrorMessage.set('Nom ou mot de passe incorrect');
+      }
     }
   }
+
+  // onSubmit(): void {
+  //   if (this.loginForm.valid) {
+  //     const { username, password } = this.loginForm.value;
+  //     //Mock JWT Token récupéré après l'appel de l'API côté backend
+  //     const mockToken = 'mock-jwt-token';
+  //     this.authService.login(mockToken);
+
+  //     this.router.navigate(['/admin/dashboard']);
+  //   }
+  // }
 
   onReset() {
     this.loginForm.reset();
