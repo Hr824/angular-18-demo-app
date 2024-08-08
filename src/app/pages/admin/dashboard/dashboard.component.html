@@ -1,1 +1,24 @@
-<p>dashboard works!</p>
+<app-breadcrumb [theme]="theme()" [page]="page()"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>Dashboard</h3> 
+        </div>   
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-4">
+        <div class="chart-container" style="position: relative; height:30vh">
+            <canvas id="canvasLineTemperatures">{{ chartLineTemperatures }}</canvas>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="chart-container" style="position: relative; height:30vh">
+            <canvas id="canvasBarTemperatures">{{ chartBarTemperatures }}</canvas>
+        </div>
+    </div>
+    <div class="col-2">
+    </div>
+</div>
