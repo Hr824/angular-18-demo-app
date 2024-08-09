@@ -1,0 +1,1 @@
+import{a as t}from"./chunk-PRWHCTAR.js";import"./chunk-VMDVDEOH.js";import"./chunk-LL2WLTWS.js";var e=[{path:"articles",loadComponent:()=>import("./chunk-YRWHIH53.js").then(o=>o.ArticleListComponent)},{path:"cart",loadComponent:()=>import("./chunk-WQSSXCRR.js").then(o=>o.CartComponent)},{path:"**",component:t}];export{e as ngrxRoutes};
