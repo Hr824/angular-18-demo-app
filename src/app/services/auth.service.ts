@@ -56,6 +56,7 @@ export class AuthService {
 
       return true;
     } else {
+      localStorage.removeItem(this.tokenKey);
       this.setIsLogged(false);
       this.setUsername('');
       
