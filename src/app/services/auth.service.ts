@@ -60,19 +60,6 @@ export class AuthService {
     }
   }
 
-  // login(token: string): void {
-  //   localStorage.setItem(this.tokenKey, token);
-
-  //   //###################################
-  //   //Authentication with BehaviorSubject
-  //   //###################################
-  //   //this.setIsAuth(true);
-
-  //   //###################################
-  //   //Authentication with Signals
-  //   //###################################
-  //   this.setIsLogged(true);
-  // }
 
   // Méthode pour se déconnecter et supprimer le token JWT du localStorage
   logout(): void {
@@ -107,7 +94,6 @@ export class AuthService {
     this.setIsLogged(token === null ? false : true);
     this.setUsername(token === null ? '' : token);
     
-    //return !!token;
     return token === null ? false : true;
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, SlicePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { CartService } from './store/cart/cart.service';
 import { AuthService } from './services/auth.service';
@@ -9,7 +9,7 @@ import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgbDropdownModule, AsyncPipe],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgbDropdownModule, AsyncPipe, SlicePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

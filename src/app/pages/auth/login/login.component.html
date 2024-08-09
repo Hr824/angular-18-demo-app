@@ -16,7 +16,7 @@
                     <div class="row">
                         <label for="username" class="col-sm-4 col-form-label">Nom <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="username" formControlName="username" maxlength="6">  
+                            <input type="text" class="form-control" id="username" formControlName="username" maxlength="8">  
                         </div>
                         <div class="sm-3"></div>
                     </div>
@@ -29,9 +29,14 @@
                             }
                             @if(showErrorMessage('username', 'maxlength')){
                               <div class="invalid-feedback d-block">
-                                  Maximum 10 caractères
+                                  Maximum 8 caractères
                               </div>
                             }
+                            @if(showErrorMessage('username', 'pattern')){
+                                <div class="invalid-feedback d-block">
+                                    Saisie incorrecte
+                                </div>
+                              }
                         </div>
                     </div>
                     <div class="row">
@@ -50,9 +55,14 @@
                             }
                             @if(showErrorMessage('password', 'maxlength')){
                               <div class="invalid-feedback d-block">
-                                  Maximum 10 caractères
+                                  Maximum 6 caractères
                               </div>
                             }
+                            @if(showErrorMessage('password', 'pattern')){
+                                <div class="invalid-feedback d-block">
+                                    Saisie incorrecte
+                                </div>
+                              }
                         </div>
                     </div>
                     <div class="row mt-4">

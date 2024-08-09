@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 
+const regexUsernamePattern: string = '[^<>!=;:.,/*+$@ ]*'; //Exclude characters
+const regexPasswordPattern: string = '[^<>/ ]*'; //Exclude characters
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -46,11 +49,13 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', [
         Validators.required,
-        Validators.maxLength(6)]
+        Validators.maxLength(8),
+        Validators.pattern(regexUsernamePattern)]
       ],
       password: ['', [
         Validators.required,
-        Validators.maxLength(6)]
+        Validators.maxLength(6),
+        Validators.pattern(regexPasswordPattern)]
       ]
     });
   }
@@ -69,17 +74,6 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-
-  // onSubmit(): void {
-  //   if (this.loginForm.valid) {
-  //     const { username, password } = this.loginForm.value;
-  //     //Mock JWT Token récupéré après l'appel de l'API côté backend
-  //     const mockToken = 'mock-jwt-token';
-  //     this.authService.login(mockToken);
-
-  //     this.router.navigate(['/admin/dashboard']);
-  //   }
-  // }
 
   onReset() {
     this.loginForm.reset();

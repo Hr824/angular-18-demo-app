@@ -79,7 +79,7 @@
       </div>
       @if(username() !== ''){
         <div class="badge text-bg-warning text-wrap">
-          {{ username() }}
+          {{ username() | slice: 0 : 8 }}
         </div>
       }
     </div>
