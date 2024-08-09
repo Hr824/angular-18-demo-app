@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit {
 
   onReset() {
     this.loginForm.reset();
+    this.loginErrorMessage.set('');
   }
 
   showErrorMessage(controlName: string, errorCode: string): boolean {

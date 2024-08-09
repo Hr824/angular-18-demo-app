@@ -37,7 +37,7 @@ export class AuthService {
   // Méthode pour se connecter et stocker le token JWT dans le localStorage
   login(username: string, password: string): boolean {
 
-    if (username !== '' && password !== '') {
+    if (username === 'user1' && password === 'pass1') {
 
       //Mock JWT token récupéré après l'appel de l'API côté backend
       const token = username;
@@ -56,6 +56,9 @@ export class AuthService {
 
       return true;
     } else {
+      this.setIsLogged(false);
+      this.setUsername('');
+      
       return false;
     }
   }
