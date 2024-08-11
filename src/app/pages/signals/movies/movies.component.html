@@ -24,6 +24,14 @@
                                 <td>{{ movie.director?.firstname }} {{ movie.director?.lastname }}</td>
                                 <td>
                                     <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-outline-danger rounded-pill">Supprimer</button>
+                                    <!-- Version avec Modal pour supprimer un film -->
+                                    <!-- <button 
+                                        class="btn btn-sm btn-outline-danger rounded-pill"
+                                        [id]="'btnDelete-' + movie.id"
+                                        [name]="'btnDelete-' + movie.id"
+                                        (click)="openDeleteModal(movie)">
+                                        Supprimer
+                                    </button> -->  
                                 </td>
                             </tr>
                         }
@@ -31,7 +39,7 @@
                 </table>               
                 @if(moviesCount() < 10){
                     <button (click)="initMoviesTable()" class="btn btn-sm btn-outline-info rounded-pill">Réinitialiser le tableau</button>
-                }       
+                }   
             </div>
         }
         @placeholder(minimum 1500ms) {

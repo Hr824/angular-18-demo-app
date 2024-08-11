@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/admin/dashboard']);
       }
       else{
-        this.loginErrorMessage.set('Nom ou mot de passe incorrect');
+        this.loginErrorMessage.set('Nom ou mot de passe invalide');
       }
     }
   }
