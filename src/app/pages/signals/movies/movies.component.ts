@@ -1,11 +1,12 @@
 import { Component, computed, inject, Input, OnDestroy, OnInit, signal } from '@angular/core';
-import { concatMap, Subscription } from 'rxjs';
+import { concatMap, interval, Subscription } from 'rxjs';
 import { Movie } from '../../../models/movie';
 import { MovieService } from '../../../services/movie.service';
 import { LoaderComponent } from '../../../components/shared/loader/loader.component';
 import { BreadcrumbComponent } from '../../../components/shared/breadcrumb/breadcrumb.component';
 //import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-//import { toSignal } from '@angular/core/rxjs-interop';
+//import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+//import { TickComponent } from '../../../components/shared/tick/tick.component';
 
 //###################################
 //Modal pour la suppression d'un film
@@ -94,6 +95,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
     theme = signal<string>('Signals');
     page = signal<string>('Suppression');
 
+
+    //Test de takeUntilDestroy() avec TickComponent pour unsubscribe automatiquement
+    //start = false;
+
     //====================
     //Avec WritableSignal 
     //====================
@@ -120,7 +125,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       //====================
       //Avec WritableSignal 
       //====================
-      this.subscriptions .unsubscribe();
+      this.subscriptions.unsubscribe();
     }
 
 

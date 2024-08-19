@@ -20,7 +20,16 @@ export class MovieService {
   }
 
   getDirectors(): Observable<Director[]> {
-    const directors$ = this.httpClient.get<Director[]>(this.DIRECTOR_API_URL);
+    const directors$ = this.httpClient.get<Director[]>(this.DIRECTOR_API_URL)
+    .pipe(
+      map(directors => directors.map(director => {
+        return {
+          id: director.id,
+          firstname: director.firstname,
+          lastname: director.lastname.toUpperCase()
+        }
+      }))
+    );
 
     return directors$;
   }
