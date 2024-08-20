@@ -1,0 +1,123 @@
+<app-breadcrumb [theme]="theme()" [page]="page()"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>Reactive Form (Questionnaire dynamique)</h3>
+            <div>
+                - Pour l'exemple, ce formulaire affiche 5 questions aléatoires sélectionnées parmi 30 questions
+            </div>
+            <div>
+                - Lorsque l'on valide le formulaire, 5 nouvelles questions sont proposées
+            </div>
+            <div>
+                - Il n'y a aucune règle fonctionnelle définie donc une question peut être proposée plusieurs fois
+            </div> 
+        </div>   
+    </div>
+</div>
+@defer{
+    <div class="row">
+        <div class="col-7">
+            <div class="card border-info mb-3">
+                <div class="card-header text-center fw-bold">Questionnaire</div>
+                <div class="card-body text-center">
+                    <form [formGroup]="questionnaireForm" (ngSubmit)="onSubmit()" autocomplete="off">
+                        @for(question of selectedQuestions(); track question.id; let i = $index) {       
+                            @switch(question.type) {
+                                @case (1) {
+                                    <fieldset class="row mb-3">
+                                        <legend class="col-form-label col-sm-2 pt-0">Question {{ i+1 }} <span class="text-danger">*</span></legend>
+                                        <div class="col-sm-6"></div>
+                                        <div class="col-sm-4 text-start">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="question{{question.id}}" id="question{{question.id}}" formControlName="question{{question.id}}">
+                                                <label class="form-check-label" for="question{{question.id}}">
+                                                    {{question.title}}
+                                                </label>
+                                            </div>          
+                                        </div>
+                                    </fieldset>
+                                }
+                                @case (2) {
+                                    <div class="row mb-3">
+                                        <div class="col-sm-2">
+                                            Question {{ i+1 }} <span class="text-danger">*</span>
+                                        </div>
+                                        <div class="col-sm-6 text-start">
+                                            {{question.title}}
+                                            <div>
+                                                @if(showErrorMessage('question' + question.id, 'required')){
+                                                    <div class="invalid-feedback d-block">
+                                                        La réponse est obligatoire
+                                                    </div>
+                                                }
+                                                @if(showErrorMessage('question' + question.id, 'maxlength')){
+                                                <div class="invalid-feedback d-block">
+                                                    Maximum 10 caractères
+                                                </div>
+                                                }
+                                                @if(showErrorMessage('question' + question.id, 'pattern')){
+                                                <div class="invalid-feedback d-block">
+                                                    Saisie incorrecte
+                                                </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="question{{question.id}}"
+                                                formControlName="question{{question.id}}"
+                                                maxlength="10"
+                                                style="max-width: 180px">  
+                                        </div>  
+                                    </div>
+                                }
+                                @case (3) {
+                                    <div class="row mb-3">
+                                        <div class="col-sm-2">
+                                            Question {{ i+1 }} <span class="text-danger">*</span>
+                                        </div>
+                                        <div class="col-sm-6 text-start">
+                                            {{question.title}}
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <select
+                                                class="form-select"
+                                                id="question{{question.id}}"
+                                                name="question{{question.id}}"
+                                                formControlName="question{{question.id}}"
+                                                [ngStyle]="{'max-width': (question.id === 26 || question.id === 29) ? '100px' : '180px'}">
+                                                @for(answer of question.answers; track answer){
+                                                    <option value="{{answer}}">{{answer}}</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                }
+                                @default {
+                                }
+                            }
+                        }                             
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <button
+                                    type="submit"
+                                    [disabled]="questionnaireForm.invalid"
+                                    [ngClass]="questionnaireForm.invalid ? 'btn btn-outline-secondary btn-sm rounded-pill' : 'btn btn-outline-info btn-sm rounded-pill'">Valider</button>
+                            </div>
+                            <div class="col-sm-11">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+        </div>
+    </div>
+}
+@placeholder(minimum 1500ms) {
+    <app-loader></app-loader>
+}

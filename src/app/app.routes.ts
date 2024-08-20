@@ -39,6 +39,10 @@ export const routes: Routes = [
         component: MenuFormComponent
     },
     {
+        path: 'reactiveform/questionnaire',
+        loadComponent: () => import('./pages/reactive-forms/dynamic-form/dynamic-form.component').then(m => m.DynamicFormComponent)
+    },
+    {
         path: 'ngrx',
         loadChildren: () => import('./pages/ngrx/ngrx.routes').then(item =>item.ngrxRoutes)
     },

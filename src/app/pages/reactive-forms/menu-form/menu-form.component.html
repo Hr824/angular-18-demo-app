@@ -11,7 +11,7 @@
         <div class="card border-info mb-3">
             <div class="card-header text-center fw-bold">Choix du menu</div>
             <div class="card-body text-center">
-                <form [formGroup]="menuForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="menuForm" (ngSubmit)="onSubmit()" autocomplete="off">
                     <div class="row mb-3">
                         <label for="firstname" class="col-sm-2 col-form-label">Prénom <span class="text-danger">*</span></label>
                         <div class="col-sm-5">

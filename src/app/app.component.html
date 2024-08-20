@@ -28,12 +28,19 @@
               <a ngbDropdownItem routerLink="/chartjs/temperature" routerLinkActive="active">Bar Chart</a>
             </div>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLink="/reactiveform/menu" routerLinkActive="active">Reactive Form</a>
+          </li> -->
+          <li class="nav-item" ngbDropdown>
+            <a class="nav-link" tabindex="3" ngbDropdownToggle id="navbarDropdown4" role="button">Reactive Forms</a>
+            <div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu">
+              <a ngbDropdownItem routerLink="/reactiveform/menu" routerLinkActive="active">Menu</a>
+              <a ngbDropdownItem routerLink="/reactiveform/questionnaire" routerLinkActive="active">Questionnaire</a>
+            </div>
           </li>
           <li class="nav-item" ngbDropdown>
-            <a class="nav-link" tabindex="3" ngbDropdownToggle id="navbarDropdown4" role="button">NgRx</a>
-            <div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu">
+            <a class="nav-link" tabindex="4" ngbDropdownToggle id="navbarDropdown5" role="button">NgRx</a>
+            <div ngbDropdownMenu aria-labelledby="navbarDropdown5" class="dropdown-menu">
               <a ngbDropdownItem routerLink="/ngrx/articles" routerLinkActive="active">Shopping Cart</a>
             </div>
           </li>

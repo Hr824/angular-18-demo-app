@@ -5,6 +5,7 @@ import { Director, Movie } from '../models/movie';
 import { Temperature } from '../models/temperature';
 import { Injectable } from '@angular/core';
 import { Article } from '../models/article';
+import { Question } from '../models/question';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,251 @@ export class InMemoryDataService implements InMemoryDbService {
     { id: 8, name: 'Chemise', color: 'Beige', unitPrice: 23.00, totalPrice: 0, description: 'Chemise manches courtes en lin', quantity: 0 }
   ];
 
+  private initialQuestions: Question[] = [
+    {
+      "id": 1,
+      "title": "Quelle est votre couleur préférée ?",
+      "type": 2,
+      "answers": []
+    },
+    {
+      "id": 2,
+      "title": "J'aime la glace vanille",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 3,
+      "title": "J'aime nager",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 4,
+      "title": "Quel est votre langage préféré ?",
+      "type": 3,
+      "answers": [
+        "Python",
+        "C#",
+        "JavaScript",
+        "Cobol",
+        "TypeScript",
+        "Java"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Quelle est la plus grande ville de France ?",
+      "type": 2,
+      "answers": []
+    },
+    {
+      "id": 6,
+      "title": "Je suis un homme",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 7,
+      "title": "Quel est le nom du département 33 ?",
+      "type": 2,
+      "answers": []
+    },
+    {
+      "id": 8,
+      "title": "Quel fruit est rouge ?",
+      "type": 3,
+      "answers": [
+        "Banane",
+        "Mangue",
+        "Kiwi",
+        "Cerise",
+        "Orange"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Quelle est votre prénom ?",
+      "type": 2,
+      "answers": []
+    },
+    {
+      "id": 10,
+      "title": "Où se trouve l'Arc de Triomphe ?",
+      "type": 3,
+      "answers": [
+        "Barcelone",
+        "Paris",
+        "Munich",
+        "Londres"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "J'ai un animal domestique",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 12,
+      "title": "Quel est votre jeu de société préféré ?",
+      "type": 2,
+      "answers": []
+    },
+    {
+      "id": 13,
+      "title": "Je suis une femme",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 14,
+      "title": "Je pratique un sport",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 15,
+      "title": "J'aime le cinéma",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 16,
+      "title": "Je voyage beaucoup",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 17,
+      "title": "J'ai une phobie",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 18,
+      "title": "Quel super-héros aimeriez-vous être ?",
+      "type": 3,
+      "answers": [
+        "Spiderman",
+        "Superman",
+        "Hulk",
+        "Thor",
+        "Un autre"
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Je parle anglais",
+      "type": 1,
+      "answers": []
+    },
+    {
+      "id": 20,
+      "title": "Dans quel pays aimeriez-vous vivre ?",
+      "type": 2,
+      "answers": []
+    },
+    {
+      "id": 21,
+      "title": "Quelle personnalité est un sportif ?",
+      "type": 3,
+      "answers": [
+        "Natalie Portman",
+        "Quentin Tarantino",
+        "Cristiano Ronaldo",
+        "Aya Nakamura",
+        "Harry Styles"
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Quelle gâteau préférez-vous ?",
+      "type": 3,
+      "answers": [
+        "Tarte aux fraises",
+        "Eclair au chocolat",
+        "Mille-feuille",
+        "Cheesecake",
+        "Tarte au citron",
+        "Aucun"
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Quelle est la capitale de l'Italie ?",
+      "type": 3,
+      "answers": [
+        "Florence",
+        "Milan",
+        "Naples",
+        "Rome",
+        "Turin"
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Quel est le vrai prénom du chanteur Soprano ?",
+      "type": 3,
+      "answers": [
+        "Sofiane",
+        "Stéphane",
+        "Saïd"
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Combien fait 8x9 ?",
+      "type": 2,
+      "answers": []
+    },
+    {
+      "id": 26,
+      "title": "Combien vaut X si 2X-10=0 ?",
+      "type": 3,
+      "answers": [
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Quel est le résultat de l'addition 5+10+20 ?",
+      "type": 2,
+      "answers": []
+    },
+    {
+      "id": 28,
+      "title": "Quel est le taux de rémunération du livret A (en %) ?",
+      "type": 2,
+      "answers": []
+    },
+    {
+      "id": 29,
+      "title": "Combien y a t-il de secondes dans 1 heure ?",
+      "type": 3,
+      "answers": [
+        "36",
+        "360",
+        "3600",
+        "36000"
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Dans quel film ne joue pas Omar Sy ?",
+      "type": 3,
+      "answers": [
+        "Les seigneurs",
+        "Jurassic world",
+        "Intouchables",
+        "Le grand bain",
+        "Les Tuche"
+      ]
+    }
+  ];
+
   db: any = {};
 
   createDb(reqInfo?: RequestInfo) {
@@ -99,6 +345,9 @@ export class InMemoryDataService implements InMemoryDbService {
           case 'articles':
               this.db.articles = [...this.initialArticles];
               break;
+          case 'questions':
+              this.db.questions = [...this.initialQuestions];
+              break;
           default:
             this.resetDb();
             break;
@@ -106,7 +355,7 @@ export class InMemoryDataService implements InMemoryDbService {
       }
 
       return this.db;
-      //return { authors, books, movies, directors, temperatures, articles };
+      //return { authors, books, movies, directors, temperatures, articles, questions };
   }
 
 
@@ -117,7 +366,8 @@ export class InMemoryDataService implements InMemoryDbService {
       movies: [...this.initialMovies],
       directors: [...this.initialDirectors],
       temperatures: [...this.initialTemperatures],
-      articles: [...this.initialArticles]
+      articles: [...this.initialArticles],
+      questions: [...this.initialQuestions]
     };
    }
 }
