@@ -47,6 +47,10 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/ngrx/ngrx.routes').then(item =>item.ngrxRoutes)
     },
     {
+        path: 'cdk',
+        loadChildren: () => import('./pages/cdk/cdk.routes').then(item =>item.cdkRoutes)
+    },
+    {
         path: 'admin/dashboard',
         component: DashboardComponent,
         canActivate: [authGuard]

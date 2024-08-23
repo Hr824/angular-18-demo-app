@@ -1,10 +1,13 @@
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a routerLink="">Home</a></li>  
-      @if(theme() !== ''){
+      @if(theme()){
         <li class="breadcrumb-item">{{ theme() }}</li>
       }
-      @if(page() !== ''){
+      @if(theme1()){
+        <li class="breadcrumb-item">{{ theme1() }}</li>
+      }
+      @if(page()){
         <li class="breadcrumb-item active" aria-current="page">{{ page() }}</li>
       }
     </ol>

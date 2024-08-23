@@ -10,5 +10,6 @@ import { RouterLink } from '@angular/router';
 })
 export class BreadcrumbComponent {
   theme = input<string>();
+  theme1 = input<string>();
   page = input<string>();
 }
