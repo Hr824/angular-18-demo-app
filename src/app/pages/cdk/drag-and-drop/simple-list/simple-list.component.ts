@@ -1,5 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
-import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Todo } from '../../../../models/todo';
 import { LoaderComponent } from '../../../../components/shared/loader/loader.component';
 import { BreadcrumbComponent } from '../../../../components/shared/breadcrumb/breadcrumb.component';
@@ -7,25 +8,23 @@ import { BreadcrumbComponent } from '../../../../components/shared/breadcrumb/br
 @Component({
   selector: 'app-simple-list',
   standalone: true,
-  imports: [CdkDropList, CdkDrag, LoaderComponent, BreadcrumbComponent],
+  imports: [CommonModule, CdkDropList, CdkDrag, LoaderComponent, BreadcrumbComponent],
   templateUrl: './simple-list.component.html',
   styleUrl: './simple-list.component.css'
 })
-export class SimpleListComponent implements OnInit {
+export class SimpleListComponent{
 
-  theme = signal<string>('Cdk');
-  theme1 = signal<string>('Drag and Drop');
-  page = signal<string>('Liste simple');
+  theme: string = 'Cdk';
+  theme1: string = 'Drag and Drop';
+  page: string = 'Liste simple';
 
   localStorageKey: string = 'todos';
+  nbTodosMax: number = 8; //Nombre maximum de tâches pour l'exemple
 
   todosTab: string|null = window.localStorage ? localStorage.getItem(this.localStorageKey) : null;
 
   todos = signal<Todo[]>(this.todosTab ? JSON.parse(this.todosTab) : [{ id: 1, title: 'Nouvelle tâche (n°1)'}]);
 
-  ngOnInit(): void {
-
-  }
 
   drop(event: CdkDragDrop<string[]>) {
 
@@ -40,8 +39,7 @@ export class SimpleListComponent implements OnInit {
 
   addItem(): void{
 
-    //Max 8 items pour l'exemple
-    if(this.todos().length < 8) {
+    if(this.todos().length < this.nbTodosMax) {
       let idMax = this.todos().length === 0 ? 0 : this.todos().reduce((a,b) => a.id > b.id ? a : b).id;
     
       this.todos().push({ 

@@ -1,0 +1,118 @@
+<app-breadcrumb [theme]="theme" [theme1]="theme1" [page]="page"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>Drag and Drop (Kanban)</h3>
+            <div>
+                - Tableau Kanban avec Drag and Drop pour ordonner les tâches
+            </div>
+            <div>
+                - Utilisation du localStorage pour la persistance des données
+            </div>
+            <div>
+                - Pour l'exemple, {{ nbTasksMax }} tâches maximum au total
+            </div> 
+        </div>   
+    </div>
+</div>
+@defer {
+  <div class="row">
+    <div class="col-12">
+        <button 
+          [disabled]="allTasksCount() >= nbTasksMax"
+          [ngClass]="allTasksCount() >= nbTasksMax ? 'btn btn-outline-secondary btn-sm rounded-pill' : 'btn btn-outline-info btn-sm rounded-pill'"
+          (click)="addItem()">Ajouter une tâche</button>&nbsp;
+        @if(allTasks()) {
+            @if(allTasksCount() > 0) {
+                <button class="btn btn-sm btn-outline-danger rounded-pill" (click)="deleteAllItems()">Vider le tableau</button>    
+            }
+            @if(allTasksCount() >= nbTasksMax) {
+              &nbsp;
+              <span class="text-danger">Vous avez atteint le nombre maximum de tâches</span>
+            } 
+        }
+    <br /><br />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div cdkDropListGroup>
+        <table>
+          <thead>
+            <tr style="text-align: center">
+                <th scope="col"><h4>To do</h4></th>
+                <th scope="col"><h4>In progress</h4></th>
+                <th scope="col"><h4>Test QA</h4></th>
+                <th scope="col"><h4>Done</h4></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="vertical-align: top">
+              <td>
+                <div class="task-container">
+                  <div id="todosList"
+                    cdkDropList
+                    [cdkDropListData]="allTasks().todos"
+                    class="task-list"
+                    (cdkDropListDropped)="drop($event)">
+                    @for (item of allTasks().todos; track item.id) {
+                      <div class="task-box" cdkDrag>
+                        {{item.id}} - {{item.title}}
+                        <button 
+                          type="button"
+                          (click)="deleteItem(item)"
+                          class="btn btn-sm btn-outline-danger task-box-delete-btn">X</button>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="task-container">
+                  <div id="inProgressList"
+                    cdkDropList
+                    [cdkDropListData]="allTasks().inProgress"
+                    class="task-list"
+                    (cdkDropListDropped)="drop($event)">
+                    @for (item of allTasks().inProgress; track item.id) {
+                      <div class="task-box" cdkDrag>{{item.id}} - {{item.title}}</div>
+                    }
+                  </div>
+              </div>
+              </td>
+              <td>
+                <div class="task-container">
+                  <div id="testsQaList"
+                    cdkDropList
+                    [cdkDropListData]="allTasks().testsQa"
+                    class="task-list"
+                    (cdkDropListDropped)="drop($event)">
+                    @for (item of allTasks().testsQa; track item.id) {
+                      <div class="task-box" cdkDrag>{{item.id}} - {{item.title}}</div>
+                    }
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="task-container">
+                  <div id="doneList"
+                    cdkDropList
+                    [cdkDropListData]="allTasks().done"
+                    class="task-list"
+                    (cdkDropListDropped)="drop($event)">
+                    @for (item of allTasks().done; track item.id) {
+                      <div class="task-box" cdkDrag>{{item.id}} - {{item.title}}</div>
+                    }
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+    </div>
+  </div>
+}
+@placeholder(minimum 1500ms) {
+  <app-loader></app-loader>
+}

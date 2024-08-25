@@ -1,16 +1,16 @@
-<app-breadcrumb [theme]="theme()" [theme1]="theme1()" [page]="page()"></app-breadcrumb>
+<app-breadcrumb [theme]="theme" [theme1]="theme1" [page]="page"></app-breadcrumb>
 <div class="row">
     <div class="col-12">
         <div class="mg-page-title">
             <h3>Drag and Drop (Liste simple)</h3>
             <div>
-                - Liste avec Drag and Drop pour réordonner les tâches
+                - Liste avec Drag and Drop pour ordonner les tâches
             </div>
             <div>
                 - Utilisation du localStorage pour la persistance des données
             </div>
             <div>
-                - Pour l'exemple, 8 tâches maximum dans la liste
+                - Pour l'exemple, {{ nbTodosMax }} tâches maximum dans la liste
             </div> 
         </div>   
     </div>
@@ -20,19 +20,18 @@
         <div class="col-1"></div>
         <div class="col-10">
             <div>
-                <button class="btn btn-sm btn-outline-info rounded-pill" (click)="addItem()">Ajouter une tâche</button>&nbsp;     
+                <button
+                    [disabled]="todos().length >= nbTodosMax"
+                    [ngClass]="todos().length >= nbTodosMax ? 'btn btn-outline-secondary btn-sm rounded-pill' : 'btn btn-outline-info btn-sm rounded-pill'"
+                    (click)="addItem()">Ajouter une tâche</button>&nbsp;     
                 @if(todos()) {
-                    @if(todos().length === 0) {
-                        <span>Aucune tâche disponible</span>
-                    }
-
                     @if(todos().length > 0) {
                         <button class="btn btn-sm btn-outline-danger rounded-pill" (click)="deleteAllItems()">Vider la liste</button>    
                     }
 
-                    @if(todos().length >= 8) {
+                    @if(todos().length >= nbTodosMax) {
                       &nbsp;
-                      <span>Nombre maximum de tâches atteint</span>
+                      <span class="text-danger">Nombre maximum de tâches atteint</span>
                     } 
                 }
             </div>
@@ -43,7 +42,7 @@
                     @for (todo of todos(); track todo.id) {
                         <div class="todo-box" cdkDrag [cdkDragData]="todo.id">
                             {{todo.title}}
-                            <button (click)="deleteItem(todo)" class="btn btn-sm btn-danger">X</button>
+                            <button (click)="deleteItem(todo)" class="btn btn-sm btn-outline-danger">X</button>
                         </div>
                     }
                 </div>
