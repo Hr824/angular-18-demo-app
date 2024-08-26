@@ -20,8 +20,6 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
   theme: string = 'Chart.js';
   page: string = 'Dashboard';
 
-  currentMonthAndYear = signal<string>('');
-  
   subscriptions: Subscription = new Subscription();
 
   chartService = inject(ChartService);
@@ -35,10 +33,6 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-
-    const today = new Date();
-    this.currentMonthAndYear.set(months[today.getMonth()] + ' ' + today.getFullYear());
-
     this.createVentesMensuellesChart();
     this.createVendeursChart();
     this.createProduitsChart();
@@ -85,7 +79,7 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
               },
               title: {
                 display: true,
-                text: 'Chiffre d\'affaire mensuel 2024'
+                text: 'Chiffre d\'affaire mensuel'
               },
               tooltip: {
                 displayColors: false,
@@ -117,7 +111,7 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
     const data = {
-      labels: ['Sophie', 'Thomas', 'Juliette'],
+      labels: ['Vendeur 1', 'Vendeur 2', 'Vendeur 3'],
       datasets: [{
         data: [11200.00, 11850.50, 5044.50],
         borderWidth: 1,

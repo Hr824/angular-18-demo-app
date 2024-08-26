@@ -74,10 +74,10 @@ export class InMemoryDataService implements InMemoryDbService {
     { id: 6, monthId: 6, month: 'Juin', year: 2024, value: 3401.55 },
     { id: 7, monthId: 7, month: 'Juillet', year: 2024, value: 3205.78 },
     { id: 8, monthId: 8, month: 'Août', year: 2024, value: 3763.10 },
-    { id: 9, monthId: 9, month: 'Septembre', year: 2024, value: 0 },
-    { id: 10, monthId: 10, month: 'Octobre', year: 2024, value: 0 },
-    { id: 11, monthId: 11, month: 'Novembre', year: 2024, value: 0 },
-    { id: 12, monthId: 12, month: 'Décembre', year: 2024, value: 0 }
+    { id: 9, monthId: 9, month: 'Septembre', year: 2024, value: 2560.12 },
+    { id: 10, monthId: 10, month: 'Octobre', year: 2024, value: 3540.45 },
+    { id: 11, monthId: 11, month: 'Novembre', year: 2024, value: 4200.00 },
+    { id: 12, monthId: 12, month: 'Décembre', year: 2024, value: 4450.95 }
   ];
 
   private initialArticles: Article[] = [
