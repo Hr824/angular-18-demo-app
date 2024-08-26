@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Temperature } from '../../../models/temperature';
 import { ChartService } from '../../../services/chart.service';
@@ -15,8 +15,8 @@ import Chart from 'chart.js/auto';
 })
 export class TemperatureChartComponent implements OnInit, OnDestroy {
   
-  theme = signal<string>('Chart.js');
-  page = signal<string>('Bar Chart');
+  theme: string = 'Chart.js';
+  page: string = 'Bar Chart';
 
   subscriptions: Subscription = new Subscription();
 

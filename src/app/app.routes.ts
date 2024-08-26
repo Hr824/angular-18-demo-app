@@ -35,12 +35,16 @@ export const routes: Routes = [
         component: TemperatureChartComponent
     },
     {
+        path: 'chartjs/dashboard',
+        loadComponent: () => import('./pages/chartjs/dashboard-user/dashboard-user.component').then(item => item.DashboardUserComponent)
+    },
+    {
         path: 'reactiveform/menu',
         component: MenuFormComponent
     },
     {
         path: 'reactiveform/questionnaire',
-        loadComponent: () => import('./pages/reactive-forms/dynamic-form/dynamic-form.component').then(m => m.DynamicFormComponent)
+        loadComponent: () => import('./pages/reactive-forms/dynamic-form/dynamic-form.component').then(item => item.DynamicFormComponent)
     },
     {
         path: 'ngrx',

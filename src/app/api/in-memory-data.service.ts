@@ -6,6 +6,7 @@ import { Temperature } from '../models/temperature';
 import { Injectable } from '@angular/core';
 import { Article } from '../models/article';
 import { Question } from '../models/question';
+import { VenteMensuelle } from '../models/vente';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +62,22 @@ export class InMemoryDataService implements InMemoryDbService {
     { id: 9, day: 0, month: 'Septembre', year: 2023, value: 21.4, city: 'Paris' },
     { id: 10, day: 0, month: 'Octobre', year: 2023, value: 15.6, city: 'Paris' },
     { id: 11, day: 0, month: 'Novembre', year: 2023, value: 9.8, city: 'Paris' },
-    { id: 12, day: 0, month: 'Décembre', year: 2023, value: 8.1, city: 'Paris' },
+    { id: 12, day: 0, month: 'Décembre', year: 2023, value: 8.1, city: 'Paris' }
+  ];
+
+  private initialVentesMensuelles: VenteMensuelle[] = [
+    { id: 1, monthId: 1, month: 'Janvier', year: 2024, value: 3500.95 },
+    { id: 2, monthId: 2, month: 'Février', year: 2024, value: 2407.50 },
+    { id: 3, monthId: 3, month: 'Mars', year: 2024, value: 2956.23 },
+    { id: 4, monthId: 4, month: 'Avril', year: 2024, value: 2489.56 },
+    { id: 5, monthId: 5, month: 'Mai', year: 2024, value: 4203.12 },
+    { id: 6, monthId: 6, month: 'Juin', year: 2024, value: 3401.55 },
+    { id: 7, monthId: 7, month: 'Juillet', year: 2024, value: 3205.78 },
+    { id: 8, monthId: 8, month: 'Août', year: 2024, value: 3763.10 },
+    { id: 9, monthId: 9, month: 'Septembre', year: 2024, value: 0 },
+    { id: 10, monthId: 10, month: 'Octobre', year: 2024, value: 0 },
+    { id: 11, monthId: 11, month: 'Novembre', year: 2024, value: 0 },
+    { id: 12, monthId: 12, month: 'Décembre', year: 2024, value: 0 }
   ];
 
   private initialArticles: Article[] = [
@@ -342,6 +358,9 @@ export class InMemoryDataService implements InMemoryDbService {
           case 'temperatures':
               this.db.temperatures = [...this.initialTemperatures];
               break;
+          case 'ventesMensuelles':
+              this.db.ventesMensuelles = [...this.initialVentesMensuelles];
+              break;
           case 'articles':
               this.db.articles = [...this.initialArticles];
               break;
@@ -355,7 +374,7 @@ export class InMemoryDataService implements InMemoryDbService {
       }
 
       return this.db;
-      //return { authors, books, movies, directors, temperatures, articles, questions };
+      //return { authors, books, movies, directors, temperatures, ventesMensuelles, articles, questions };
   }
 
 
@@ -366,6 +385,7 @@ export class InMemoryDataService implements InMemoryDbService {
       movies: [...this.initialMovies],
       directors: [...this.initialDirectors],
       temperatures: [...this.initialTemperatures],
+      ventesMensuelles: [...this.initialVentesMensuelles],
       articles: [...this.initialArticles],
       questions: [...this.initialQuestions]
     };
