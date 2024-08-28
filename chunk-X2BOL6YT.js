@@ -1,0 +1,1 @@
+import{a as o}from"./chunk-7NYO55QM.js";import"./chunk-PSCJD4XD.js";import"./chunk-RDBCIR3G.js";import"./chunk-2NFLSA4Y.js";var p=[{path:"forkjoin",loadComponent:()=>import("./chunk-63Q7KQMJ.js").then(n=>n.ForkjoinComponent)},{path:"**",component:o}];export{p as rxjsRoutes};
