@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-12">
+    @if(data){
+      <div class="card border-info mb-2">
+          <div class="card-header text-center fw-bold">{{ data.title }}</div>
+          <div class="card-body">
+            <p class="card-text"><span class="fw-semibold fst-italic">Année</span> : {{ data.year }}</p>
+            <p class="card-text"><span class="fw-semibold fst-italic">Durée</span> : {{ data.duration }}</p>
+            <p class="card-text"><span class="fw-semibold fst-italic">Réalisateur</span> : {{ data.director?.firstname }} {{ data.director?.lastname }}</p>
+            <p class="card-text"><span class="fw-semibold fst-italic">Synopsis</span> :<br/> {{ data.synopsis }}</p>
+          </div>
+      </div>
+    }
+    <div class="text-end">
+      <button class="btn btn-sm btn-outline-dark rounded-pill" (click)="dialogRef.close()">Fermer</button>
+    </div>
+  </div>
+</div>

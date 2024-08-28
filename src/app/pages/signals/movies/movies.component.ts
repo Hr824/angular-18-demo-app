@@ -1,12 +1,16 @@
-import { Component, computed, inject, Input, OnDestroy, OnInit, signal } from '@angular/core';
-import { concatMap, interval, Subscription } from 'rxjs';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { concatMap, Subscription } from 'rxjs';
 import { Movie } from '../../../models/movie';
 import { MovieService } from '../../../services/movie.service';
 import { LoaderComponent } from '../../../components/shared/loader/loader.component';
 import { BreadcrumbComponent } from '../../../components/shared/breadcrumb/breadcrumb.component';
+import { DetailsDialogComponent } from './details-dialog/details-dialog.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 //import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 //import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 //import { TickComponent } from '../../../components/shared/tick/tick.component';
+
 
 //###################################
 //Modal pour la suppression d'un film
@@ -56,18 +60,16 @@ import { BreadcrumbComponent } from '../../../components/shared/breadcrumb/bread
 //Fin Modal pour la suppression d'un film
 //#######################################
 
-
-
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [LoaderComponent, BreadcrumbComponent],
+  imports: [LoaderComponent, BreadcrumbComponent, DialogModule],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css'
 })
 export class MoviesComponent implements OnInit, OnDestroy {
     
-    // //Version avec Modal pour supprimer un film
+    // //Version avec Modal Ng Bootstrap pour supprimer un film
     // private modalService = inject(NgbModal);
     // openDeleteModal(movie: Movie) {
     //   //https://github.com/ng-bootstrap/ng-bootstrap/issues/4703
@@ -92,8 +94,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
     // }
 
 
-    theme = signal<string>('Signals');
-    page = signal<string>('Suppression');
+    theme: string = 'Signals';
+    page: string = 'Suppression';
 
 
     //Test de takeUntilDestroy() avec TickComponent pour unsubscribe automatiquement
@@ -165,5 +167,49 @@ export class MoviesComponent implements OnInit, OnDestroy {
       //Avec Signal readonly
       //====================
       //this.movies = toSignal(moviesWithDirectors$, { injector: this.injector, initialValue: [] });
-    } 
+    }
+
+
+    //============================
+    // Angular/CDK
+    // Détails dialog (Modal popup) 
+    //============================
+    detailsDialog = inject(Dialog);
+    openDetailsDialog(movie: Movie): void {
+      this.detailsDialog.open(DetailsDialogComponent, {
+        id: 'detailsModal',
+        width: '350px',
+        disableClose: true,
+        data: movie
+      });
+    }
+
+
+    //===========================
+    // Angular/CDK
+    // Delete dialog (Modal popup) 
+    //===========================
+    deleteDialog = inject(Dialog);
+    openDeleteDialog(movie: Movie): void {
+      const deleteDialogRef = this.deleteDialog.open<number>(DeleteDialogComponent, {
+        id: 'deleteModal',
+        width: '350px',
+        disableClose: true,
+        data: movie
+      });
+
+      this.subscriptions.add(
+        deleteDialogRef.closed.subscribe({
+          next: id => { 
+            // console.log('The delete dialog was closed');
+            // console.log('id', id);
+            if(id !== undefined){
+              this.deleteMovie(id);
+            }  
+          }
+          // error: err => console.log('Delete dialog error', err),
+          // complete: () => console.log('Delete dialog complete')
+        })
+      );
+    }
 }

@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-12">
+        <div class="mt-3 mb-5">
+            Êtes-vous sûr de vouloir supprimer "<span class="fw-semibold">{{ data.title }}</span>" de <span>{{ data.director?.firstname }} {{ data.director?.lastname }}</span> ?
+        </div>
+        <div class="text-end">
+            <button class="btn btn-sm btn-outline-danger rounded-pill" (click)="dialogRef.close(data.id)">Supprimer</button>&nbsp;
+            <button class="btn btn-sm btn-outline-dark rounded-pill" (click)="dialogRef.close()">Annuler</button>
+        </div>
+    </div>
+</div>

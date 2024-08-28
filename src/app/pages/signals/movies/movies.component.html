@@ -1,4 +1,17 @@
-<app-breadcrumb [theme]="theme()" [page]="page()"></app-breadcrumb>
+<app-breadcrumb [theme]="theme" [page]="page"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>Signals + Angular/CDK</h3> 
+            <div>
+                - 1 popup pour afficher les détails d'un film
+            </div>
+            <div>
+                - 1 popup pour confirmer la suppression d'un film
+            </div>
+        </div>   
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         @defer {
@@ -18,13 +31,18 @@
                         @for(movie of movies(); track movie.id){
                             <tr>
                                 <td>{{ movie.id }}</td>
-                                <td>{{ movie.title }}</td>
+                                <!-- <td>{{ movie.title }}</td> -->
+                                 <td>
+                                    <button type="button" class="btn btn-link" (click)="openDetailsDialog(movie)">{{ movie.title }}</button>
+                                </td>
                                 <td>{{ movie.year }}</td>
                                 <td>{{ movie.duration }}</td>
                                 <td>{{ movie.director?.firstname }} {{ movie.director?.lastname }}</td>
                                 <td>
-                                    <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-outline-danger rounded-pill">Supprimer</button>
-                                    <!-- Version avec Modal pour supprimer un film -->
+                                    <!-- <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-outline-danger rounded-pill">Supprimer</button> -->
+                                    <button (click)="openDeleteDialog(movie)" class="btn btn-sm btn-outline-danger rounded-pill">Supprimer</button>
+                                    
+                                    <!-- Version avec Modal Ng Bootstrap pour supprimer un film -->
                                     <!-- <button 
                                         class="btn btn-sm btn-outline-danger rounded-pill"
                                         [id]="'btnDelete-' + movie.id"
