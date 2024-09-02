@@ -1,1 +1,0 @@
-import"./chunk-2NFLSA4Y.js";var n=[{path:"drag-and-drop/simple-list",loadComponent:()=>import("./chunk-CLF6TYE7.js").then(o=>o.SimpleListComponent)},{path:"drag-and-drop/kanban",loadComponent:()=>import("./chunk-TPU47ICG.js").then(o=>o.KanbanComponent)},{path:"**",loadComponent:()=>import("./chunk-RQ6ADERO.js").then(o=>o.PageNotFoundComponent)}];export{n as cdkRoutes};
