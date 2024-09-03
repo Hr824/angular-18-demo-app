@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Question } from '../models/question';
-import { apiEndpoints } from '../app.config';
+import { AppSettings } from '../app.custom.settings';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class QuestionService {
    * @returns Un tableau d'observable de questions
    */
   getAllQuestions(): Observable<Question[]> {
-    const questions$ = this.httpClient.get<Question[]>(apiEndpoints.QUESTIONS);
+    const questions$ = this.httpClient.get<Question[]>(AppSettings.API_END_POINTS.QUESTIONS);
     return questions$;
   }
 

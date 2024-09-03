@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Director, Movie } from '../models/movie';
 import { forkJoin, map, Observable } from 'rxjs';
-import { apiEndpoints } from '../app.config';
+import { AppSettings } from '../app.custom.settings';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,12 @@ export class MovieService {
   constructor(private httpClient: HttpClient) {}
 
   getMovies(): Observable<Movie[]> {
-    const movies$ = this.httpClient.get<Movie[]>(apiEndpoints.MOVIES);
+    const movies$ = this.httpClient.get<Movie[]>(AppSettings.API_END_POINTS.MOVIES);
     return movies$;
   }
 
   getDirectors(): Observable<Director[]> {
-    const directors$ = this.httpClient.get<Director[]>(apiEndpoints.DIRECTORS)
+    const directors$ = this.httpClient.get<Director[]>(AppSettings.API_END_POINTS.DIRECTORS)
     .pipe(
       map(directors => directors.map(director => {
         return {
@@ -32,11 +32,11 @@ export class MovieService {
   }
 
   deleteMovie(id: number){
-    return this.httpClient.delete(`${apiEndpoints.MOVIES}/${id}`);
+    return this.httpClient.delete(`${AppSettings.API_END_POINTS.MOVIES}/${id}`);
   }
 
   resetDatabase(collection: string): Observable<any> {
-    return this.httpClient.post(`commands/resetdb/${collection}`, {});
+    return this.httpClient.post(`${AppSettings.API_END_POINTS.RESET_DB}/${collection}`, {});
   }
 
 

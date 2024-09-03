@@ -3,13 +3,13 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { TokenService } from '../services/token.service';
-import { constants } from '../app.config';
+import { AppSettings } from '../app.custom.settings';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   const router: Router = inject(Router);
   const tokenService = inject(TokenService);
-  const authToken = tokenService.getToken(constants.AUTH_TOKEN);
+  const authToken = tokenService.getToken(AppSettings.AUTH_TOKEN_KEY);
 
   let authReq: HttpRequest<unknown>;
   if(authToken){
