@@ -1,29 +1,31 @@
 import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../errors/page-not-found/page-not-found.component';
+import { AppSettings } from '../../app.custom.settings';
 
 export const signalsRoutes: Routes = [
     {
         path: 'delete',
-        loadComponent: () => import('./movies/movies.component').then(m => m.MoviesComponent)
-        //component: MoviesComponent
+        title: `${AppSettings.APP_TITLE} - Signals : Supression`,
+        loadComponent: () => import('./movies/movies.component').then(item => item.MoviesComponent)
     },
     {
         path: 'search',
-        loadComponent: () => import('./search-movies/search-movies.component').then(m => m.SearchMoviesComponent)
-        //component: SearchMoviesComponent
+        title: `${AppSettings.APP_TITLE} - Signals : Recherche`,
+        loadComponent: () => import('./search-movies/search-movies.component').then(item => item.SearchMoviesComponent)
     },
     {
         path: 'input',
-        loadComponent: () => import('./input-movies/parent.component').then(m => m.ParentComponent)
-        //component: ParentComponent
+        title: `${AppSettings.APP_TITLE} - Signals : Input`,
+        loadComponent: () => import('./input-movies/parent.component').then(item => item.ParentComponent)
     },
     {
         path: 'model-input',
-        loadComponent: () => import('./model-input/parent.component').then(m => m.ParentComponent)
-        //component: ParentComponent
+        title: `${AppSettings.APP_TITLE} - Signals : Model Input`,
+        loadComponent: () => import('./model-input/parent.component').then(item => item.ParentComponent)
     },
     {
       path: '**',
+      title: `${AppSettings.APP_TITLE} - Erreur 404`,
       component: PageNotFoundComponent
     }
 ];

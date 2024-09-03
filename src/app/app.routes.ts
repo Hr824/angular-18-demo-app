@@ -8,18 +8,22 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { LogoutComponent } from './pages/auth/logout/logout.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { authGuard } from './guards/auth.guard';
+import { AppSettings } from './app.custom.settings';
 
 export const routes: Routes = [
     {
         path: '',
+        title: `${AppSettings.APP_TITLE} - Accueil`,
         component: HomeComponent
     },
     {
         path: 'login',
+        title: `${AppSettings.APP_TITLE} - Connexion`,
         component: LoginComponent
     },
     {
         path: 'logout',
+        title: `${AppSettings.APP_TITLE} - Déconnexion`,
         component: LogoutComponent
     },
     {
@@ -32,18 +36,22 @@ export const routes: Routes = [
     },
     {
         path: 'chartjs/temperature',
+        title: `${AppSettings.APP_TITLE} - Chart.js : Bar Chart`,
         component: TemperatureChartComponent
     },
     {
         path: 'chartjs/dashboard',
+        title: `${AppSettings.APP_TITLE} - Chart.js : dashboard`,
         loadComponent: () => import('./pages/chartjs/dashboard-user/dashboard-user.component').then(item => item.DashboardUserComponent)
     },
     {
         path: 'reactiveform/menu',
+        title: `${AppSettings.APP_TITLE} - Reactive Forms : Menu`,
         component: MenuFormComponent
     },
     {
         path: 'reactiveform/questionnaire',
+        title: `${AppSettings.APP_TITLE} - Reactive Forms : Questionnaire dynamique`,
         loadComponent: () => import('./pages/reactive-forms/dynamic-form/dynamic-form.component').then(item => item.DynamicFormComponent)
     },
     {
@@ -56,19 +64,23 @@ export const routes: Routes = [
     },
     {
         path: 'admin/dashboard',
+        title: `${AppSettings.APP_TITLE} - Admin : Dashboard`,
         component: DashboardComponent,
         canActivate: [authGuard]
     },
     {
         path: 'errorOccurred',
+        title: `${AppSettings.APP_TITLE} - Erreur`,
         component: ErrorOccurredComponent
     },
     {
         path: 'pageNotFound',
+        title: `${AppSettings.APP_TITLE} - Erreur 404`,
         component: PageNotFoundComponent
     },
     {
-      path: '**',
-      component: PageNotFoundComponent
+        path: '**',
+        title: `${AppSettings.APP_TITLE} - Erreur 404`,
+        component: PageNotFoundComponent
     }
 ];
