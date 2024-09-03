@@ -2,25 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Director, Movie } from '../models/movie';
 import { forkJoin, map, Observable } from 'rxjs';
+import { apiEndpoints } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
 
-  private readonly MOVIE_API_URL = 'api/movies';
-  private readonly DIRECTOR_API_URL = 'api/directors';
-
   constructor(private httpClient: HttpClient) {}
 
   getMovies(): Observable<Movie[]> {
-    const movies$ = this.httpClient.get<Movie[]>(this.MOVIE_API_URL);
-
+    const movies$ = this.httpClient.get<Movie[]>(apiEndpoints.MOVIES);
     return movies$;
   }
 
   getDirectors(): Observable<Director[]> {
-    const directors$ = this.httpClient.get<Director[]>(this.DIRECTOR_API_URL)
+    const directors$ = this.httpClient.get<Director[]>(apiEndpoints.DIRECTORS)
     .pipe(
       map(directors => directors.map(director => {
         return {
@@ -35,7 +32,7 @@ export class MovieService {
   }
 
   deleteMovie(id: number){
-    return this.httpClient.delete(`${this.MOVIE_API_URL}/${id}`);
+    return this.httpClient.delete(`${apiEndpoints.MOVIES}/${id}`);
   }
 
   resetDatabase(collection: string): Observable<any> {

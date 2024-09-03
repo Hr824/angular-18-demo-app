@@ -3,23 +3,21 @@ import { Injectable } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
 import { Book } from '../models/book';
 import { Author } from '../models/author';
+import { apiEndpoints } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
 
-  private readonly BOOK_API_URL = 'api/books';
-  private readonly AUTHOR_API_URL = 'api/authors';
-
   constructor(private httpClient: HttpClient) {}
 
   public getBooks(): Observable<Book[]> {
-    return this.httpClient.get<Book[]>(this.BOOK_API_URL);
+    return this.httpClient.get<Book[]>(apiEndpoints.BOOKS);
   }
 
   public getAuthors(): Observable<Author[]> {
-    return this.httpClient.get<Author[]>(this.AUTHOR_API_URL);
+    return this.httpClient.get<Author[]>(apiEndpoints.AUTHORS);
   }
 
   getBooksWithAuthors(): Observable<Book[]> {

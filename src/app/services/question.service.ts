@@ -2,13 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Question } from '../models/question';
+import { apiEndpoints } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
-
-  private readonly QUESTION_API_URL = 'api/questions';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -17,8 +16,7 @@ export class QuestionService {
    * @returns Un tableau d'observable de questions
    */
   getAllQuestions(): Observable<Question[]> {
-    const questions$ = this.httpClient.get<Question[]>(this.QUESTION_API_URL);
-
+    const questions$ = this.httpClient.get<Question[]>(apiEndpoints.QUESTIONS);
     return questions$;
   }
 

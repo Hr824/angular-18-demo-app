@@ -21,3 +21,21 @@ export const appConfig: ApplicationConfig = {
     provideEffects([CartEffects])
  ]
 };
+
+
+export const constants = {
+  AUTH_TOKEN: 'auth_token'
+};
+
+const apiUrl = 'api';
+
+export const apiEndpoints = {
+  ARTICLES: `${apiUrl}/articles`,
+  BOOKS: `${apiUrl}/books`,
+  AUTHORS: `${apiUrl}/authors`,
+  TEMPERATURES: `${apiUrl}/temperatures`,
+  VENTES_MENSUELLES: `${apiUrl}/ventesMensuelles`,
+  MOVIES: `${apiUrl}/movies`,
+  DIRECTORS: `${apiUrl}/directors`,
+  QUESTIONS: `${apiUrl}/questions`,
+};

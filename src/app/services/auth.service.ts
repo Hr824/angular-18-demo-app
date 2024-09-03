@@ -1,6 +1,8 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { TokenService } from './token.service';
+import { constants } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +32,9 @@ export class AuthService {
      this.username$$.update(() => value);
   }
 
-  private readonly tokenKey = 'authToken';
+  private readonly authTokenKey = constants.AUTH_TOKEN;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tokenService: TokenService) {}
 
   // Méthode pour se connecter et stocker le token JWT dans le localStorage
   login(username: string, password: string): boolean {
@@ -40,8 +42,8 @@ export class AuthService {
     if (username === 'user1' && password === 'pass1') {
 
       //Mock JWT token récupéré après l'appel de l'API côté backend
-      const token = username;
-      localStorage.setItem(this.tokenKey, token);
+      const authTokenValue = username;
+      this.tokenService.setToken(this.authTokenKey, authTokenValue);
 
       //###################################
       //Authentication with BehaviorSubject
@@ -56,7 +58,7 @@ export class AuthService {
 
       return true;
     } else {
-      localStorage.removeItem(this.tokenKey);
+      this.tokenService.removeToken(this.authTokenKey);
       this.setIsLogged(false);
       this.setUsername('');
       
@@ -67,7 +69,7 @@ export class AuthService {
 
   // Méthode pour se déconnecter et supprimer le token JWT du localStorage
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
+    this.tokenService.removeToken(this.authTokenKey);
 
     //###################################
     //Authentication with BehaviorSubject
@@ -85,7 +87,7 @@ export class AuthService {
 
   // Méthode pour vérifier si l'utilisateur est authentifié
   isAuthenticated(): boolean {
-    const token = localStorage.getItem(this.tokenKey);
+    const token = this.tokenService.getToken(this.authTokenKey);
     
     //###################################
     //Authentication with BehaviorSubject
@@ -99,10 +101,5 @@ export class AuthService {
     this.setUsername(token === null ? '' : token);
     
     return token === null ? false : true;
-  }
-
-  // Méthode pour obtenir le token JWT dans le localStorage
-  getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
   }
 }

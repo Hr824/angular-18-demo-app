@@ -14,35 +14,12 @@ import { KanbanTask } from '../../../../models/kanban-task';
 })
 export class KanbanComponent {
 
-  theme: string = 'Cdk';
+  theme: string = 'Angular/CDK';
   theme1: string = 'Drag and Drop';
   page: string = 'Kanban';
 
   localStorageKey: string = 'kanbanTasks';
   nbTasksMax: number = 10; //Nombre maximum de tâches pour l'exemple
-
-  // initialAllTasks = {
-  //   todos: [
-  //     { id: 1, title: 'Get to work' },
-  //     { id: 2, title: 'Pick up groceries' },
-  //     { id: 3, title: 'Go home' },
-  //     { id: 4, title: 'Fall asleep' }
-  //   ],
-  //   inProgress: [
-  //     { id: 5, title: 'Check planning' }
-  //   ],
-  //   testsQa: [
-  //     { id: 6, title: 'Test localization' },
-  //     { id: 7, title: 'Go home' }
-  //   ],
-  //   done: [
-  //     { id: 8, title: 'Get up' },
-  //     { id: 9, title: 'Brush teeth' },
-  //     { id: 10, title: 'Take a shower' },
-  //     { id: 11, title: 'Check e-mail' },
-  //     { id: 12, title: 'Walk dog' }
-  //   ]
-  // };
 
   initialAllTasks = {
     todos: [

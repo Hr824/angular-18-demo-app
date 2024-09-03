@@ -14,7 +14,7 @@ import { BreadcrumbComponent } from '../../../../components/shared/breadcrumb/br
 })
 export class SimpleListComponent{
 
-  theme: string = 'Cdk';
+  theme: string = 'Angular/CDK';
   theme1: string = 'Drag and Drop';
   page: string = 'Liste simple';
 

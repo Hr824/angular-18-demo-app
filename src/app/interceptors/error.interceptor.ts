@@ -1,13 +1,35 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
+import { TokenService } from '../services/token.service';
+import { constants } from '../app.config';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   const router: Router = inject(Router);
+  const tokenService = inject(TokenService);
+  const authToken = tokenService.getToken(constants.AUTH_TOKEN);
 
-  return next(req).pipe(
+  let authReq: HttpRequest<unknown>;
+  if(authToken){
+    //console.log('AUTHTOKEN', authToken)
+    authReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${authToken}`
+      },
+      withCredentials: true
+    });
+  }
+  else{
+    authReq = req.clone({
+      withCredentials: true
+    });
+  }
+
+  //console.log('AUTHREQ', authReq);
+
+  return next(authReq).pipe(
     catchError((err: any) => {
       if (err instanceof HttpErrorResponse) {
         switch (err.status) {
@@ -50,7 +72,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       }
 
       //return throwError(() => err); 
-      return next(req);
+      return next(authReq);
     })
   ); 
 };
