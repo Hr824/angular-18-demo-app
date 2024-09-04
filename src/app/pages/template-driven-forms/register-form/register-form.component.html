@@ -2,65 +2,128 @@
 <div class="row">
     <div class="col-12">
         <div class="mg-page-title">
-            <h3>Reactive Form</h3> 
+            <h3>Template-driven Form</h3> 
         </div>   
     </div>
 </div>
 <div class="row">
 	<div class="col-7">
         <div class="card border-info mb-3">
-            <div class="card-header text-center fw-bold">Choix du menu</div>
+            <div class="card-header text-center fw-bold">Inscription</div>
             <div class="card-body text-center">
-                <form [formGroup]="menuForm" (ngSubmit)="onSubmit()" autocomplete="off">
+                <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" autocomplete="off" novalidate>
                     <div class="row mb-3">
                         <label for="firstname" class="col-sm-2 col-form-label">Prénom <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="firstname" formControlName="firstname" maxlength="10">  
+                            <input type="text" class="form-control" id="firstname" name="firstname"
+                                   [(ngModel)]="contact().firstname" #fname="ngModel" required maxlength="10"
+                                   pattern="^([A-Za-zàâäéèêëîïôöùûüçÇÀÂÄÉÈÊËÎÏÔÖÙÛÜ]+[\-]{0,1}[ ]{0,1}[A-Za-zàâäéèêëîïôöùûüçÇÀÂÄÉÈÊËÎÏÔÖÙÛÜ]*)$">
+                            
+                            <input type="hidden" id="id" name="id" [(ngModel)]="contact().id">
                         </div>
                         <div class="col-sm-5 text-start">
-                            @if(showErrorMessage('firstname', 'required')){
+                            <!-- Gestion du message d'erreur avec une méthode du composant en passant le formulaire en paramètre -->
+                            <!-- @if(showErrorMessage(registerForm, 'firstname', 'required')){
                                 <div class="invalid-feedback d-block">
                                     Le prénom est obligatoire
                                 </div>
-                            }
-                            @if(showErrorMessage('firstname', 'maxlength')){
+                            } -->
+
+                            <!-- Gestion du message d'erreur avec une méthode du composant en passant le FormControl en paramètre -->
+                            @if(showErrorMessage2(fname, 'required')){
                               <div class="invalid-feedback d-block">
-                                  Maximum 10 caractères
+                                  Le prénom est obligatoire
                               </div>
                             }
-                            @if(showErrorMessage('firstname', 'pattern')){
-                              <div class="invalid-feedback d-block">
-                                  Saisie incorrecte
-                              </div>
+
+                            <!-- Gestion des messages d'erreur directement dans le template -->
+                            @if(fname?.invalid && (fname?.touched || fname?.dirty)){
+                              @if(fname?.errors?.['minlength']){
+                                <div class="invalid-feedback d-block">
+                                    Maximum 10 caractères
+                                </div>
+                              }
+                              @if(fname?.errors?.['pattern']){
+                                <div class="invalid-feedback d-block">
+                                    Saisie incorrecte
+                                </div>
+                              }
                             }
                         </div>
                     </div>
                     <fieldset class="row mb-3">
-                        <legend class="col-form-label col-sm-2 pt-0">Entrées</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Civilité <span class="text-danger">*</span></legend>
                         <div class="col-sm-5 text-start">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="entrees" id="entree1" formControlName="entrees" value="Caille confite sur salade">
-                            <label class="form-check-label" for="entree1">
-                                Caille confite sur salade
+                            <input class="form-check-input" type="radio" required name="civilite" id="civilite1" [(ngModel)]="contact().civilite" value="Monsieur">
+                            <label class="form-check-label" for="civilite1">
+                                Monsieur
                             </label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="entrees" id="entree2" formControlName="entrees" value="Rillettes de truite">
-                            <label class="form-check-label" for="entree2">
-                                Rillettes de truite
+                            <input class="form-check-input" type="radio" required name="civilite" id="civilite2" [(ngModel)]="contact().civilite" value="Madame">
+                            <label class="form-check-label" for="civilite2">
+                                Madame
                             </label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="entrees" id="entree3" formControlName="entrees" value="Terrine de foie gras de canard">
-                            <label class="form-check-label" for="entree3">
-                                Terrine de foie gras de canard
+                            <input class="form-check-input" type="radio" required name="civilite" id="civilite3" [(ngModel)]="contact().civilite" value="Mademoiselle">
+                            <label class="form-check-label" for="civilite3">
+                                Mademoiselle
                             </label>
                           </div>
                         </div>
                         <div class="col-sm-5">
                         </div>
-                      </fieldset>
-                      <fieldset class="row mb-3">
+                    </fieldset>
+                    <div class="row mb-3">
+                      <label for="birthDate" class="col-sm-2 col-form-label">Date de naissance <span class="text-danger">*</span></label>
+                      <div class="col-sm-5">
+                        <div class="input-group">
+                            <input
+                              class="form-control"
+                              placeholder="yyyy-mm-dd"
+                              id="birthDate"
+                              name="birthDate"
+                              [(ngModel)]="contact().birthDate"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                            />
+                            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+                        </div>
+                        
+                      </div>
+                      <div class="col-sm-5 text-start">
+                          <!-- Gestion du message d'erreur avec une méthode du composant en passant le formulaire en paramètre -->
+                          <!-- @if(showErrorMessage(registerForm, 'firstname', 'required')){
+                              <div class="invalid-feedback d-block">
+                                  Le prénom est obligatoire
+                              </div>
+                          } -->
+
+                          <!-- Gestion du message d'erreur avec une méthode du composant en passant le FormControl en paramètre -->
+                          <!-- @if(showErrorMessage2(fname, 'required')){
+                            <div class="invalid-feedback d-block">
+                                Le prénom est obligatoire
+                            </div>
+                          } -->
+
+                          <!-- Gestion des messages d'erreur directement dans le template -->
+                          <!-- @if(fname?.invalid && (fname?.touched || fname?.dirty)){
+                            @if(fname?.errors?.['minlength']){
+                              <div class="invalid-feedback d-block">
+                                  Maximum 10 caractères
+                              </div>
+                            }
+                            @if(fname?.errors?.['pattern']){
+                              <div class="invalid-feedback d-block">
+                                  Saisie incorrecte
+                              </div>
+                            }
+                          } -->
+                      </div>
+                    </div>
+                      <!-- <fieldset class="row mb-3">
                         <legend class="col-form-label col-sm-2 pt-0">Plats <span class="text-danger">*</span></legend>
                         <div class="col-sm-5 text-start">
                           <div class="form-check">
@@ -89,8 +152,8 @@
                           </div>
                         </div>
                         <div class="col-sm-5"></div>
-                      </fieldset>
-                      <fieldset class="row mb-3">
+                      </fieldset> -->
+                      <!-- <fieldset class="row mb-3">
                         <legend class="col-form-label col-sm-2 pt-0">Fromages</legend>
                         <div class="col-sm-10 text-start">
                           <div class="form-check">
@@ -100,8 +163,8 @@
                             </label>
                           </div>          
                         </div>
-                      </fieldset>
-                      <fieldset class="row mb-3">
+                      </fieldset> -->
+                      <!-- <fieldset class="row mb-3">
                         <legend class="col-form-label col-sm-2 pt-0">Dessert</legend>
                         <div class="col-sm-5 text-start">
                           <div class="form-check">
@@ -130,20 +193,20 @@
                           </div>
                         </div>
                         <div class="col-sm-5"></div>
-                      </fieldset>
-                      <fieldset class="row mb-3">
+                      </fieldset> -->
+                      <!-- <fieldset class="row mb-3">
                         <legend class="col-form-label col-sm-2 pt-0">Café</legend>
                         <div class="col-sm-10 text-start">
                           <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" name="cafe" id="cafe1" formControlName="cafe">
                           </div>                 
                         </div>
-                      </fieldset>                
+                      </fieldset>                 -->
                       <div class="row mb-3">
                           <div class="col-sm-3">
-                              <button type="submit" [disabled]="menuForm.invalid" [ngClass]="menuForm.invalid ? 'btn btn-outline-secondary btn-sm rounded-pill' : 'btn btn-outline-info btn-sm rounded-pill'">Valider</button>
+                              <button type="submit" [disabled]="registerForm.invalid" [ngClass]="registerForm.invalid ? 'btn btn-outline-secondary btn-sm rounded-pill' : 'btn btn-outline-info btn-sm rounded-pill'">Valider</button>
                               &nbsp;
-                              <button type="reset" class="btn btn-sm btn-outline-danger rounded-pill" (click)="onReset()">Initialiser</button>            
+                              <button type="reset" class="btn btn-sm btn-outline-danger rounded-pill" (click)="onReset(registerForm)">Initialiser</button>            
                           </div>
                           <div class="col-sm-11">
                           </div>
@@ -153,7 +216,8 @@
         </div>
 	</div>
 	<div class="col-5">
-    @if(selectedMenu().firstname !== ''){
+    <pre>Contact BirthDate: {{ contact().birthDate | json }}</pre>
+    <!-- @if(selectedMenu().firstname !== ''){
       <ul style="list-style-type: none">
         <li><span class="fw-bold">Menu de {{ selectedMenu().firstname }}</span></li>
         <li><span class="text-decoration-underline">Entrée</span> : @if(selectedMenu().entree === null) { <span class="text-danger">Non</span> }@else { {{ selectedMenu().entree }} }</li>
@@ -162,6 +226,6 @@
         <li><span class="text-decoration-underline">Dessert</span> : @if(selectedMenu().dessert === null) { <span class="text-danger">Non</span> }@else { {{ selectedMenu().dessert }} }</li>
         <li><span class="text-decoration-underline">Café</span> : @if(selectedMenu().cafe === false) { <span class="text-danger">Non</span> }@else { <span class="text-primary">Oui</span> }</li>
       </ul>
-    }    
+    }     -->
 	</div>
 </div>

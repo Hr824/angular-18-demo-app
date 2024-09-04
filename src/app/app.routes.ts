@@ -7,6 +7,7 @@ import { MenuFormComponent } from './pages/reactive-forms/menu-form/menu-form.co
 import { LoginComponent } from './pages/auth/login/login.component';
 import { LogoutComponent } from './pages/auth/logout/logout.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { RegisterFormComponent } from './pages/template-driven-forms/register-form/register-form.component';
 import { authGuard } from './guards/auth.guard';
 import { AppSettings } from './app.custom.settings';
 
@@ -53,6 +54,11 @@ export const routes: Routes = [
         path: 'reactiveform/questionnaire',
         title: `${AppSettings.APP_TITLE} - Reactive Forms : Questionnaire dynamique`,
         loadComponent: () => import('./pages/reactive-forms/dynamic-form/dynamic-form.component').then(item => item.DynamicFormComponent)
+    },
+    {
+        path: 'template-driven-form/inscription',
+        title: `${AppSettings.APP_TITLE} - Template-driven Forms : Inscription`,
+        component: RegisterFormComponent
     },
     {
         path: 'ngrx',

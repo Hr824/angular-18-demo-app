@@ -21,8 +21,8 @@ const nbQuestionsToSelect: number = 5;
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {
 
-  theme = signal<string>('Reactive Form');
-  page = signal<string>('Questionnaire dynamique');
+  theme: string = 'Reactive Form';
+  page: string = 'Questionnaire dynamique';
 
   questions = signal<Question[]>([]);
   selectedQuestions = signal<Question[]>([]);

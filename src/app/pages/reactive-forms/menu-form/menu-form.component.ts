@@ -25,8 +25,8 @@ const regexPattern: string = '^([A-Za-zàâäéèêëîïôöùûüçÇÀÂÄÉ�
 })
 export class MenuFormComponent {
 
-  theme = signal<string>('Reactive Form');
-  page = signal<string>('Menu');
+  theme: string = 'Reactive Form';
+  page: string = 'Menu';
 
   selectedMenu = signal<Menu>(initialMenu); 
   menuForm!: FormGroup;
