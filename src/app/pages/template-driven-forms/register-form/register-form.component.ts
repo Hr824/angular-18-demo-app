@@ -1,16 +1,15 @@
-import { Component, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, inject, Injectable, signal } from '@angular/core';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { LoaderComponent } from '../../../components/shared/loader/loader.component';
 import { BreadcrumbComponent } from '../../../components/shared/breadcrumb/breadcrumb.component';
 import { Contact } from '../../../models/contact';
-
-import { NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDatepickerI18n, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 const initialContact: Contact = {
   id: 0,
   firstname: '',
-  civilite: 'Madame',
+  civilite: '',
   birthDate: {
     year: 0,
     month: 0,
@@ -18,75 +17,140 @@ const initialContact: Contact = {
   }
 };
 
+const I18N_VALUES = {
+	fr: {
+		weekdays: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
+		months: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc'],
+		weekLabel: 'sem',
+	},
+	// Autres langages
+};
+
+// Service contenant la langue
+@Injectable()
+export class I18n {
+	language = 'fr';
+}
+
+// Service personnalisé pour la traduction des mois et des jours de la semaine
+@Injectable()
+export class CustomDatepickerI18n extends NgbDatepickerI18n {
+	private _i18n = inject(I18n);
+
+	getWeekdayLabel(weekday: number): string {
+    return I18N_VALUES.fr.weekdays[weekday - 1];
+	}
+	override getWeekLabel(): string {
+    return I18N_VALUES.fr.weekLabel;
+	}
+	getMonthShortName(month: number): string {
+    return I18N_VALUES.fr.months[month - 1];
+	}
+	getMonthFullName(month: number): string {
+		return this.getMonthShortName(month);
+	}
+	getDayAriaLabel(date: NgbDateStruct): string {
+		return `${date.day}-${date.month}-${date.year}`;
+	}
+}
+
+
+/**
+ * Service qui gère la façon dont la date est représentée dans ngModel
+ */
+// @Injectable()
+// export class CustomAdapter extends NgbDateAdapter<string> {
+// 	readonly DELIMITER = '-';
+
+// 	fromModel(value: string | null): NgbDateStruct | null {
+// 		if (value) {
+// 			const date = value.split(this.DELIMITER);
+// 			return {
+// 				day: parseInt(date[0], 10),
+// 				month: parseInt(date[1], 10),
+// 				year: parseInt(date[2], 10),
+// 			};
+// 		}
+// 		return null;
+// 	}
+
+// 	toModel(date: NgbDateStruct | null): string | null {
+// 		return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
+// 	}
+// }
+
+/**
+ * Service qui gère la manière dont la date est rendue et analysée à partir du clavier,
+ * c'est-à-dire dans le champ de saisie lié
+ */
+@Injectable()
+export class CustomDateParserFormatter extends NgbDateParserFormatter {
+	readonly DELIMITER = '/';
+
+	parse(value: string): NgbDateStruct | null {
+		if (value) {
+			const date = value.split(this.DELIMITER);
+			return {
+				day: parseInt(date[0], 10),
+				month: parseInt(date[1], 10),
+				year: parseInt(date[2], 10),
+			};
+		}
+		return null;
+	}
+
+	format(date: NgbDateStruct | null): string {
+
+    let dateDay = '';
+    if(date) {
+      dateDay = date.day < 10 ? '0' + date.day : date.day.toString();
+    }
+    
+    let dateMonth = '';
+    if(date) {
+      dateMonth = date.month < 10 ? '0' + date.month : date.month.toString();
+    }
+
+    return date ? dateDay + this.DELIMITER + dateMonth + this.DELIMITER + date.year : '';
+		// return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : '';
+	}
+}
+
 
 @Component({
   selector: 'app-register-form',
   standalone: true,
   imports: [FormsModule, CommonModule, NgbDatepickerModule, LoaderComponent, BreadcrumbComponent, JsonPipe],
   templateUrl: './register-form.component.html',
-  styleUrl: './register-form.component.css'
+  styleUrl: './register-form.component.css',
+  providers: [
+    I18n, 
+    { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n },
+    //{ provide: NgbDateAdapter, useClass: CustomAdapter },
+		{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }
+  ]
 })
-export class RegisterFormComponent implements OnInit {
-
-  // @ViewChild('registerForm') registerForm!: NgForm;
-
+export class RegisterFormComponent {
 
   theme: string = 'Template-driven Form';
   page: string = 'Inscription';
 
   contact = signal<Contact>(initialContact);
 
-  //model!: NgbDateStruct;
-
-  ngOnInit(): void {
-    //this.contact.set({ id: 0, firstname: 'INIT !!!', civilite: 'Monsieur' })
-
-    // setTimeout(() => {
-    //   this.registerForm.setValue(this.contact());
-    // });
-  }
-
+  messageInscription = signal('');
 
   onSubmit(registerForm: NgForm): void {
-
     if(registerForm.valid){
-      console.log(registerForm.value);
+      this.contact().id = 0;
 
-      console.log(this.contact());
-
-
+      this.messageInscription.set(`${this.contact().firstname}, votre inscription a été prise en compte`)
     }
-
-
-    // if(this.menuForm.valid){
-    //   // console.table(this.menuForm.value);
-    //   // console.log('firstname', this.menuForm.controls['firstname'].value);
-    //   // console.log('entrees', this.menuForm.controls['entrees'].value);
-    //   // console.log('plats', this.menuForm.controls['plats'].value);
-    //   // console.log('fromages', this.menuForm.controls['fromages'].value);
-    //   // console.log('desserts', this.menuForm.controls['desserts'].value);
-    //   // console.log('cafe', this.menuForm.controls['cafe'].value);
-
-    //   this.selectedMenu.set({
-    //      firstname: this.menuForm.controls['firstname'].value,
-    //      entree: this.menuForm.controls['entrees'].value,
-    //      plat: this.menuForm.controls['plats'].value,
-    //      fromage: this.menuForm.controls['fromages'].value,
-    //      dessert: this.menuForm.controls['desserts'].value,
-    //      cafe: this.menuForm.controls['cafe'].value
-    //   });
-    // }
   }
 
 
   onReset(registerForm: NgForm) {
-    registerForm.resetForm(initialContact);
-
-    // setTimeout(() => {
-    //   // this.registerForm.setValue(initialContact);
-    //   registerForm.setValue(initialContact);
-    // });
-    // this.selectedMenu.set(initialMenu);
+    registerForm.reset();
+    this.messageInscription.set('');
   }
 
 

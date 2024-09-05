@@ -15,11 +15,10 @@
                     <div class="row mb-3">
                         <label for="firstname" class="col-sm-2 col-form-label">Prénom <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
+                            <input type="hidden" id="id" name="id" [(ngModel)]="contact().id" maxlength="3">
                             <input type="text" class="form-control" id="firstname" name="firstname"
                                    [(ngModel)]="contact().firstname" #fname="ngModel" required maxlength="10"
                                    pattern="^([A-Za-zàâäéèêëîïôöùûüçÇÀÂÄÉÈÊËÎÏÔÖÙÛÜ]+[\-]{0,1}[ ]{0,1}[A-Za-zàâäéèêëîïôöùûüçÇÀÂÄÉÈÊËÎÏÔÖÙÛÜ]*)$">
-                            
-                            <input type="hidden" id="id" name="id" [(ngModel)]="contact().id">
                         </div>
                         <div class="col-sm-5 text-start">
                             <!-- Gestion du message d'erreur avec une méthode du composant en passant le formulaire en paramètre -->
@@ -35,7 +34,7 @@
                                   Le prénom est obligatoire
                               </div>
                             }
-
+                            
                             <!-- Gestion des messages d'erreur directement dans le template -->
                             @if(fname?.invalid && (fname?.touched || fname?.dirty)){
                               @if(fname?.errors?.['minlength']){
@@ -82,133 +81,38 @@
                         <div class="input-group">
                             <input
                               class="form-control"
-                              placeholder="yyyy-mm-dd"
+                              placeholder="JJ/MM/AAAA"
                               id="birthDate"
                               name="birthDate"
                               [(ngModel)]="contact().birthDate"
                               ngbDatepicker
                               #d="ngbDatepicker"
+                              #bdate="ngModel"
+                              required
+                              maxlength="10"
+                              [minDate]="{year: 1925, month: 1, day: 1}"
                             />
                             <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
-                        </div>
-                        
+                        </div> 
                       </div>
                       <div class="col-sm-5 text-start">
-                          <!-- Gestion du message d'erreur avec une méthode du composant en passant le formulaire en paramètre -->
-                          <!-- @if(showErrorMessage(registerForm, 'firstname', 'required')){
-                              <div class="invalid-feedback d-block">
-                                  Le prénom est obligatoire
-                              </div>
-                          } -->
-
-                          <!-- Gestion du message d'erreur avec une méthode du composant en passant le FormControl en paramètre -->
-                          <!-- @if(showErrorMessage2(fname, 'required')){
+                        @if(bdate?.invalid && (bdate?.touched || bdate?.dirty)){
+                          @if(bdate?.errors?.['required']){
                             <div class="invalid-feedback d-block">
-                                Le prénom est obligatoire
+                                La date de naissance est obligatoire
                             </div>
-                          } -->
-
-                          <!-- Gestion des messages d'erreur directement dans le template -->
-                          <!-- @if(fname?.invalid && (fname?.touched || fname?.dirty)){
-                            @if(fname?.errors?.['minlength']){
-                              <div class="invalid-feedback d-block">
-                                  Maximum 10 caractères
-                              </div>
-                            }
-                            @if(fname?.errors?.['pattern']){
-                              <div class="invalid-feedback d-block">
-                                  Saisie incorrecte
-                              </div>
-                            }
-                          } -->
+                          }
+                        }
                       </div>
                     </div>
-                      <!-- <fieldset class="row mb-3">
-                        <legend class="col-form-label col-sm-2 pt-0">Plats <span class="text-danger">*</span></legend>
-                        <div class="col-sm-5 text-start">
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="plats" id="plat1" formControlName="plats" value="Confit de canard pommes à l'ail" checked>
-                            <label class="form-check-label" for="plat1">
-                                Confit de canard pommes à l'ail
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="plats" id="plat2" formControlName="plats" value="Steak tartare">
-                            <label class="form-check-label" for="plat2">
-                                Steak tartare
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="plats" id="plat3" formControlName="plats" value="Épaule d'agneau">
-                            <label class="form-check-label" for="plat3">
-                                Épaule d'agneau
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="plats" id="plat4" formControlName="plats" value="Pavé de bœuf sauce morilles">
-                            <label class="form-check-label" for="plat4">
-                                Pavé de bœuf sauce morilles
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-sm-5"></div>
-                      </fieldset> -->
-                      <!-- <fieldset class="row mb-3">
-                        <legend class="col-form-label col-sm-2 pt-0">Fromages</legend>
-                        <div class="col-sm-10 text-start">
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="fromages" id="fromage1" formControlName="fromages">
-                            <label class="form-check-label" for="fromage1">
-                                Assortiment de fromages
-                            </label>
-                          </div>          
-                        </div>
-                      </fieldset> -->
-                      <!-- <fieldset class="row mb-3">
-                        <legend class="col-form-label col-sm-2 pt-0">Dessert</legend>
-                        <div class="col-sm-5 text-start">
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="desserts" id="dessert1" formControlName="desserts" value="Crème brûlée">
-                            <label class="form-check-label" for="dessert1">
-                                Crème brûlée
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="desserts" id="dessert2" formControlName="desserts" value="Tarte aux pommes">
-                            <label class="form-check-label" for="dessert2">
-                                Tarte aux pommes
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="desserts" id="dessert3" formControlName="desserts" value="Fruits à l'eau de vie">
-                            <label class="form-check-label" for="dessert3">
-                                Fruits à l'eau de vie
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="desserts" id="dessert4" formControlName="desserts" value="Mousse au chocolat">
-                            <label class="form-check-label" for="dessert4">
-                                Mousse au chocolat
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-sm-5"></div>
-                      </fieldset> -->
-                      <!-- <fieldset class="row mb-3">
-                        <legend class="col-form-label col-sm-2 pt-0">Café</legend>
-                        <div class="col-sm-10 text-start">
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" name="cafe" id="cafe1" formControlName="cafe">
-                          </div>                 
-                        </div>
-                      </fieldset>                 -->
                       <div class="row mb-3">
-                          <div class="col-sm-3">
+                          <div class="col-sm-4">
                               <button type="submit" [disabled]="registerForm.invalid" [ngClass]="registerForm.invalid ? 'btn btn-outline-secondary btn-sm rounded-pill' : 'btn btn-outline-info btn-sm rounded-pill'">Valider</button>
                               &nbsp;
                               <button type="reset" class="btn btn-sm btn-outline-danger rounded-pill" (click)="onReset(registerForm)">Initialiser</button>            
                           </div>
-                          <div class="col-sm-11">
+                          <div class="col-sm-8 text-start text-danger">
+                            {{ messageInscription() }}
                           </div>
                       </div>
                 </form>
@@ -216,16 +120,6 @@
         </div>
 	</div>
 	<div class="col-5">
-    <pre>Contact BirthDate: {{ contact().birthDate | json }}</pre>
-    <!-- @if(selectedMenu().firstname !== ''){
-      <ul style="list-style-type: none">
-        <li><span class="fw-bold">Menu de {{ selectedMenu().firstname }}</span></li>
-        <li><span class="text-decoration-underline">Entrée</span> : @if(selectedMenu().entree === null) { <span class="text-danger">Non</span> }@else { {{ selectedMenu().entree }} }</li>
-        <li><span class="text-decoration-underline">Plat</span> : {{ selectedMenu().plat }}</li>
-        <li><span class="text-decoration-underline">Fromage</span> : @if(selectedMenu().fromage === false) { <span class="text-danger">Non</span> }@else { <span class="text-primary">Oui</span> }</li>
-        <li><span class="text-decoration-underline">Dessert</span> : @if(selectedMenu().dessert === null) { <span class="text-danger">Non</span> }@else { {{ selectedMenu().dessert }} }</li>
-        <li><span class="text-decoration-underline">Café</span> : @if(selectedMenu().cafe === false) { <span class="text-danger">Non</span> }@else { <span class="text-primary">Oui</span> }</li>
-      </ul>
-    }     -->
+    <!-- <pre>Contact: {{ contact() | json }}</pre> -->
 	</div>
 </div>
