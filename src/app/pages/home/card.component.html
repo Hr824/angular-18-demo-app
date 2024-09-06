@@ -1,0 +1,5 @@
+<div [ngClass]="['card', 'h-100', (borderColor() === undefined || borderColor() === '') ? '' : borderColor()]">
+    <div class="card-body">
+        <ng-content select="[body]"></ng-content>
+    </div>
+</div>
