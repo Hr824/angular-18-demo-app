@@ -67,8 +67,15 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             break;
         } 
       } else {
-        console.log('Not HTTP error', err.name + ', ' + err.message);
-        router.navigate(['/errorOccurred']);
+        if(err.status === 404 && err.statusText === 'Not Found' && err.url.includes('api/movies/')){
+          //Dans MovieService, erreur getMovieById(id: number) quand l'id n'existe pas
+          //L'erreur est gérée dans le component (MovieDetailsComponent) qui appelle la méthode du service         
+          //console.log("404 Movie Not Found");
+        }
+        else{
+          console.log('Not HTTP error', JSON.stringify(err) + ', Name: ' + err.name + ', Message: ' + err.message);
+          router.navigate(['/errorOccurred']);
+        }
       }
 
       //return throwError(() => err); 

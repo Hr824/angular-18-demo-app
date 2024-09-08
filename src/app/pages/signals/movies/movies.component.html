@@ -4,7 +4,7 @@
         <div class="mg-page-title">
             <h3>Signals + Angular/CDK</h3> 
             <div>
-                - 1 popup pour afficher les détails d'un film
+                - 1 popup pour afficher le résumé d'un film
             </div>
             <div>
                 - 1 popup pour confirmer la suppression d'un film
@@ -19,6 +19,9 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th scope="col" colspan="6" class="text-center table-light">Films</th>
+                        </tr>
+                        <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Titre</th>
                             <th scope="col">Année</th>
@@ -31,7 +34,6 @@
                         @for(movie of movies(); track movie.id){
                             <tr>
                                 <td>{{ movie.id }}</td>
-                                <!-- <td>{{ movie.title }}</td> -->
                                  <td>
                                     <button type="button" class="btn btn-link" (click)="openDetailsDialog(movie)">{{ movie.title }}</button>
                                 </td>
@@ -41,7 +43,8 @@
                                 <td>
                                     <!-- <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-outline-danger rounded-pill">Supprimer</button> -->
                                     <button (click)="openDeleteDialog(movie)" class="btn btn-sm btn-outline-danger rounded-pill">Supprimer</button>
-                                    
+                                    &nbsp;
+                                    <a [routerLink]="['/signals/movies/details', movie.id]">Détails</a>
                                     <!-- Version avec Modal Ng Bootstrap pour supprimer un film -->
                                     <!-- <button 
                                         class="btn btn-sm btn-outline-danger rounded-pill"

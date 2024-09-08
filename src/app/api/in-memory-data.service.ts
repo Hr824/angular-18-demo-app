@@ -27,16 +27,105 @@ export class InMemoryDataService implements InMemoryDbService {
   ];
 
   private initialMovies: Movie[] = [
-    { id: 1, title: 'Orange mécanique', year: 1971, duration: '2h16 min', directorId: 1, synopsis: 'Au XXIème siècle, où règnent la violence et le sexe, Alex, jeune chef de bande, exerce avec sadisme une terreur aveugle...' },
-    { id: 2, title: 'Reservoir Dog', year: 1992, duration: '1h39 min', directorId: 2, synopsis: 'Six truands désignés par des noms de code entreprennent de dévaliser une bijouterie sous la direction de Joe Cabot et de son fils Nice Guy Eddie. L\'opération échoue et se solde par un bain de sang...' },
-    { id: 3, title: 'Fight Club', year: 1999, duration: '2h19 min', directorId: 3, synopsis: 'Le narrateur, sans identité précise, vit seul, travaille seul, dort seul, mange seul ses plateaux-repas pour une personne comme beaucoup d\'autres personnes seules qui connaissent la misère humaine, morale et sexuelle...' },
-    { id: 4, title: 'Mad Max', year: 1979, duration: '1h33 min', directorId: 4, synopsis: 'Sur les autoroutes désertées d\'une Australie méconnaissable, une guerre sans merci oppose motards hors-la-loi et policiers Interceptor, qui tentent de triompher de la vermine au volant de voitures aux moteurs surgonflés...' },
-    { id: 5, title: 'Shining', year: 1980, duration: '1h59 min', directorId: 1, synopsis: 'Écrivain, Jack Torrance est engagé comme gardien, pendant tout l’hiver, d’un grand hôtel isolé du Colorado – l’Overlook – où il espère surmonter enfin sa panne d’inspiration. Il s’y installe avec sa femme Wendy et son fils Danny...' },
-    { id: 6, title: 'Rusty James', year: 1983, duration: '1h34 min', directorId: 5, synopsis: 'Tulsa, Oklahoma. Petite frappe locale, Rusty James rêve d’égaler les exploits de son grand frère, le Motorcycle Boy, légendaire chef de bande qui a choisi de s’éclipser. En son absence, pour être à la hauteur de sa réputation...' },
-    { id: 7, title: 'Apocalypse Now', year: 1979, duration: '2h27 min', directorId: 5, synopsis: 'Cloîtré dans une chambre d\'hôtel de Saïgon, le jeune capitaine Willard, mal rasé et imbibé d\'alcool, est sorti de sa prostration par une convocation de l\'état-major américain. Le général Corman lui confie une mission...' },
-    { id: 8, title: 'Usual Suspects', year: 1995, duration: '1h46 min', directorId: 6, synopsis: 'En pleine nuit, une explosion ravage un cargo amarré dans le port de Los Angeles. Deux hommes ont échappé à la mort : un matelot hongrois et "Verbal" Kint, un petit escroc infirme. Interrogé par l’agent des douanes...' },
-    { id: 9, title: 'Terminator', year: 1984, duration: '1h47 min', directorId: 7, synopsis: 'Un Terminator, robot d\'aspect humain, est envoyé d\'un futur où sa race livre aux hommes une guerre sans merci. Sa mission est de trouver et d\'éliminer Sarah Connor avant qu\'elle ne donne naissance à John...' },
-    { id: 10, title: 'Million Dollar Baby', year: 2004, duration: '2h12 min', directorId: 8, synopsis: 'Rejeté depuis longtemps par sa fille, l\'entraîneur Frankie Dunn s\'est replié sur lui-même et vit dans un désert affectif, en évitant toute relation qui pourrait accroître sa douleur et sa culpabilité...' }
+    {
+      id: 1,
+      title: 'Orange mécanique',
+      year: 1971,
+      duration: '2h16 min',
+      directorId: 1,
+      types: ['Drame', 'Science Fiction'],
+      actors: ['Malcolm McDowell', 'Patrick Magee', 'Michael Bates'],
+      synopsis: 'Au XXIème siècle, où règnent la violence et le sexe, Alex, jeune chef de bande, exerce avec sadisme une terreur aveugle...'
+    },
+    {
+      id: 2,
+      title: 'Reservoir Dog',
+      year: 1992,
+      duration: '1h39 min',
+      directorId: 2,
+      types: ['Policier', 'Thriller'],
+      actors: ['Harvey Keitel', 'Tim Roth', 'Michael Madsen', 'Chris Penn', 'Steve Buscemi'],
+      synopsis: 'Six truands désignés par des noms de code entreprennent de dévaliser une bijouterie sous la direction de Joe Cabot et de son fils Nice Guy Eddie. L\'opération échoue et se solde par un bain de sang...'
+    },
+    {
+      id: 3,
+      title: 'Fight Club',
+      year: 1999,
+      duration: '2h19 min',
+      directorId: 3,
+      types: ['Drame', 'Thriller'],
+      actors: ['Brad Pitt', 'Edward Norton', 'Helena Bonham Carter'],
+      synopsis: 'Le narrateur, sans identité précise, vit seul, travaille seul, dort seul, mange seul ses plateaux-repas pour une personne comme beaucoup d\'autres personnes seules qui connaissent la misère humaine, morale et sexuelle...'
+    },
+    {
+      id: 4,
+      title: 'Mad Max',
+      year: 1979,
+      duration: '1h33 min',
+      directorId: 4,
+      types: ['Action', 'Science Fiction'],
+      actors: ['Bertrand Cadart', 'David Bracks', 'Mel Gibson', 'Hugh Keays-Byrne', 'Joanne Samuel'],
+      synopsis: 'Sur les autoroutes désertées d\'une Australie méconnaissable, une guerre sans merci oppose motards hors-la-loi et policiers Interceptor, qui tentent de triompher de la vermine au volant de voitures aux moteurs surgonflés...'
+    },
+    {
+      id: 5,
+      title: 'Shining',
+      year: 1980,
+      duration: '1h59 min',
+      directorId: 1,
+      types: ['Epouvante', 'Horreur'],
+      actors: ['Jack Nicholson', 'Jean-Louis Trintignant', 'Shelley Duvall'],
+      synopsis: 'Écrivain, Jack Torrance est engagé comme gardien, pendant tout l’hiver, d’un grand hôtel isolé du Colorado – l’Overlook – où il espère surmonter enfin sa panne d’inspiration. Il s’y installe avec sa femme Wendy et son fils Danny...'
+    },
+    {
+      id: 6,
+      title: 'Rusty James',
+      year: 1983,
+      duration: '1h34 min',
+      directorId: 5,
+      types: ['Action', 'Drame'],
+      actors: ['Matt Dillon', 'Mickey Rourke', 'Diane Lane', 'Dennis Hopper', 'Nicolas Cage'],
+      synopsis: 'Tulsa, Oklahoma. Petite frappe locale, Rusty James rêve d’égaler les exploits de son grand frère, le Motorcycle Boy, légendaire chef de bande qui a choisi de s’éclipser. En son absence, pour être à la hauteur de sa réputation...'
+    },
+    {
+      id: 7,
+      title: 'Apocalypse Now',
+      year: 1979, duration: '2h27 min',
+      directorId: 5,
+      types: ['Drame', 'Guerre'],
+      actors: ['Martin Sheen', 'Frederic Forrest', 'Robert Duvall'],
+      synopsis: 'Cloîtré dans une chambre d\'hôtel de Saïgon, le jeune capitaine Willard, mal rasé et imbibé d\'alcool, est sorti de sa prostration par une convocation de l\'état-major américain. Le général Corman lui confie une mission...'
+    },
+    {
+      id: 8,
+      title: 'Usual Suspects',
+      year: 1995,
+      duration: '1h46 min',
+      directorId: 6,
+      types: ['Policier', 'Thriller'],
+      actors: ['Kevin Spacey', 'Chazz Palminteri', 'Gabriel Byrne', 'Benicio Del Toro', 'Stephen Baldwin'],
+      synopsis: 'En pleine nuit, une explosion ravage un cargo amarré dans le port de Los Angeles. Deux hommes ont échappé à la mort : un matelot hongrois et "Verbal" Kint, un petit escroc infirme. Interrogé par l’agent des douanes...'
+    },
+    {
+      id: 9,
+      title: 'Terminator',
+      year: 1984,
+      duration: '1h47 min',
+      directorId: 7,
+      types: ['Action', 'Science Fiction'],
+      actors: ['Arnold Schwarzenegger', 'Michael Biehn', 'Linda Hamilton', 'Lance Henriksen'],
+      synopsis: 'Un Terminator, robot d\'aspect humain, est envoyé d\'un futur où sa race livre aux hommes une guerre sans merci. Sa mission est de trouver et d\'éliminer Sarah Connor avant qu\'elle ne donne naissance à John...'
+    },
+    {
+      id: 10,
+      title: 'Million Dollar Baby',
+      year: 2004,
+      duration: '2h12 min',
+      directorId: 8,
+      types: ['Drame'],
+      actors: ['Clint Eastwood', 'Morgan Freeman', 'Hilary Swank'],
+      synopsis: 'Rejeté depuis longtemps par sa fille, l\'entraîneur Frankie Dunn s\'est replié sur lui-même et vit dans un désert affectif, en évitant toute relation qui pourrait accroître sa douleur et sa culpabilité...'
+    }
   ];
 
   private initialDirectors: Director[] = [

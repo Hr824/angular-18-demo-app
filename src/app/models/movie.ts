@@ -6,6 +6,8 @@ export interface Movie {
     synopsis: string;
     directorId: number;
     director?: Director;
+    types: string[];
+    actors: string[];
 }
 
 

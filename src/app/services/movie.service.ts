@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Director, Movie } from '../models/movie';
 import { forkJoin, map, Observable } from 'rxjs';
+import { Director, Movie } from '../models/movie';
 import { AppSettings } from '../app.custom.settings';
 
 @Injectable({
@@ -14,6 +14,34 @@ export class MovieService {
   getMovies(): Observable<Movie[]> {
     const movies$ = this.httpClient.get<Movie[]>(AppSettings.API_END_POINTS.MOVIES);
     return movies$;
+  }
+
+  getMovieById(id: number): Observable<Movie> {
+    const movie$ = this.httpClient.get<Movie>(`${AppSettings.API_END_POINTS.MOVIES}/${id}`)
+    .pipe(
+      map(movie => { return movie; })
+      //#######################
+      //Si on gère l'erreur ici
+      //#######################
+      // catchError(err => {
+        // 1ère solution, on lève une erreur
+        // throw 'Error in getMovieById(id: number). Details: ' + JSON.stringify(err);
+
+        // 2nde solution, on retourne un Movie avec id=0 et on gère l'affichage dans le component
+        // return of<Movie>({
+        //   id: 0,
+        //   title: 'Ce film n\'existe pas',
+        //   year: 0,
+        //   duration: '',
+        //   synopsis: '',
+        //   directorId: 0,
+        //   type: [],
+        //   actors: []
+        // });
+      // })
+    );
+    
+    return movie$;
   }
 
   getDirectors(): Observable<Director[]> {
@@ -29,6 +57,21 @@ export class MovieService {
     );
 
     return directors$;
+  }
+
+  getDirectorById(id: number): Observable<Director>{
+    const director$ = this.httpClient.get<Director>(`${AppSettings.API_END_POINTS.DIRECTORS}/${id}`)
+    .pipe(
+      map(director => {
+        return {
+          id: director.id,
+          firstname: director.firstname,
+          lastname: director.lastname.toUpperCase()
+        }
+      })
+    );
+
+    return director$;
   }
 
   deleteMovie(id: number){
@@ -65,5 +108,22 @@ export class MovieService {
     );
 
     return moviesWithDirectors$;
+  }
+
+  getMovieByIdWithDirector(movieId: number): Observable<Movie> {
+    const movie$ = this.getMovieById(movieId);
+    const directors$ = this.getDirectors();
+
+    const movieWithDirector$: Observable<Movie> = forkJoin([movie$, directors$])
+    .pipe(
+      map(([movie, directors]) => 
+          ({
+              ...movie,
+              director: directors.find(director => director.id === movie.directorId)
+          })
+      )
+    );
+
+    return movieWithDirector$;
   }
 }

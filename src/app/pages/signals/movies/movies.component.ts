@@ -1,4 +1,5 @@
 import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { concatMap, Subscription } from 'rxjs';
 import { Movie } from '../../../models/movie';
@@ -63,7 +64,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [LoaderComponent, BreadcrumbComponent, DialogModule],
+  imports: [RouterLink, LoaderComponent, BreadcrumbComponent, DialogModule],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css'
 })

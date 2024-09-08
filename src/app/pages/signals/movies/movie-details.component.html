@@ -1,0 +1,47 @@
+<app-breadcrumb [theme]="theme" [page]="page"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>Signals + Route parameters</h3> 
+            <div>
+                - Utilisation de <span class="fw-bold">&#64;Input()</span> pour accéder au paramètre de route
+            </div>
+            <div>
+                - Utilisation de <span class="fw-bold">&#123;transform: numberAttribute&#125;</span> pour changer le type du paramètre de route en "number"
+            </div>
+        </div>   
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        @defer {
+            <div class="mg-bottom-20">
+                @if(movie()){
+                    @if(movie().id > 0) {
+                        <div class="card border-info mb-2">
+                            <div class="card-header text-center fw-bold">{{ movie().title }}</div>
+                            <div class="card-body">
+                              <p class="card-text"><span class="fw-semibold fst-italic">Année</span> : {{ movie().year }}</p>
+                              <p class="card-text"><span class="fw-semibold fst-italic">Durée</span> : {{ movie().duration }}</p>
+                              <p class="card-text"><span class="fw-semibold fst-italic">Genre</span> : {{ movie().types.join(', ') }}</p>
+                              <p class="card-text"><span class="fw-semibold fst-italic">Réalisateur</span> : {{ movie().director?.firstname }} {{ movie().director?.lastname }}</p>
+                              <p class="card-text"><span class="fw-semibold fst-italic">Acteurs principaux</span> : {{ movie().actors.join(', ') }}</p>
+                              <p class="card-text"><span class="fw-semibold fst-italic">Synopsis</span> :<br/> {{ movie().synopsis }}</p>
+                            </div>
+                        </div>
+                    } 
+                    @else{    
+                        <div class="text-danger mb-2">{{ message() }}</div>
+                    }
+                }
+                <div>
+                    <button routerLink="/signals/movies/delete" class="btn btn-sm btn-outline-info rounded-pill">Retour à la liste des films</button>
+                </div>
+            </div>
+        }
+        @placeholder(minimum 1500ms) {
+            <app-loader></app-loader>
+        }
+    </div>
+</div>
+<!-- <pre>{{ movie() | json }}</pre> -->

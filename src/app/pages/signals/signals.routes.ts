@@ -4,12 +4,17 @@ import { AppSettings } from '../../app.custom.settings';
 
 export const signalsRoutes: Routes = [
     {
-        path: 'delete',
+        path: 'movies/delete',
         title: `${AppSettings.APP_TITLE} - Signals : Supression`,
         loadComponent: () => import('./movies/movies.component').then(item => item.MoviesComponent)
     },
     {
-        path: 'search',
+        path: 'movies/details/:id',
+        title: `${AppSettings.APP_TITLE} - Signals : Détails`,
+        loadComponent: () => import('./movies/movie-details.component').then(item => item.MovieDetailsComponent)
+    },
+    {
+        path: 'movies/search',
         title: `${AppSettings.APP_TITLE} - Signals : Recherche`,
         loadComponent: () => import('./search-movies/search-movies.component').then(item => item.SearchMoviesComponent)
     },
