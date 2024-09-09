@@ -4,6 +4,7 @@ import { Cart } from './cart.model';
 import { Article } from '../../models/article';
 import { addArticle, clearCart, removeArticle, updateArticleQuantity } from './cart.actions';
 import { Observable } from 'rxjs';
+import { selectCartArticles, selectCartNbArticles, selectCartTotalPrice } from './cart.selectors';
 
 //============================
 //Service pour gérer le panier
@@ -36,19 +37,31 @@ export class CartService {
   //###################################################################
 
   getCartArticles(): Observable<Article[]>{
-    return this.store.select(state => state.cart.articles);
+    //Sans Selector
+    //return this.store.select(state => state.cart.articles);
+
+    //Avec Selector
+    return this.store.select(selectCartArticles);
   }
 
 
   getCartNbArticles(): Observable<number>{
-    return this.store.select(state => 
-      state.cart.articles.reduce((total, article) => total + article.quantity, 0)
-    );
+    //Sans Selector
+    // return this.store.select(state => 
+    //   state.cart.articles.reduce((total, article) => total + article.quantity, 0)
+    // );
+
+    //Avec Selector
+    return this.store.select(selectCartNbArticles);
   }
 
   getCartTotalPrice(): Observable<number>{
-    return this.store.select(state => 
-      state.cart.articles.reduce((total, article) => total + article.unitPrice * article.quantity, 0)
-    );
+    //Sans Selector
+    // return this.store.select(state => 
+    //   state.cart.articles.reduce((total, article) => total + article.unitPrice * article.quantity, 0)
+    // );
+
+    //Avec Selector
+    return this.store.select(selectCartTotalPrice);
   }
 }
