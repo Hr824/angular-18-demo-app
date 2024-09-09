@@ -44,7 +44,7 @@
                                     <!-- <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-outline-danger rounded-pill">Supprimer</button> -->
                                     <button (click)="openDeleteDialog(movie)" class="btn btn-sm btn-outline-danger rounded-pill">Supprimer</button>
                                     &nbsp;
-                                    <a [routerLink]="['/signals/movies/details', movie.id]">Détails</a>
+                                    <a [routerLink]="['/signals/movies/details', movie.id]" [queryParams]="{displaySynopsis: true}">Détails</a>
                                     <!-- Version avec Modal Ng Bootstrap pour supprimer un film -->
                                     <!-- <button 
                                         class="btn btn-sm btn-outline-danger rounded-pill"

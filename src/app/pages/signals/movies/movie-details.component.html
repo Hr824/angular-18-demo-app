@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-12">
         <div class="mg-page-title">
-            <h3>Signals + Route parameters</h3> 
+            <h3>Signals + Route parameters + Query parameters</h3> 
             <div>
                 - Utilisation de <span class="fw-bold">&#64;Input()</span> pour accéder au paramètre de route
             </div>
@@ -26,7 +26,9 @@
                               <p class="card-text"><span class="fw-semibold fst-italic">Genre</span> : {{ movie().types.join(', ') }}</p>
                               <p class="card-text"><span class="fw-semibold fst-italic">Réalisateur</span> : {{ movie().director?.firstname }} {{ movie().director?.lastname }}</p>
                               <p class="card-text"><span class="fw-semibold fst-italic">Acteurs principaux</span> : {{ movie().actors.join(', ') }}</p>
-                              <p class="card-text"><span class="fw-semibold fst-italic">Synopsis</span> :<br/> {{ movie().synopsis }}</p>
+                              @if(displaySynopsis()) {
+                                <p class="card-text"><span class="fw-semibold fst-italic">Synopsis</span> :<br/> {{ movie().synopsis }}</p>
+                              }         
                             </div>
                         </div>
                     } 

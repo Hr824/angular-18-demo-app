@@ -1,5 +1,5 @@
 import { Component, inject, Input, numberAttribute, OnDestroy, OnInit, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Movie } from '../../../models/movie';
 import { MovieService } from '../../../services/movie.service';
@@ -22,6 +22,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   page: string = 'Détails';
 
   message = signal<string>('');
+  displaySynopsis = signal<boolean>(false);
 
   movie = signal<Movie>({
     id: 0,
@@ -37,9 +38,18 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
   movieService = inject(MovieService);
+  route = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this.getMovieByIdWithDirector(this.id);
+
+    let displaySynopsisQueryParam = this.route.snapshot.queryParamMap.get('displaySynopsis');
+    if(displaySynopsisQueryParam) {
+      this.displaySynopsis.set(displaySynopsisQueryParam.toLowerCase() === 'true');
+    }
+    else{
+      this.displaySynopsis.set(false);
+    }
   }
 
   ngOnDestroy(): void {
