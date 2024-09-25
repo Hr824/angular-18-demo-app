@@ -1,8 +1,10 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { TokenService } from './token.service';
 import { AppSettings } from '../app.custom.settings';
+import { Token } from '../models/token';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -32,12 +34,23 @@ export class AuthService {
      this.username$$.update(() => value);
   }
 
-  constructor(private router: Router, private tokenService: TokenService) {}
+  constructor(private router: Router, private tokenService: TokenService, private httpClient: HttpClient) {}
 
   // Méthode pour se connecter et stocker le token JWT dans le localStorage
   login(username: string, password: string): boolean {
 
     if (username === 'user1' && password === 'pass1') {
+
+      //TEST TOKENS
+      //==============================
+      //let tokens: Observable<Token[]> = this.httpClient.get<Token[]>(AppSettings.API_END_POINTS.TOKENS);
+
+      // tokens.subscribe({
+      //   next: res => console.log('TOKENS', res)
+      // });
+
+
+
 
       //Mock JWT token récupéré après l'appel de l'API côté backend
       const authTokenValue = username;

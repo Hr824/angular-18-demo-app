@@ -15,6 +15,7 @@ export class AppSettings {
         MOVIES: `${this.API_URL}/movies`,
         DIRECTORS: `${this.API_URL}/directors`,
         QUESTIONS: `${this.API_URL}/questions`,
+        TOKENS: `${this.API_URL}/tokens`,
         RESET_DB: 'commands/resetdb'
     };
 }

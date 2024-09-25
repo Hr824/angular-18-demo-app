@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Article } from '../models/article';
 import { Question } from '../models/question';
 import { VenteMensuelle } from '../models/vente';
+import { Token } from '../models/token';
 
 @Injectable({
   providedIn: 'root'
@@ -425,6 +426,11 @@ export class InMemoryDataService implements InMemoryDbService {
     }
   ];
 
+  private initialTokens: Token[] = [
+    { key: 'UserToken', value: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJmMTZhNDY0ZC1kMzliLTQyY2ItOGM4OC0yMWJmMjc3NjcxYjQiLCJsYXN0TmFtZSI6IlZlZ2EiLCJmaXJzdE5hbWUiOiJWaW5jZW50Iiwicm9sZSI6IjEiLCJleHAiOjIwNDI3NDcxMTMsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjcwODAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUxNzMifQ.VAx_GfMbrKgClJlv5kxV9qL6obaJFE1BYxPnGma5ceM' },
+    { key: 'BearerToken', value: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJmMTZhNDY0ZC1kMzliLTQyY2ItOGM4OC0yMWJmMjc3NjcxYjQiLCJyb2xlIjoiMSIsImV4cCI6MjA0Mjc0NzExMywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzA4MCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJ9.AnGbLLOvMYaW4ai2BMhVLDVrtEa5hOMrtmSiwVS7lmM' }
+  ];
+
   db: any = {};
 
   createDb(reqInfo?: RequestInfo) {
@@ -456,6 +462,9 @@ export class InMemoryDataService implements InMemoryDbService {
           case 'questions':
               this.db.questions = [...this.initialQuestions];
               break;
+          case 'tokens':
+              this.db.tokens = [...this.initialTokens];
+              break;
           default:
             this.resetDb();
             break;
@@ -463,7 +472,7 @@ export class InMemoryDataService implements InMemoryDbService {
       }
 
       return this.db;
-      //return { authors, books, movies, directors, temperatures, ventesMensuelles, articles, questions };
+      //return { authors, books, movies, directors, temperatures, ventesMensuelles, articles, questions, tokens };
   }
 
 
@@ -476,7 +485,8 @@ export class InMemoryDataService implements InMemoryDbService {
       temperatures: [...this.initialTemperatures],
       ventesMensuelles: [...this.initialVentesMensuelles],
       articles: [...this.initialArticles],
-      questions: [...this.initialQuestions]
+      questions: [...this.initialQuestions],
+      tokens: [...this.initialTokens]
     };
    }
 }
