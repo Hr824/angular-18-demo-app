@@ -98,15 +98,15 @@
         <button routerLink="/ngrx/cart" class="btn btn-sm btn-light rounded-pill">panier <span class="badge text-bg-info">{{ (cartNbArticles$ | async) }}</span></button>  
         &nbsp;
       </div>
-      @if(username() !== ''){
+      @if(isLogged() && user() !== null){
         <div class="badge text-bg-warning text-wrap">
-          {{ username() | slice: 0 : 8 }}
+          <div>{{ user()!.firstName | slice: 0 : 8 }}</div>
+          <div>{{ user()!.lastName | slice: 0 : 8 }}</div>
         </div>
       }
     </div>
   </nav>
 </header>
-
 <div class="container">
   <router-outlet />
 </div>

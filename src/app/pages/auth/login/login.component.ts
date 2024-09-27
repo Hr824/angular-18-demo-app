@@ -66,8 +66,6 @@ export class LoginComponent implements OnInit {
       
       if(this.authService.login(username, password)){
         this.loginErrorMessage.set('');
-
-        this.router.navigate(['/admin/dashboard']);
       }
       else{
         this.loginErrorMessage.set('Nom ou mot de passe invalide');

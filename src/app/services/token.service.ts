@@ -8,34 +8,58 @@ export class TokenService {
 
   constructor() { }
 
-  getToken(key: string): string | null {
+  getTokenInLocalStorage(key: string): string | null {
     return localStorage.getItem(key);
   }
 
-  setToken(key: string, token: string){
+  setTokenInLocalStorage(key: string, token: string){
     localStorage.setItem(key, token);
   }
 
-  removeToken(key: string): void {
+  removeTokenInLocalStorage(key: string): void {
     localStorage.removeItem(key);
   }
 
-  removeTokens(keys: string[]): void {
-    keys.forEach((key) => this.removeToken(key));
+  removeTokensInLocalStorage(keys: string[]): void {
+    keys.forEach((key) => this.removeTokenInLocalStorage(key));
   }
 
 
-  getDecodedToken<T>(key: string) {
-    const tokenValue = this.getToken(key);
-    if(tokenValue){
-      return jwtDecode<T>(tokenValue);
-    }
+  getDecodedTokenInLocalStorage<T>(key: string) {
 
-    return null;
+    //Pour l'erreur InvalidTokenError après le déploiement de l'app
+    //si on a changé le format du token
+    try{
+      const tokenValue = this.getTokenInLocalStorage(key);
+      if(tokenValue){
+        return jwtDecode<T>(tokenValue);
+      }
+      else{
+        return null;
+      }
+    }
+    catch(e: unknown){
+      this.removeTokenInLocalStorage(key);
+      return null;
+    }
+  }
+
+  getDecodedToken<T>(tokenValue: string) {
+    try{
+      if(tokenValue){
+        return jwtDecode<T>(tokenValue);
+      }
+      else{
+        return null;
+      }
+    }
+    catch(e: unknown){
+      return null;
+    }
   }
 
   isTokenExpired(key: string): boolean {
-    const expiryTime: number | undefined = this.getDecodedToken<JwtPayload>(key)?.exp;
+    const expiryTime: number | undefined = this.getDecodedTokenInLocalStorage<JwtPayload>(key)?.exp;
     //console.log('expiryTime',expiryTime);
     
     if (expiryTime) {

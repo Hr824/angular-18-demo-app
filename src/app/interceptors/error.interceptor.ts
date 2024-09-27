@@ -9,7 +9,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   const router: Router = inject(Router);
   const tokenService = inject(TokenService);
-  const authToken = tokenService.getToken(AppSettings.AUTH_TOKEN_KEY);
+  const authToken = tokenService.getTokenInLocalStorage(AppSettings.AUTH_TOKEN_KEY);
 
   let authReq: HttpRequest<unknown>;
   if(authToken){
