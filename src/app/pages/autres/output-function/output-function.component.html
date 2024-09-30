@@ -1,0 +1,50 @@
+<app-breadcrumb [theme]="theme" [theme1]="theme1" [page]="page"></app-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <div class="mg-page-title">
+            <h3>output() function</h3>
+            <div>
+                - Chaque film de la liste est 1 composant "enfant"
+            </div>
+			<div>
+				- L'évènement (click) du film sélectionné dans la liste est passé au composant "parent" avec la fonction "output()"
+			</div>
+            <div>
+				- Le composant "parent" recherche les détails du film sélectionné
+			</div>
+        </div>   
+    </div>
+</div>
+<div class="row">
+    @defer {
+        <div class="col-3">     
+            <div> 
+                <ul>
+                    @for(mov of movies(); track mov.id){
+                        <li>
+                            {{ mov.id }}
+                            <app-child (buttonClicked)="getSelectedMovieDetails($event)" [buttonId]="mov.id" [buttonText]="mov.title"></app-child>
+                        </li>
+                    }
+                </ul>
+            </div>  
+        </div>
+        <div class="col-9">
+            @if(movie()){
+                <div class="card border-info mb-3" style="max-width: 30rem;">
+                    <div class="card-header text-center fw-bold">{{ movie()!.title }}</div>
+                    <div class="card-body">
+                      <p class="card-text"><span class="fw-semibold fst-italic">Année</span> : {{ movie()!.year }}</p>
+                      <p class="card-text"><span class="fw-semibold fst-italic">Durée</span> : {{ movie()!.duration }}</p>
+                      <p class="card-text"><span class="fw-semibold fst-italic">Réalisateur</span> : {{ movie()!.director?.firstname }} {{ movie()!.director?.lastname }}</p>
+                      <p class="card-text"><span class="fw-semibold fst-italic">Acteurs principaux</span> :<br/> {{ movie()!.actors.join(', ') }}</p>
+                      <p class="card-text"><span class="fw-semibold fst-italic">Synopsis</span> :<br/> {{ movie()!.synopsis }}</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    @placeholder(minimum 1500ms) {
+        <app-loader></app-loader>
+    }
+</div>

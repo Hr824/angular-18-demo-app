@@ -33,29 +33,47 @@
             <a class="nav-link" routerLink="/reactiveform/menu" routerLinkActive="active">Reactive Form</a>
           </li> -->
           <li class="nav-item" ngbDropdown>
+            <a class="nav-link" tabindex="3" ngbDropdownToggle id="navbarDropdown4" role="button">Forms</a>
+            <div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu">
+              <div class="fw-bold">&nbsp;Reactive Forms</div>
+              <a ngbDropdownItem routerLink="/reactiveform/menu" routerLinkActive="active">Menu</a>
+              <a ngbDropdownItem routerLink="/reactiveform/questionnaire" routerLinkActive="active">Questionnaire dynamique</a>
+              <div><hr class="dropdown-divider"></div>
+              <div class="fw-bold">&nbsp;Template-driven Forms</div>
+              <a ngbDropdownItem routerLink="/template-driven-form/inscription" routerLinkActive="active">Inscription</a>
+            </div>
+          </li>
+          <!-- <li class="nav-item" ngbDropdown>
             <a class="nav-link" tabindex="3" ngbDropdownToggle id="navbarDropdown4" role="button">Reactive Forms</a>
             <div ngbDropdownMenu aria-labelledby="navbarDropdown4" class="dropdown-menu">
               <a ngbDropdownItem routerLink="/reactiveform/menu" routerLinkActive="active">Menu</a>
               <a ngbDropdownItem routerLink="/reactiveform/questionnaire" routerLinkActive="active">Questionnaire dynamique</a>
             </div>
-          </li>
-          <li class="nav-item" ngbDropdown>
+          </li> -->
+          <!-- <li class="nav-item" ngbDropdown>
             <a class="nav-link" tabindex="4" ngbDropdownToggle id="navbarDropdown5" role="button">Template-driven Forms</a>
             <div ngbDropdownMenu aria-labelledby="navbarDropdown5" class="dropdown-menu">
               <a ngbDropdownItem routerLink="/template-driven-form/inscription" routerLinkActive="active">Inscription</a>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item" ngbDropdown>
-            <a class="nav-link" tabindex="5" ngbDropdownToggle id="navbarDropdown6" role="button">NgRx</a>
-            <div ngbDropdownMenu aria-labelledby="navbarDropdown6" class="dropdown-menu">
+            <a class="nav-link" tabindex="4" ngbDropdownToggle id="navbarDropdown5" role="button">NgRx</a>
+            <div ngbDropdownMenu aria-labelledby="navbarDropdown5" class="dropdown-menu">
               <a ngbDropdownItem routerLink="/ngrx/articles" routerLinkActive="active">Shopping Cart</a>
             </div>
           </li>
           <li class="nav-item" ngbDropdown>
-            <a class="nav-link" tabindex="6" ngbDropdownToggle id="navbarDropdown7" role="button">Angular/CDK</a>
-            <div ngbDropdownMenu aria-labelledby="navbarDropdown7" class="dropdown-menu">
+            <a class="nav-link" tabindex="5" ngbDropdownToggle id="navbarDropdown6" role="button">Angular/CDK</a>
+            <div ngbDropdownMenu aria-labelledby="navbarDropdown6" class="dropdown-menu">
               <a ngbDropdownItem routerLink="/cdk/drag-and-drop/simple-list" routerLinkActive="active">Drag and Drop (1 liste)</a>
               <a ngbDropdownItem routerLink="/cdk/drag-and-drop/kanban" routerLinkActive="active">Drag and Drop (Kanban)</a>
+            </div>
+          </li>
+          <li class="nav-item" ngbDropdown>
+            <a class="nav-link" tabindex="6" ngbDropdownToggle id="navbarDropdown7" role="button">Autres</a>
+            <div ngbDropdownMenu aria-labelledby="navbarDropdown7" class="dropdown-menu">
+              <div class="fw-bold">&nbsp;Events</div>
+              <a ngbDropdownItem routerLink="/autres/event/output-function" routerLinkActive="active">output() function</a>
             </div>
           </li>
           <!-- ############# Authentication with BehaviourSubject ############# -->
@@ -106,6 +124,8 @@
       }
     </div>
   </nav>
+  <!-- <div style="background-color: purple; height: 5px;">
+  </div> -->
 </header>
 <div class="container">
   <router-outlet />

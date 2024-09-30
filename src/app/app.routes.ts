@@ -69,6 +69,10 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/cdk/cdk.routes').then(item =>item.cdkRoutes)
     },
     {
+        path: 'autres',
+        loadChildren: () => import('./pages/autres/autres.routes').then(item =>item.autresRoutes)
+    },
+    {
         path: 'admin/dashboard',
         title: `${AppSettings.APP_TITLE} - Admin : Dashboard`,
         component: DashboardComponent,
