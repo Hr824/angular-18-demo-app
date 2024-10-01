@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { concatMap, Subscription } from 'rxjs';
 import { MovieService } from '../../../services/movie.service';
 import { BreadcrumbComponent } from '../../../components/shared/breadcrumb/breadcrumb.component';
 import { LoaderComponent } from '../../../components/shared/loader/loader.component';
@@ -22,7 +22,7 @@ export class OutputFunctionComponent {
 
   movies = signal<Movie[]>([]);
 
-  movie = signal<Movie | null>(null);
+  selectedMovie = signal<Movie | null>(null);
 
   subscriptions: Subscription = new Subscription();
 
@@ -43,13 +43,15 @@ export class OutputFunctionComponent {
         }));
   }
 
-  getMovieByIdWithDirector(id: number): void {
-    const movieWithDirector$ = this.movieService.getMovieByIdWithDirector(id);
+
+  getSelectedMovieDetails(event: Event){
+    const movieId: number = Number((event.currentTarget as HTMLElement).id);
+
+    const movieWithDirector$ = this.movieService.getMovieByIdWithDirector(movieId);
 
     this.subscriptions.add(movieWithDirector$.subscribe({
       next: data => { 
-        //console.log('DATA', data);
-        this.movie.set(data);
+        this.selectedMovie.set(data);
       },
       error: err => {
         //console.log('ERREUR = ', err);  
@@ -57,9 +59,15 @@ export class OutputFunctionComponent {
     })); 
   }
 
-  getSelectedMovieDetails(event: Event){
-    const movieId: number = Number((event.currentTarget as HTMLElement).id);
 
-    this.getMovieByIdWithDirector(movieId);
+
+  initMoviesList(): void {
+    const moviesWithDirectors$ = this.movieService.resetDatabase('movies').pipe(
+      concatMap(() => this.movieService.getMoviesWithDirectors())
+    );
+
+    this.subscriptions.add(moviesWithDirectors$.subscribe({
+      next: data => this.movies.set(data)
+    }));
   }
 }

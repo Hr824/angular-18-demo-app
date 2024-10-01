@@ -20,25 +20,27 @@
         <div class="col-3">     
             <div> 
                 <ul>
-                    @for(mov of movies(); track mov.id){
+                    @for(movie of movies(); track movie.id){
                         <li>
-                            {{ mov.id }}
-                            <app-child (buttonClicked)="getSelectedMovieDetails($event)" [buttonId]="mov.id" [buttonText]="mov.title"></app-child>
+                            <app-child (buttonClicked)="getSelectedMovieDetails($event)" [buttonId]="movie.id" [buttonText]="movie.title"></app-child>
                         </li>
                     }
                 </ul>
+                @if(movies() && movies().length === 0){
+                    <button (click)="initMoviesList()" class="btn btn-sm btn-outline-info rounded-pill">Réinitialiser la liste des films</button>
+                }   
             </div>  
         </div>
         <div class="col-9">
-            @if(movie()){
+            @if(selectedMovie()){
                 <div class="card border-info mb-3" style="max-width: 30rem;">
-                    <div class="card-header text-center fw-bold">{{ movie()!.title }}</div>
+                    <div class="card-header text-center fw-bold">{{ selectedMovie()!.title }}</div>
                     <div class="card-body">
-                      <p class="card-text"><span class="fw-semibold fst-italic">Année</span> : {{ movie()!.year }}</p>
-                      <p class="card-text"><span class="fw-semibold fst-italic">Durée</span> : {{ movie()!.duration }}</p>
-                      <p class="card-text"><span class="fw-semibold fst-italic">Réalisateur</span> : {{ movie()!.director?.firstname }} {{ movie()!.director?.lastname }}</p>
-                      <p class="card-text"><span class="fw-semibold fst-italic">Acteurs principaux</span> :<br/> {{ movie()!.actors.join(', ') }}</p>
-                      <p class="card-text"><span class="fw-semibold fst-italic">Synopsis</span> :<br/> {{ movie()!.synopsis }}</p>
+                      <p class="card-text"><span class="fw-semibold fst-italic">Année</span> : {{ selectedMovie()!.year }}</p>
+                      <p class="card-text"><span class="fw-semibold fst-italic">Durée</span> : {{ selectedMovie()!.duration }}</p>
+                      <p class="card-text"><span class="fw-semibold fst-italic">Réalisateur</span> : {{ selectedMovie()!.director?.firstname }} {{ selectedMovie()!.director?.lastname }}</p>
+                      <p class="card-text"><span class="fw-semibold fst-italic">Acteurs principaux</span> :<br/> {{ selectedMovie()!.actors.join(', ') }}</p>
+                      <p class="card-text"><span class="fw-semibold fst-italic">Synopsis</span> :<br/> {{ selectedMovie()!.synopsis }}</p>
                     </div>
                 </div>
             }
