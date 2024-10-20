@@ -29,7 +29,16 @@
                 @if(movies() && movies().length === 0){
                     <button (click)="initMoviesList()" class="btn btn-sm btn-outline-info rounded-pill">Réinitialiser la liste des films</button>
                 }   
-            </div>  
+            </div>
+            <!-- TEST FOR @ViewChildren -->
+            <!-- <br />
+            @if(btnTextes().length > 0){
+                <ul>
+                    @for(btnTexte of btnTextes(); track btnTexte){
+                        <li>{{btnTexte}}</li>
+                    }
+                </ul>    
+            }      -->
         </div>
         <div class="col-9">
             @if(selectedMovie()){

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, QueryList, signal, ViewChildren } from '@angular/core';
 import { concatMap, Subscription } from 'rxjs';
 import { MovieService } from '../../../services/movie.service';
 import { BreadcrumbComponent } from '../../../components/shared/breadcrumb/breadcrumb.component';
@@ -14,7 +14,9 @@ import { ChildComponent } from './child.component';
   templateUrl: './output-function.component.html',
   styleUrl: './output-function.component.css'
 })
-export class OutputFunctionComponent {
+export class OutputFunctionComponent implements OnInit, OnDestroy { //, AfterViewInit {
+  //TEST FOR @ViewChildren
+  //@ViewChildren(ChildComponent) childReferences!: QueryList<ChildComponent>;
 
   theme: string = 'Autres';
   theme1: string = 'Events';
@@ -28,9 +30,23 @@ export class OutputFunctionComponent {
 
   movieService = inject(MovieService);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getMovies();
   }
+
+  //TEST FOR @ViewChildren
+  // btnTextes = signal<string[]>([]);
+  // ngAfterViewInit(): void { 
+  //   this.subscriptions.add(this.childReferences.changes
+  //     .subscribe({
+  //       next: (queryList: QueryList<ChildComponent>) => { 
+  //         queryList.forEach(childComp => {
+  //           this.btnTextes.update(values => [...values, childComp.buttonText()]);
+  //         });
+  //       }
+  //     })
+  //   );
+  // }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

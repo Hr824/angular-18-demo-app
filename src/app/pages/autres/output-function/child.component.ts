@@ -10,7 +10,7 @@ import { Component, input, output } from '@angular/core';
 export class ChildComponent {
 
   buttonId = input<number>();
-  buttonText = input<string>();
+  buttonText = input<string>('');
 
 
   buttonClicked = output<Event>();
