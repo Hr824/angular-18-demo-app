@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnDestroy, OnInit, QueryList, signal, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, QueryList, signal, viewChildren, ViewChildren } from '@angular/core';
 import { concatMap, Subscription } from 'rxjs';
 import { MovieService } from '../../../services/movie.service';
 import { BreadcrumbComponent } from '../../../components/shared/breadcrumb/breadcrumb.component';
@@ -17,6 +17,9 @@ import { ChildComponent } from './child.component';
 export class OutputFunctionComponent implements OnInit, OnDestroy { //, AfterViewInit {
   //TEST FOR @ViewChildren
   //@ViewChildren(ChildComponent) childReferences!: QueryList<ChildComponent>;
+  
+  //TEST FOR viewChildren signal
+  //children = viewChildren(ChildComponent);
 
   theme: string = 'Autres';
   theme1: string = 'Events';
@@ -46,6 +49,17 @@ export class OutputFunctionComponent implements OnInit, OnDestroy { //, AfterVie
   //       }
   //     })
   //   );
+  // }
+
+  //TEST FOR viewChildren signal
+  // showChildren(){
+  //   this.children().forEach(child => console.log(child.buttonText()))
+  // }
+  // ngAfterViewInit(): void { 
+  //   //Ajout setTimeout sinon this.children() est vide dans @defer
+  //   setTimeout(() => {
+  //     this.children().forEach(child => console.log(child.buttonText()))
+  //   }, 3000);
   // }
 
   ngOnDestroy(): void {
